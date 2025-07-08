@@ -1,0 +1,7 @@
+bcrypt
+Flask
+stripe
+werkzeug
+psycopg2-binary
+pandas
+openpyxl

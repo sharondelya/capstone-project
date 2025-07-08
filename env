@@ -1,0 +1,13 @@
+# Database Configuration
+DB_HOST=pg-14c2d863-ijazabdullah127-f508.c.aivencloud.com
+DB_PORT=11068
+DB_NAME=defaultdb
+DB_USER=avnadmin
+DB_PASSWORD=AVNS_Tjku63uorJ5CV1cKt_2
+SECRET_KEY=honeybee_secret
+# Or use a connection string
+DATABASE_URL=postgres://avnadmin:AVNS_Tjku63uorJ5CV1cKt_2@pg-14c2d863-ijazabdullah127-f508.c.aivencloud.com:11068/defaultdb?sslmode=require
+
+# Other environment variables
+APP_ENV=production
+DEBUG=true

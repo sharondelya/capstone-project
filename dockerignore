@@ -1,0 +1,36 @@
+# Git files
+.git
+.gitignore
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation (if not needed in production)
+*.md
+Diagrams/
+
+# Testing files
+Testing/
+
+# Any other files you don't want in the image
+*.log
+*.tmp
