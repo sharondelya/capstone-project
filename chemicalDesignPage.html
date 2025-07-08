@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honeybee Haven - Chemical Design Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d5016;
+            --light-green: #4a7c59;
+            --accent-green: #7fb069;
+            --soft-green: #d9ed92;
+            --cream: #f7f9f5;
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --border-light: #e8f5e8;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --shadow: 0 8px 25px rgba(45, 80, 22, 0.1);
+            --shadow-hover: 0 12px 35px rgba(45, 80, 22, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, #f0f8f0 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR PLACEHOLDER */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .product-container {
+            background: var(--white);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .product-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-green), var(--light-green), var(--primary-green));
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .product-image-section {
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--cream), #f0f8f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image-container {
+            width: 100%;
+            height: 450px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            position: relative;
+            background: var(--white);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.08);
+        }
+
+        .product-details-section {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-header {
+            margin-bottom: 2rem;
+        }
+
+        .product-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .rating-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .rating-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rating-stars {
+            color: #ffc107;
+            font-size: 1.2rem;
+            display: flex;
+            gap: 2px;
+        }
+
+        .rating-text {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .stock-info {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .stock-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            gap: 0.5rem;
+        }
+
+        .stock-status.in-stock {
+            background: rgba(40, 167, 69, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .stock-status.out-of-stock {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        .price-section {
+            margin-bottom: 2rem;
+        }
+
+        .price-tag {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            display: flex;
+            align-items: baseline;
+            gap: 0.3rem;
+        }
+
+        .currency {
+            font-size: 1.8rem;
+            color: var(--text-light);
+        }
+
+        .hazard-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .hazard-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            gap: 0.6rem;
+        }
+
+        .hazard-low {
+            background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+            color: var(--success);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .hazard-medium {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 193, 7, 0.05));
+            color: #e6a600;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .hazard-high {
+            background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.05));
+            color: var(--danger);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        .expiry-warning {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 1px solid var(--warning);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--warning);
+        }
+
+        .expiry-warning i {
+            color: var(--warning);
+        }
+
+        .product-description {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        .safety-warning {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            border: 1px solid #e17055;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid #e17055;
+        }
+
+        .safety-warning h6 {
+            color: #e17055;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .safety-warning p {
+            color: #2d3436;
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .product-specs {
+            background: linear-gradient(135deg, var(--cream), #f0f8f0);
+            border-radius: 18px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-light);
+        }
+
+        .specs-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .spec-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .spec-item {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 1rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .spec-value {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .business-link {
+            color: var(--accent-green);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .business-link:hover {
+            color: var(--primary-green);
+            text-decoration: underline;
+        }
+
+        .quantity-section {
+            background: var(--white);
+            border-radius: 18px;
+            padding: 2rem;
+            border: 2px solid var(--border-light);
+            margin-top: 2rem;
+        }
+
+        .quantity-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .quantity-btn {
+            background: var(--accent-green);
+            border: none;
+            color: var(--white);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .quantity-btn:hover:not(:disabled) {
+            background: var(--light-green);
+            transform: scale(1.1);
+        }
+
+        .quantity-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .quantity-input {
+            width: 120px;
+            text-align: center;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 0.8rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(127, 176, 105, 0.1);
+        }
+
+        .add-to-cart-btn {
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            border: none;
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow);
+        }
+
+        .add-to-cart-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .add-to-cart-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .review-section {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 3rem;
+            margin-top: 3rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .review-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .write-review-btn {
+            background: var(--accent-green);
+            color: var(--white);
+            padding: 0.8rem 1.8rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .write-review-btn:hover {
+            background: var(--light-green);
+            color: var(--white);
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .review-item {
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--cream), #f0f8f0);
+            border-radius: 18px;
+            border-left: 4px solid var(--accent-green);
+            position: relative;
+        }
+
+        .review-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .review-rating {
+            color: #ffc107;
+            font-size: 1.1rem;
+            display: flex;
+            gap: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-title-text {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .review-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .report-btn {
+            background: none;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .report-btn:hover {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        .review-text {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .no-reviews {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-light);
+        }
+
+        .no-reviews i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--border-light);
+        }
+
+        /* FOOTER PLACEHOLDER */
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image-section,
+            .product-details-section {
+                padding: 1.5rem;
+            }
+
+            .product-image-container {
+                height: 300px;
+            }
+
+            .product-title {
+                font-size: 1.8rem;
+            }
+
+            .price-tag {
+                font-size: 2rem;
+            }
+
+            .rating-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .spec-item {
+                grid-template-columns: 1fr;
+                gap: 0.3rem;
+            }
+
+            .spec-label {
+                font-weight: 700;
+            }
+
+            .review-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: stretch;
+            }
+
+            .write-review-btn {
+                justify-content: center;
+            }
+
+            .review-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR PLACEHOLDER -->
+    {% include 'navbar.html' %}
+    <div class="container">
+        <div class="product-container">
+            <div class="product-grid">
+                <!-- Product Image -->
+                <div class="product-image-section">
+                    <div class="product-image-container">
+                        <img class="product-image" src="{{ product.image_url or '../static/images/chemical-placeholder.jpg' }}" alt="{{ product.itemname or 'Chemical Product' }}"/>
+                    </div>
+                </div>
+                
+                <!-- Product Details -->
+                <div class="product-details-section">
+                    <div>
+                        <div class="product-header">
+                            <h1 class="product-title">{{ product.itemname or 'Beekeeping Chemical Product' }}</h1>
+                            
+                            <!-- Rating and Stock -->
+                            <div class="rating-section">
+                                <div class="rating-container">
+                                    <div class="rating-stars">
+                                        {% if product.formatted_rating and product.formatted_rating != 'No rating' %}
+                                            {% for i in range(1, 6) %}
+                                                {% if i <= (product.avg_rating or 0) %}
+                                                    <i class="fas fa-star"></i>
+                                                {% else %}
+                                                    <i class="far fa-star"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <span class="text-muted">No ratings yet</span>
+                                        {% endif %}
+                                    </div>
+                                    {% if product.formatted_rating and product.formatted_rating != 'No rating' %}
+                                        <span class="rating-text">{{ product.formatted_rating }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="stock-info">
+                                    <small>{{ product.quantityinstock or 0 }} units available</small>
+                                </div>
+                            </div>
+
+                            <div class="stock-status {% if product.quantityinstock > 0 %}in-stock{% else %}out-of-stock{% endif %}">
+                                <i class="fas fa-{% if product.quantityinstock > 0 %}check-circle{% else %}times-circle{% endif %}"></i>
+                                {% if product.quantityinstock > 0 %}In Stock{% else %}Out of Stock{% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Price -->
+                        <div class="price-section">
+                            <div class="price-tag">
+                                <span class="currency">$.</span>
+                                {{ "%.2f"|format(product.item_price) if product.item_price else '0.00' }}
+                            </div>
+                        </div>
+
+                        <!-- Hazard Level -->
+                        <div class="hazard-section">
+                            <div class="hazard-badge hazard-{{ (product.hazardlevel or 'low')|lower }}">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Hazard Level: {{ (product.hazardlevel or 'Low')|title }}
+                            </div>
+                        </div>
+
+                        <!-- Expiry Warning -->
+                        {% if product.expirydate %}
+                        <div class="expiry-warning">
+                            <i class="fas fa-calendar-alt"></i>
+                            <strong>Expiry Date:</strong> {{ product.expirydate }}
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Description -->
+                        <p class="product-description">{{ product.itemdescription or 'High-quality chemical product for beekeeping applications. Handle with care and follow safety guidelines.' }}</p>
+
+                        <!-- Safety Warning -->
+                        <div class="safety-warning">
+                            <h6><i class="fas fa-shield-alt"></i> Safety Information</h6>
+                            <p>Always read the label and safety instructions before use. Store in a cool, dry place away from children and animals. Use appropriate protective equipment when handling.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Specifications -->
+                    <div class="product-specs">
+                        <div class="specs-title">
+                            <i class="fas fa-flask"></i>
+                            Product Details
+                        </div>
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <div class="spec-label">Chemical Type</div>
+                                <div class="spec-value">{{ product.chemical_type or 'N/A' }}</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">Quantity per Unit</div>
+                                <div class="spec-value">{{ product.quantity or '1' }} {{ product.metricsystem or 'unit' }}</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">Metric System</div>
+                                <div class="spec-value">{{ product.metricsystem or 'Metric' }}</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">Expiry Date</div>
+                                <div class="spec-value">{{ product.expirydate or 'Not specified' }}</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">Hazard Level</div>
+                                <div class="spec-value">{{ (product.hazardlevel or 'Low')|title }}</div>
+                            </div>
+                            <div class="spec-item">
+                                <div class="spec-label">Supplier</div>
+                                <div class="spec-value">
+                                    <a href="/HoneyBeeHaven/view_business?userid={{ product.business_userid }}" class="business-link" target="_blank">
+                                        {{ product.businessname or 'Chemical Supplier' }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Form -->
+                    <div class="quantity-section">
+                        <div class="quantity-label">Quantity</div>
+                        <div class="quantity-controls">
+                            <button type="button" class="quantity-btn" onclick="decreaseQuantity()" {% if not product.quantityinstock or product.quantityinstock <= 0 %}disabled{% endif %}>
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" 
+                                   id="quantityToOrder" 
+                                   name="qty" 
+                                   class="quantity-input"
+                                   min="1" 
+                                   max="{{ product.quantityinstock or 50 }}"
+                                   value="1" 
+                                   {% if not product.quantityinstock or product.quantityinstock <= 0 %}disabled{% endif %}
+                                   required>
+                            <button type="button" class="quantity-btn" onclick="increaseQuantity()" {% if not product.quantityinstock or product.quantityinstock <= 0 %}disabled{% endif %}>
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <button type="button" id="addToCartBtn" class="add-to-cart-btn" onclick="addToCart()" {% if not product.quantityinstock or product.quantityinstock <= 0 %}disabled{% endif %}>
+                            <div class="loading-spinner" id="loadingSpinner"></div>
+                            <span id="buttonText">
+                                <i class="fas fa-shopping-cart"></i>
+                                {% if product.quantityinstock and product.quantityinstock > 0 %}Add To Cart{% else %}Out of Stock{% endif %}
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reviews Section -->
+        <div class="review-section">
+            <div class="review-header">
+                <h2 class="review-title">
+                    <i class="fas fa-comments"></i>
+                    Customer Reviews
+                </h2>
+               
+            </div>
+            
+            <div class="reviews-container">
+                {% if reviews %}
+                    {% for review in reviews %}
+                    <div class="review-item">
+                        <div class="review-meta">
+                            <div>
+                                <div class="review-rating">
+                                    {% for i in range(1, 6) %}
+                                        {% if i <= (review.rating or 0) %}
+                                            <i class="fas fa-star"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="review-title-text">{{ review.title or 'Customer Review' }}</div>
+                                <div class="review-date">{{ review.date or 'Date not available' }}</div>
+                            </div>
+                            <button class="report-btn" onclick="reportReview({{ review.reviewid }})">
+                                <i class="fas fa-flag"></i> Report
+                            </button>
+                        </div>
+                        <p class="review-text">{{ review.text or 'Review text not available.' }}</p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-reviews">
+                        <i class="fas fa-comment-slash"></i>
+                        <p>No reviews yet. Be the first to review this product!</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+      {% include 'footer.html' %}
+
+    <script>
+        window.maxStock = {{ product.quantityinstock or 50 }};
+        window.productId = {{ product.itemid }};
+
+        function increaseQuantity() {
+            const input = document.getElementById('quantityToOrder');
+            const currentValue = parseInt(input.value) || 1;
+            if (currentValue < window.maxStock) {
+                input.value = currentValue + 1;
+            }
+        }
+
+        function decreaseQuantity() {
+            const input = document.getElementById('quantityToOrder');
+            const currentValue = parseInt(input.value) || 1;
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+            }
+        }
+
+        async function addToCart() {
+            const button = document.getElementById('addToCartBtn');
+            const buttonText = document.getElementById('buttonText');
+            const spinner = document.getElementById('loadingSpinner');
+            const quantity = parseInt(document.getElementById('quantityToOrder').value);
+
+            // Show loading state
+            button.disabled = true;
+            spinner.style.display = 'inline-block';
+            buttonText.innerHTML = 'Adding...';
+
+            try {
+                const response = await fetch('/api/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        item_id: window.productId,
+                        item_type: 'chemical',
+                        quantity: quantity
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Success feedback
+                    buttonText.innerHTML = '<i class="fas fa-check"></i>Added to Cart!';
+                    button.style.background = '#198754';
+                    
+                    // Show success message
+                    showNotification('Item added to cart successfully!', 'success');
+                    
+                    // Reset button after 2 seconds
+                    setTimeout(() => {
+                        buttonText.innerHTML = '<i class="fas fa-shopping-cart"></i>Add To Cart';
+                        button.style.background = '';
+                        button.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+                showNotification(error.message || 'Error adding item to cart', 'error');
+                
+                // Reset button
+                buttonText.innerHTML = '<i class="fas fa-shopping-cart"></i>Add To Cart';
+                button.disabled = false;
+            } finally {
+                spinner.style.display = 'none';
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'error' ? 'danger' : type === 'success' ? 'success' : 'info'} alert-dismissible fade show position-fixed`;
+            notification.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+            notification.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        function reportReview(reviewId) {
+            if (confirm('Are you sure you want to report this review as inappropriate?')) {
+                window.location.href = `/HoneyBeeHaven/reportreview?reviewid=${reviewId}`;
+            }
+        }
+
+        // Ensure quantity input only accepts positive numbers within stock limit
+        document.getElementById('quantityToOrder').addEventListener('input', function() {
+            if (this.value < 1) {
+                this.value = 1;
+            } else if (this.value > window.maxStock) {
+                this.value = window.maxStock;
+            }
+        });
+    </script>
+</body>
+</html>

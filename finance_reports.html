@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Reports - Agri Smart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <style>
+        :root {
+            --primary-color: #3bd175;
+            --secondary-color: #2aa85b;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #06b6d4;
+            --dark-color: #1f2937;
+            --light-color: #f8fafc;
+            --shadow: 0 10px 25px rgba(0,0,0,0.1);
+            --gradient-primary: linear-gradient(135deg, #4dbd78 0%, #3bbd9c 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --gradient-info: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+        }
+        
+        .dashboard-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 4rem 0 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.1;
+        }
+        
+        .dashboard-header .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .dashboard-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .dashboard-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+        }
+        
+        .stat-card.success::before {
+            background: var(--gradient-success);
+        }
+        
+        .stat-card.warning::before {
+            background: var(--gradient-warning);
+        }
+        
+        .stat-card.info::before {
+            background: var(--gradient-info);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #6b7280;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .report-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .report-card:hover {
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .filter-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-control, .form-select {
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
+        }
+        
+        .btn-primary {
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 12px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+        }
+        
+        .btn-export {
+            background: var(--gradient-success);
+            border: none;
+            color: white;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            height: 450px; /* Fixed height for all chart containers */
+        }
+        
+        .chart-container canvas {
+            max-width: 100% !important;
+            max-height: 350px !important; /* Fixed max height for canvas */
+            height: 350px !important; /* Fixed height for canvas */
+        }
+        
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: absolute;
+            top: 2.5rem;
+            left: 2.5rem;
+            right: 2.5rem;
+            z-index: 10;
+        }
+        
+        .chart-error {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 350px;
+            color: #6b7280;
+            text-align: center;
+            margin-top: 50px; /* Account for title space */
+        }
+        
+        .chart-error i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+        
+        .chart-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 350px;
+            color: #6b7280;
+            margin-top: 50px; /* Account for title space */
+        }
+        
+        .chart-loading .spinner-border {
+            margin-bottom: 1rem;
+        }
+        
+        /* Specific chart content area */
+        .chart-content {
+            position: absolute;
+            top: 80px; /* Space for title */
+            left: 2.5rem;
+            right: 2.5rem;
+            bottom: 2.5rem;
+            height: 350px;
+        }
+        
+        .table-responsive {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .table {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+        
+        .table thead {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        
+        .table thead th {
+            border: none;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        
+        .table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+            vertical-align: middle;
+        }
+        
+        .table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+        
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+        
+        .insight-card {
+            background: linear-gradient(135deg, #54ca93 0%, #54b875 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
+            transform: rotate(45deg);
+        }
+        
+        .insight-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .insight-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-title {
+                font-size: 2rem;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+            
+            .chart-container {
+                padding: 1.5rem;
+                height: 400px; /* Smaller height for mobile */
+            }
+            
+            .chart-container canvas {
+                max-height: 300px !important;
+                height: 300px !important;
+            }
+            
+            .chart-content {
+                top: 70px;
+                left: 1.5rem;
+                right: 1.5rem;
+                bottom: 1.5rem;
+                height: 300px;
+            }
+            
+            .chart-error,
+            .chart-loading {
+                height: 300px;
+                margin-top: 40px;
+            }
+            
+            .chart-title {
+                top: 1.5rem;
+                left: 1.5rem;
+                right: 1.5rem;
+            }
+            
+            .report-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    {%include 'navbar.html' %}
+    <div class="dashboard-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="dashboard-title">
+                        <i class="fas fa-chart-line"></i> Finance Reports
+                    </h1>
+                    <p class="dashboard-subtitle">Comprehensive financial analytics and business insights</p>
+                </div>
+                <div class="col-lg-4 text-end">
+                    <button class="btn btn-export" onclick="exportToExcel()">
+                        <i class="fas fa-file-excel"></i> Export Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">{{ message }}</div>
+            {% elif category == 'success' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: #16a34a;">{{ message }}</div>
+            {% elif category == 'info' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #2563eb;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Error handling from backend -->
+{% if error == 1 %}
+    <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">
+        {{ error_message or "Invalid email or password. Please try again." }}
+    </div>
+{% endif %}
+    <div class="container">
+        <!-- Key Insights Section -->
+        <div class="insight-card">
+            <div class="insight-title">
+                <i class="fas fa-lightbulb"></i> Business Insights
+            </div>
+            <div class="insight-text" id="businessInsight">
+                Loading insights...
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: var(--gradient-primary);">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-value" id="totalRevenue">$0</div>
+                    <div class="stat-label">
+                        <i class="fas fa-chart-line"></i> Total Revenue
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card success">
+                    <div class="stat-icon" style="background: var(--gradient-success);">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="stat-value" id="totalOrders">0</div>
+                    <div class="stat-label">
+                        <i class="fas fa-box"></i> Total Orders
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card warning">
+                    <div class="stat-icon" style="background: var(--gradient-warning);">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value" id="pendingOrders">0</div>
+                    <div class="stat-label">
+                        <i class="fas fa-hourglass-half"></i> Pending Orders
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="stat-card info">
+                    <div class="stat-icon" style="background: var(--gradient-info);">
+                        <i class="fas fa-calendar-month"></i>
+                    </div>
+                    <div class="stat-value" id="thisMonthRevenue">$0</div>
+                    <div class="stat-label">
+                        <i class="fas fa-calendar-check"></i> This Month
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue Performance Metrics -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="stat-card">
+                    <div class="stat-value text-success" id="chemicalRevenue">$0</div>
+                    <div class="stat-label">
+                        <i class="fas fa-flask"></i> Chemical Sales
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="stat-card">
+                    <div class="stat-value text-primary" id="machineryRevenue">$0</div>
+                    <div class="stat-label">
+                        <i class="fas fa-cogs"></i> Machinery Sales
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="stat-card">
+                    <div class="stat-value text-info" id="serviceRevenue">$0</div>
+                    <div class="stat-label">
+                        <i class="fas fa-tools"></i> Service Revenue
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-section">
+            <h5 class="chart-title">
+               
+            </h5>
+            <form id="reportForm">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="form-label fw-semibold">Start Date</label>
+                        <input type="date" class="form-control" id="startDate" name="start_date">
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="form-label fw-semibold">End Date</label>
+                        <input type="date" class="form-control" id="endDate" name="end_date">
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="form-label fw-semibold">Report Type</label>
+                        <select class="form-select" id="reportType" name="report_type">
+                            <option value="revenue">Revenue Report</option>
+                            <option value="orders">Orders Report</option>
+                            <option value="products">Products Report</option>
+                            <option value="commission">Commission Report</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-6 mb-3">
+                        <label class="form-label fw-semibold">&nbsp;</label>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-search"></i> Generate Report
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="row">
+            <!-- Revenue Trend Chart -->
+            <div class="col-lg-8">
+                <div class="chart-container">
+                    <h5 class="chart-title">
+                        <i class="fas fa-chart-line"></i> Monthly Revenue Trend
+                    </h5>
+                    <div class="chart-content">
+                        <div class="chart-loading" id="revenueChartLoading">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <span>Loading revenue data...</span>
+                        </div>
+                        <div class="chart-error" id="revenueChartError" style="display: none;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Unable to load revenue chart</span>
+                        </div>
+                        <canvas id="revenueChart" style="display: none;"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Status Chart -->
+            <div class="col-lg-4">
+                <div class="chart-container">
+                    <h5 class="chart-title">
+                        <i class="fas fa-chart-pie"></i> Order Status Distribution
+                    </h5>
+                    <div class="chart-content">
+                        <div class="chart-loading" id="orderChartLoading">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <span>Loading order data...</span>
+                        </div>
+                        <div class="chart-error" id="orderChartError" style="display: none;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Unable to load order chart</span>
+                        </div>
+                        <canvas id="orderChart" style="display: none;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Charts Row -->
+        <div class="row">
+            <!-- Category Revenue Chart -->
+            <div class="col-lg-6">
+                <div class="chart-container">
+                    <h5 class="chart-title">
+                        <i class="fas fa-chart-bar"></i> Revenue by Category
+                    </h5>
+                    <div class="chart-content">
+                        <div class="chart-loading" id="categoryChartLoading">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <span>Loading category data...</span>
+                        </div>
+                        <div class="chart-error" id="categoryChartError" style="display: none;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Unable to load category chart</span>
+                        </div>
+                        <canvas id="categoryChart" style="display: none;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Growth Comparison Chart -->
+            <div class="col-lg-6">
+                <div class="chart-container">
+                    <h5 class="chart-title">
+                        <i class="fas fa-chart-area"></i> Revenue vs Commission
+                    </h5>
+                    <div class="chart-content">
+                        <div class="chart-loading" id="comparisonChartLoading">
+                            <div class="spinner-border text-primary" role="status"></div>
+                            <span>Loading comparison data...</span>
+                        </div>
+                        <div class="chart-error" id="comparisonChartError" style="display: none;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Unable to load comparison chart</span>
+                        </div>
+                        <canvas id="comparisonChart" style="display: none;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Table -->
+        <div class="report-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                
+                <div class="text-muted">
+                    <i class="fas fa-calendar"></i> Generated on <span id="currentDate"></span>
+                </div>
+            </div>
+            
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2 text-muted">Loading financial data...</p>
+            </div>
+            
+            <div class="table-responsive" id="reportTableContainer">
+                <table class="table" id="reportTable">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Order Value</th>
+                            <th>Commission</th>
+                            <th>Net Revenue</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTableBody">
+                        <!-- Report data will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+ {%include 'footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Global variables for charts
+        let revenueChart, orderChart, categoryChart, comparisonChart;
+        let businessData = {};
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setCurrentDate();
+            loadBusinessData();
+            loadReportData();
+        });
+
+        function setCurrentDate() {
+            const currentDate = new Date().toLocaleDateString('en-IN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('currentDate').textContent = currentDate;
+        }
+
+        async function loadBusinessData() {
+            try {
+                const response = await fetch('/HoneyBeeHaven/api/finance-dashboard-data');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                businessData = data;
+                
+                updateStatistics(data);
+                generateInsights(data);
+                initializeCharts(data);
+                
+            } catch (error) {
+                console.error('Error loading business data:', error);
+                showErrorMessage('Failed to load dashboard data. Please refresh the page.');
+                showAllChartsError();
+            }
+        }
+
+        function updateStatistics(data) {
+            document.getElementById('totalRevenue').textContent = `$${formatNumber(data.total_revenue || 0)}`;
+            document.getElementById('totalOrders').textContent = formatNumber(data.total_orders || 0);
+            document.getElementById('pendingOrders').textContent = formatNumber(data.pending_orders || 0);
+            document.getElementById('thisMonthRevenue').textContent = `$${formatNumber(data.this_month_revenue || 0)}`;
+            document.getElementById('chemicalRevenue').textContent = `$${formatNumber(data.chemical_revenue || 0)}`;
+            document.getElementById('machineryRevenue').textContent = `$${formatNumber(data.machinery_revenue || 0)}`;
+            document.getElementById('serviceRevenue').textContent = `$${formatNumber(data.service_revenue || 0)}`;
+        }
+
+        function generateInsights(data) {
+            const insights = [];
+            
+            const avgOrderValue = data.total_orders > 0 ? data.total_revenue / data.total_orders : 0;
+            const pendingPercentage = data.total_orders > 0 ? (data.pending_orders / data.total_orders) * 100 : 0;
+            
+            // Revenue growth insight
+            if (data.this_month_revenue > data.last_month_revenue && data.last_month_revenue > 0) {
+                const growth = ((data.this_month_revenue - data.last_month_revenue) / data.last_month_revenue * 100).toFixed(1);
+                insights.push(`📈 Revenue grew by ${growth}% this month compared to last month.`);
+            } else if (data.last_month_revenue > 0) {
+                const decline = ((data.last_month_revenue - data.this_month_revenue) / data.last_month_revenue * 100).toFixed(1);
+                insights.push(`📉 Revenue declined by ${decline}% this month. Consider reviewing your marketing strategy.`);
+            }
+
+            // Best performing category
+            const categories = [
+                { name: 'Chemical', revenue: data.chemical_revenue || 0 },
+                { name: 'Machinery', revenue: data.machinery_revenue || 0 },
+                { name: 'Service', revenue: data.service_revenue || 0 }
+            ];
+            const bestCategory = categories.reduce((max, cat) => cat.revenue > max.revenue ? cat : max);
+            
+            if (bestCategory.revenue > 0) {
+                insights.push(`🏆 ${bestCategory.name} products are your top performers, generating $${formatNumber(bestCategory.revenue)} in revenue.`);
+            }
+
+            // Order efficiency
+            if (pendingPercentage > 20) {
+                insights.push(`⚠️ ${pendingPercentage.toFixed(1)}% of orders are pending. Focus on improving order processing speed.`);
+            } else if (data.total_orders > 0) {
+                insights.push(`✅ Excellent order processing! Only ${pendingPercentage.toFixed(1)}% of orders are pending.`);
+            }
+
+            // Average order value insight
+            if (avgOrderValue > 0) {
+                insights.push(`💰 Your average order value is $${formatNumber(avgOrderValue)}. ${avgOrderValue > 5000 ? 'Great premium positioning!' : 'Consider upselling strategies to increase order value.'}`);
+            }
+
+            if (insights.length === 0) {
+                insights.push('🚀 Start your business journey! No orders yet, but every great business starts here.');
+            }
+
+            document.getElementById('businessInsight').innerHTML = insights.join('<br><br>');
+        }
+
+        function initializeCharts(data) {
+            // Destroy existing charts if they exist
+            if (revenueChart) revenueChart.destroy();
+            if (orderChart) orderChart.destroy();
+            if (categoryChart) categoryChart.destroy();
+            if (comparisonChart) comparisonChart.destroy();
+
+            try {
+                // Revenue Chart
+                initRevenueChart(data);
+                // Order Status Chart
+                initOrderStatusChart(data);
+                // Category Revenue Chart
+                initCategoryChart(data);
+                // Revenue vs Commission Chart
+                initComparisonChart(data);
+            } catch (error) {
+                console.error('Error initializing charts:', error);
+                showAllChartsError();
+            }
+        }
+
+        function initRevenueChart(data) {
+            const canvas = document.getElementById('revenueChart');
+            const loading = document.getElementById('revenueChartLoading');
+            const error = document.getElementById('revenueChartError');
+
+            try {
+                if (!data.monthly_labels || data.monthly_labels.length === 0) {
+                    throw new Error('No monthly data available');
+                }
+
+                const ctx = canvas.getContext('2d');
+                revenueChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.monthly_labels,
+                        datasets: [{
+                            label: 'Revenue ($)',
+                            data: data.monthly_revenue || [],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#667eea',
+                            pointBorderColor: '#ffffff',
+                            pointBorderWidth: 2,
+                            pointRadius: 6,
+                            pointHoverRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                callbacks: {
+                                    label: function(context) {
+                                        return `Revenue: $${formatNumber(context.parsed.y)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$' + formatNumber(value);
+                                    }
+                                }
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        }
+                    }
+                });
+
+                loading.style.display = 'none';
+                canvas.style.display = 'block';
+            } catch (err) {
+                console.error('Revenue chart error:', err);
+                loading.style.display = 'none';
+                error.style.display = 'flex';
+            }
+        }
+
+        function initOrderStatusChart(data) {
+            const canvas = document.getElementById('orderChart');
+            const loading = document.getElementById('orderChartLoading');
+            const error = document.getElementById('orderChartError');
+
+            try {
+                const orderData = data.order_status_data || [0, 0, 0, 0];
+                const totalOrders = orderData.reduce((sum, val) => sum + val, 0);
+
+                if (totalOrders === 0) {
+                    throw new Error('No order data available');
+                }
+
+                const ctx = canvas.getContext('2d');
+                orderChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Completed', 'Pending', 'Processing', 'Cancelled'],
+                        datasets: [{
+                            data: orderData,
+                            backgroundColor: [
+                                '#10b981',
+                                '#f59e0b',
+                                '#06b6d4',
+                                '#ef4444'
+                            ],
+                            borderWidth: 0,
+                            cutout: '70%'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    padding: 20,
+                                    usePointStyle: true,
+                                    font: {
+                                        size: 12,
+                                        weight: 'bold'
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const percentage = ((context.parsed / totalOrders) * 100).toFixed(1);
+                                        return `${context.label}: ${context.parsed} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                loading.style.display = 'none';
+                canvas.style.display = 'block';
+            } catch (err) {
+                console.error('Order chart error:', err);
+                loading.style.display = 'none';
+                error.style.display = 'flex';
+            }
+        }
+
+        function initCategoryChart(data) {
+            const canvas = document.getElementById('categoryChart');
+            const loading = document.getElementById('categoryChartLoading');
+            const error = document.getElementById('categoryChartError');
+
+            try {
+                const categoryData = [
+                    data.chemical_revenue || 0,
+                    data.machinery_revenue || 0,
+                    data.service_revenue || 0
+                ];
+
+                const totalRevenue = categoryData.reduce((sum, val) => sum + val, 0);
+                if (totalRevenue === 0) {
+                    throw new Error('No category data available');
+                }
+
+                const ctx = canvas.getContext('2d');
+                categoryChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Chemical', 'Machinery', 'Service'],
+                        datasets: [{
+                            label: 'Revenue ($)',
+                            data: categoryData,
+                            backgroundColor: [
+                                'rgba(16, 185, 129, 0.8)',
+                                'rgba(79, 70, 229, 0.8)',
+                                'rgba(6, 182, 212, 0.8)'
+                            ],
+                            borderColor: [
+                                '#10b981',
+                                '#4f46e5',
+                                '#06b6d4'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `Revenue: $${formatNumber(context.parsed.y)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$' + formatNumber(value);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+                loading.style.display = 'none';
+                canvas.style.display = 'block';
+            } catch (err) {
+                console.error('Category chart error:', err);
+                loading.style.display = 'none';
+                error.style.display = 'flex';
+            }
+        }
+
+        function initComparisonChart(data) {
+            const canvas = document.getElementById('comparisonChart');
+            const loading = document.getElementById('comparisonChartLoading');
+            const error = document.getElementById('comparisonChartError');
+
+            try {
+                if (!data.monthly_labels || data.monthly_labels.length === 0) {
+                    throw new Error('No comparison data available');
+                }
+
+                // Calculate commission data from revenue data
+                const revenueData = data.monthly_revenue || [];
+                const commissionData = revenueData.map(revenue => revenue * 0.1); // Assuming 10% commission
+
+                const ctx = canvas.getContext('2d');
+                comparisonChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.monthly_labels,
+                        datasets: [
+                            {
+                                label: 'Net Revenue',
+                                data: revenueData,
+                                borderColor: '#10b981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                borderWidth: 3,
+                                fill: false,
+                                tension: 0.4
+                            },
+                            {
+                                label: 'Platform Commission',
+                                data: commissionData,
+                                borderColor: '#f59e0b',
+                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                                borderWidth: 3,
+                                fill: false,
+                                tension: 0.4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.dataset.label}: $${formatNumber(context.parsed.y)}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$' + formatNumber(value);
+                                    }
+                                }
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        }
+                    }
+                });
+
+                loading.style.display = 'none';
+                canvas.style.display = 'block';
+            } catch (err) {
+                console.error('Comparison chart error:', err);
+                loading.style.display = 'none';
+                error.style.display = 'flex';
+            }
+        }
+
+        function showAllChartsError() {
+            const chartIds = ['revenueChart', 'orderChart', 'categoryChart', 'comparisonChart'];
+            const loadingIds = ['revenueChartLoading', 'orderChartLoading', 'categoryChartLoading', 'comparisonChartLoading'];
+            const errorIds = ['revenueChartError', 'orderChartError', 'categoryChartError', 'comparisonChartError'];
+
+            chartIds.forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+
+            loadingIds.forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+
+            errorIds.forEach(id => {
+                document.getElementById(id).style.display = 'flex';
+            });
+        }
+        
+        async function loadReportData() {
+            const spinner = document.getElementById('loadingSpinner');
+            const tableContainer = document.getElementById('reportTableContainer');
+            
+            spinner.style.display = 'block';
+            tableContainer.style.display = 'none';
+            
+            try {
+                const response = await fetch('/HoneyBeeHaven/api/finance-report-data');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const tbody = document.getElementById('reportTableBody');
+                
+                if (data.orders && data.orders.length > 0) {
+                    tbody.innerHTML = data.orders.map(order => `
+                        <tr>
+                            <td><strong>#${order.orderid}</strong></td>
+                            <td>${new Date(order.orderdate).toLocaleDateString('en-IN')}</td>
+                            <td>${order.customer_name}</td>
+                            <td><span class="badge bg-secondary">${order.items_count} items</span></td>
+                            <td><strong>$${formatNumber(order.order_cost)}</strong></td>
+                            <td>$${formatNumber(order.honeybeehavencommision)}</td>
+                            <td><strong class="text-success">$${formatNumber(order.order_cost - order.honeybeehavencommision)}</strong></td>
+                            <td>
+                                <span class="badge bg-${getStatusColor(order.order_status)}">${order.order_status}</span>
+                            </td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No financial data available</td></tr>';
+                }
+                
+            } catch (error) {
+                console.error('Error loading report data:', error);
+                const tbody = document.getElementById('reportTableBody');
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger py-4">Error loading data. Please refresh the page.</td></tr>';
+            } finally {
+                spinner.style.display = 'none';
+                tableContainer.style.display = 'block';
+            }
+        }
+        
+        function getStatusColor(status) {
+            const statusColors = {
+                'completed': 'success',
+                'pending': 'warning',
+                'processing': 'info',
+                'cancelled': 'danger',
+                'shipped': 'primary',
+                'delivered': 'success'
+            };
+            return statusColors[status.toLowerCase()] || 'secondary';
+        }
+        
+        // Handle report form submission
+        document.getElementById('reportForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const params = new URLSearchParams(formData);
+            
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            submitButton.disabled = true;
+            
+            try {
+                const response = await fetch(`/HoneyBeeHaven/api/generate-custom-report?${params}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const tbody = document.getElementById('reportTableBody');
+                
+                if (data.report && data.report.length > 0) {
+                    tbody.innerHTML = data.report.map(item => `
+                        <tr>
+                            <td><strong>${item.id}</strong></td>
+                            <td>${new Date(item.date).toLocaleDateString('en-IN')}</td>
+                            <td>${item.description}</td>
+                            <td><span class="badge bg-info">${item.category}</span></td>
+                            <td><strong>$${formatNumber(item.amount)}</strong></td>
+                            <td>$${formatNumber(item.commission)}</td>
+                            <td><strong class="text-success">$${formatNumber(item.net)}</strong></td>
+                            <td><span class="badge bg-${getStatusColor(item.status)}">${item.status}</span></td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">No data found for selected criteria</td></tr>';
+                }
+                
+            } catch (error) {
+                console.error('Error generating custom report:', error);
+                showErrorMessage('Failed to generate custom report. Please try again.');
+            } finally {
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }
+        });
+        
+        // Export to Excel
+        async function exportToExcel() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            const reportType = document.getElementById('reportType').value;
+            
+            const params = new URLSearchParams({
+                start_date: startDate || '',
+                end_date: endDate || '',
+                report_type: reportType
+            });
+            
+            try {
+                window.location.href = `/HoneyBeeHaven/export-finance-report?${params}`;
+            } catch (error) {
+                console.error('Export error:', error);
+                showErrorMessage('Failed to export report. Please try again.');
+            }
+        }
+        
+        // Utility functions
+        function formatNumber(num) {
+            if (typeof num !== 'number' || isNaN(num)) {
+                return '0';
+            }
+            
+            if (num >= 10000000) {
+                return (num / 10000000).toFixed(1) + 'Cr';
+            } else if (num >= 100000) {
+                return (num / 100000).toFixed(1) + 'L';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(1) + 'K';
+            }
+            return Math.round(num).toLocaleString('en-IN');
+        }
+        
+        function showErrorMessage(message) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger alert-dismissible fade show';
+            alertDiv.innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i> ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.insight-card'));
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

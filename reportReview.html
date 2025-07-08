@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Honeybee Haven - Report Review</title>
+    <link href="../static/images/honeybeeHavenLogo.svg" rel="icon">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-green: #2d5f3f;
+            --light-green: #4a7c59;
+            --accent-green: #6ab04c;
+            --soft-green: #e8f5e8;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --shadow: 0 8px 25px rgba(45, 95, 63, 0.1);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5e8 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            padding: 1.5rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-icon i {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .brand-text {
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .brand-text:hover {
+            color: var(--soft-green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .social-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .social-btn:hover {
+            background: var(--white);
+            color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Flash Messages */
+        .flash-messages {
+            margin-bottom: 2rem;
+        }
+
+        .alert {
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 1rem 1.5rem;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        /* Report Form Card */
+        .report-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(45, 95, 63, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .report-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-green) 0%, var(--accent-green) 100%);
+        }
+
+        .report-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .report-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .report-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Review Info Card */
+        .review-info-card {
+            background: linear-gradient(135deg, var(--soft-green) 0%, #f0f8f0 100%);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(45, 95, 63, 0.1);
+            position: relative;
+        }
+
+        .review-info-card::before {
+            content: '\f06a';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--light-green);
+            font-size: 1.2rem;
+        }
+
+        .review-info-title {
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-detail {
+            margin-bottom: 1rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(45, 95, 63, 0.1);
+        }
+
+        .review-detail:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .review-label {
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 0.3rem;
+        }
+
+        .review-content {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Form Sections */
+        .form-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .section-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--light-green) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+
+        /* Form Controls */
+        .form-control {
+            border: 2px solid #e0e6ed;
+            border-radius: var(--border-radius);
+            padding: 1rem 1.2rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 0.2rem rgba(106, 176, 76, 0.25);
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: #a8b5c8;
+            font-style: italic;
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            border: none;
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+            color: var(--white);
+        }
+
+        .btn-secondary-custom {
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            border: none;
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .btn-secondary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+            color: var(--white);
+        }
+
+        /* Footer Placeholder */
+        .footer-placeholder {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            text-align: center;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* Navbar Placeholder */
+        .navbar-placeholder {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            text-align: center;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .main-container {
+                padding: 2rem 1rem;
+            }
+
+            .report-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .report-title {
+                font-size: 1.8rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary-custom,
+            .btn-secondary-custom {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .review-info-card {
+                padding: 1.5rem;
+            }
+
+            .report-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .form-control {
+                padding: 0.8rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+  <!-- Navbar Placeholder -->
+          {%include 'navbar.html' %}
+
+    <div class="main-container">
+      
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">{{ message }}</div>
+            {% elif category == 'success' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: #16a34a;">{{ message }}</div>
+            {% elif category == 'info' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #2563eb;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Error handling from backend -->
+{% if error == 1 %}
+    <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">
+        {{ error_message or "Invalid email or password. Please try again." }}
+    </div>
+{% endif %}
+
+        <!-- Report Form Card -->
+        <div class="report-card">
+            <div class="report-header">
+                <h1 class="report-title">Report Review</h1>
+                <p class="report-subtitle">Help us maintain a safe and respectful community</p>
+            </div>
+            
+            <!-- Review Information -->
+            {% if review %}
+            <div class="review-info-card">
+                <h3 class="review-info-title">Review Being Reported</h3>
+                <div class="review-detail">
+                    <div class="review-label">Reviewer:</div>
+                    <div class="review-content">{{ review.reviewer_name }}</div>
+                </div>
+                <div class="review-detail">
+                    <div class="review-label">Title:</div>
+                    <div class="review-content">{{ review.title }}</div>
+                </div>
+                <div class="review-detail">
+                    <div class="review-label">Content:</div>
+                    <div class="review-content">{{ review.text }}</div>
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Report Form -->
+            <form action="{{ url_for('submit_report_review') }}" method="post" enctype="multipart/form-data" id="reportForm">
+                <!-- Report Type Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        Report Category
+                    </h3>
+                    <select id="reportType" name="reportType" required class="form-control">
+                        <option value="">Please select a category</option>
+                        <option value="discrimination">Discrimination</option>
+                        <option value="hateSpeech">Hate Speech</option>
+                        <option value="abuseViolence">Abuse or Violence</option>
+                        <option value="harassment">Harassment</option>
+                        <option value="fraudScam">Fraud or Scam</option>
+                        <option value="inappropriateContent">Inappropriate Content</option>
+                        <option value="misinformation">Misinformation</option>
+                    </select>
+                </div>
+                
+                <!-- Reason Section -->
+                <div class="form-section">
+                    <h3 class="section-title">
+                        <div class="section-icon">
+                            <i class="fas fa-comment-alt"></i>
+                        </div>
+                        Detailed Explanation
+                    </h3>
+                    <textarea 
+                        placeholder="Please provide a detailed explanation of why you're reporting this review. Include specific examples and context to help our moderation team understand the issue." 
+                        maxlength="250" 
+                        name="reportreason" 
+                        required 
+                        class="form-control"
+                        rows="5"
+                    ></textarea>
+                    <small class="text-muted mt-2 d-block">Maximum 250 characters</small>
+                </div>
+                
+                <!-- Hidden Fields -->
+                {% if review %}
+                <input type="hidden" name="reviewid" value="{{ review.reviewid }}" required>
+                <input type="hidden" name="complaineeid" value="{{ review.complaineeid }}" required>
+                <input type="hidden" name="reviewcontent" value="{{ review.title }}: {{ review.text }}" required>
+                {% endif %}
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button type="submit" class="btn-primary-custom" id="submit">
+                        <i class="fas fa-flag"></i>
+                        Submit Report
+                    </button>
+                    <a href="javascript:history.back()" class="btn-secondary-custom">
+                        <i class="fas fa-arrow-left"></i>
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+
+  
+    </div>
+   {%include 'footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    // Form validation
+    document.getElementById('reportForm').addEventListener('submit', function(e) {
+        const reportType = document.querySelector('select[name="reportType"]').value;
+        const reportReason = document.querySelector('textarea[name="reportreason"]').value.trim();
+        
+        if (!reportType || !reportReason) {
+            e.preventDefault();
+            alert('Please fill in all required fields.');
+            return false;
+        }
+        
+        if (reportReason.length < 10) {
+            e.preventDefault();
+            alert('Please provide a more detailed reason (at least 10 characters).');
+            return false;
+        }
+        
+        // Confirmation dialog
+        if (!confirm('Are you sure you want to report this review? This action cannot be undone.')) {
+            e.preventDefault();
+            return false;
+        }
+    });
+    </script>
+</body>
+</html>

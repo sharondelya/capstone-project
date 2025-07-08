@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Smart - My Products</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="x-icon" href="../static/images/honeybeeHavenLogo.svg"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet">
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <style>
+        .product-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: #007bff;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .product-type-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .badge-machinery { background-color: #6f42c1; }
+        .badge-chemical { background-color: #dc3545; }
+        .badge-service { background-color: #28a745; }
+        
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-action {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-edit {
+            background-color: #17a2b8;
+            color: white;
+        }
+        
+        .btn-edit:hover {
+            background-color: #138496;
+            color: white;
+        }
+        
+        .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn-delete:hover {
+            background-color: #c82333;
+            color: white;
+        }
+        
+        .filter-section {
+            background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 50%, #8BC34A 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .search-box {
+            border-radius: 25px;
+            border: none;
+            padding: 12px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .category-btn {
+            border-radius: 25px;
+            margin: 0 5px;
+            padding: 8px 20px;
+            border: 2px solid white;
+            color: white;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: white;
+            color: #667eea;
+        }
+        
+        .no-products {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+        
+        .product-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-top: 1px solid #e0e0e0;
+            margin-top: auto;
+        }
+        
+        .rating-stars {
+            color: #ffc107;
+        }
+        
+        .stock-badge {
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        
+        .stock-high { background-color: #d4edda; color: #155724; }
+        .stock-medium { background-color: #fff3cd; color: #856404; }
+        .stock-low { background-color: #f8d7da; color: #721c24; }
+    </style>
+  
+   
+    <link href="../static/css/userInterface/footer.css" rel="stylesheet">
+
+    
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Topbar Start -->
+    {% include 'navbar.html' %}
+    <!-- Topbar End -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">{{ message }}</div>
+            {% elif category == 'success' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: #16a34a;">{{ message }}</div>
+            {% elif category == 'info' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #2563eb;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Error handling from backend -->
+{% if error == 1 %}
+    <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">
+        {{ error_message or "Invalid email or password. Please try again." }}
+    </div>
+{% endif %}
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h2 class="fw-bold">My Products</h2>
+                    <p class="mb-0">Manage your inventory with ease</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form method="GET" class="d-flex flex-column align-items-center">
+                        <div class="input-group mb-3" style="max-width: 500px;">
+                            <input type="text" class="form-control search-box" name="search" 
+                                   placeholder="Search products..." value="{{ search_query }}">
+                            <button class="btn btn-light" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="category-buttons">
+                            <a href="?category=all&search={{ search_query }}" 
+                               class="btn category-btn {{ 'active' if current_category == 'all' else '' }}">All Products</a>
+                            <a href="?category=machinery&search={{ search_query }}" 
+                               class="btn category-btn {{ 'active' if current_category == 'machinery' else '' }}">Machinery</a>
+                            <a href="?category=chemical&search={{ search_query }}" 
+                               class="btn category-btn {{ 'active' if current_category == 'chemical' else '' }}">Chemicals</a>
+                            <a href="?category=service&search={{ search_query }}" 
+                               class="btn category-btn {{ 'active' if current_category == 'service' else '' }}">Services</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section class="py-5">
+        <div class="container">
+            {% if products %}
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="text-muted">{{ products|length }} product(s) found</h5>
+                            <div class="btn-group">
+                              
+                                <a href="/HoneyBeeHaven/createitem" class="btn btn-info btn-sm" style="color: white; background-color: green;">
+                                    <i class="fas fa-plus"></i> Create Item
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    {% for product in products %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card product-card h-100">
+                            <div class="position-relative">
+                                <img src="{{ product.image_url }}" class="product-image" alt="{{ product.itemname }}">
+                                <span class="product-type-badge badge-{{ product.product_type }}">
+                                    {{ product.product_type.title() }}
+                                </span>
+                                <div class="position-absolute top-0 end-0 p-2">
+                                    <div class="action-buttons">
+                                        <button class="btn btn-action btn-edit" onclick="editProduct('{{ product.product_type }}', {{ product.itemid }})" title="Edit" style="background-color: white;">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-action btn-delete" onclick="deleteProduct('{{ product.product_type }}', {{ product.itemid }}, '{{ product.itemname }}')" title="Delete" style="background-color: white;">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="card-title fw-bold text-truncate" title="{{ product.itemname }}">
+                                    {{ product.itemname }}
+                                </h6>
+                                <p class="card-text text-muted small flex-grow-1">
+                                    {{ product.itemdescription[:100] }}{% if product.itemdescription|length > 100 %}...{% endif %}
+                                </p>
+                                
+                                <div class="product-stats">
+                                    <div>
+                                        <div class="fw-bold text-primary">{{ product.formatted_price }}</div>
+                                        {% if product.product_type != 'service' %}
+                                        <small class="stock-badge 
+                                            {% if product.quantityinstock > 50 %}stock-high
+                                            {% elif product.quantityinstock > 10 %}stock-medium
+                                            {% else %}stock-low{% endif %}">
+                                            Stock: {{ product.quantityinstock }}
+                                        </small>
+                                        {% endif %}
+                                    </div>
+                                    <div class="text-end">
+                                        <div class="rating-stars">
+                                            {% set rating = product.itemrating or 0 %}
+                                            {% for i in range(5) %}
+                                                {% if i < rating %}
+                                                    <i class="fas fa-star"></i>
+                                                {% else %}
+                                                    <i class="far fa-star"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <small class="text-muted">{{ product.formatted_rating }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-products">
+                    <i class="fas fa-box-open fa-5x text-muted mb-4"></i>
+                    <h3 class="text-muted">No Products Found</h3>
+                    <p class="text-muted">
+                        {% if search_query %}
+                            No products match your search criteria.
+                        {% else %}
+                            You haven't added any products yet.
+                        {% endif %}
+                    </p>
+                    <div class="mt-4">
+                        <a href="/HoneyBeeHaven/createitem" class="btn btn-primary me-2">
+                            <i class="fas fa-plus"></i> Add Your First Product
+                        </a>
+                        {% if search_query %}
+                        <a href="/HoneyBeeHaven/myProducts" class="btn btn-outline-secondary">
+                            <i class="fas fa-times"></i> Clear Search
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete "<span id="productNameToDelete"></span>"?</p>
+                    <p class="text-muted small">This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <a id="confirmDeleteBtn" href="#" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+ 
+   {% include 'footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function editProduct(productType, itemId) {
+            // Redirect to appropriate edit page
+            const editUrls = {
+                'machinery': `/HoneyBeeHaven/editMachine/${itemId}`,
+                'chemical': `/HoneyBeeHaven/editChemical/${itemId}`,
+                'service': `/HoneyBeeHaven/editService/${itemId}`
+            };
+            
+            if (editUrls[productType]) {
+                window.location.href = editUrls[productType];
+            }
+        }
+        
+        function deleteProduct(productType, itemId, productName) {
+            document.getElementById('productNameToDelete').textContent = productName;
+            document.getElementById('confirmDeleteBtn').href = `/HoneyBeeHaven/deleteProduct/${productType}/${itemId}`;
+            
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            deleteModal.show();
+        }
+        
+        // Flash message handling
+        {% if get_flashed_messages() %}
+            {% for category, message in get_flashed_messages(with_categories=true) %}
+                const alertType = '{{ category }}' === 'error' ? 'danger' : '{{ category }}';
+                const alertDiv = document.createElement('div');
+                alertDiv.className = `alert alert-${alertType} alert-dismissible fade show`;
+                alertDiv.innerHTML = `
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                `;
+                document.querySelector('.container').insertBefore(alertDiv, document.querySelector('.container').firstChild);
+            {% endfor %}
+        {% endif %}
+    </script>
+</body>
+</html>

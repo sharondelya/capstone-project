@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Smart - Business Orders</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Website Developed by Sharon for Software Engineering Capstone Project --> 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            color: #2d5016;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Navbar Placeholder */
+        .navbar-placeholder {
+            height: 80px;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(45, 80, 22, 0.1);
+            /* Navbar will be inserted here */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #27ae60, #2ecc71) !important;
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(74, 124, 89, 0.3);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .order-card {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(45, 80, 22, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .order-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.15);
+        }
+
+        .order-header {
+            background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);
+            padding: 1.5rem;
+            border-bottom: 1px solid #e8f5e8;
+        }
+
+        .order-id {
+            color: #4a7c59;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .order-details p {
+            margin-bottom: 0.5rem;
+            color: #6b8e23;
+        }
+
+        .client-link {
+            color: #4a7c59;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .client-link:hover {
+            color: #2d5016;
+            text-decoration: underline;
+        }
+
+        .order-summary {
+            text-align: right;
+        }
+
+        .earnings {
+            color: #4a7c59;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .view-items-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71) !important;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .view-items-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.3);
+        }
+
+        .shipping-address {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e8f5e8;
+            color: #6b8e23;
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 50px rgba(45, 80, 22, 0.2);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #27ae60, #2ecc71) !important;
+            color: white;
+            border-bottom: none;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-title {
+            font-weight: 700;
+        }
+
+        .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table th {
+            background: #f0f8f0;
+            color: #4a7c59;
+            font-weight: 600;
+            border: none;
+            padding: 1rem 0.75rem;
+        }
+
+        .table td {
+            padding: 1rem 0.75rem;
+            border-color: #e8f5e8;
+            vertical-align: middle;
+        }
+
+        .table-striped > tbody > tr:nth-of-type(odd) > td {
+            background: #f8fdf8;
+        }
+
+        .status-badge {
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-processing {
+            background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+            color: #2d3436;
+        }
+
+        .status-dispatched {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+        }
+
+        .status-delivered {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+        }
+
+        .item-actions {
+            margin-top: 0.5rem;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-warning.action-btn {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            color: white;
+        }
+
+        .btn-success.action-btn {
+            background: linear-gradient(135deg, #00b894, #00a085);
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Footer Placeholder */
+        .footer-placeholder {
+            height: 200px;
+            background: #4a7c59;
+            margin-top: 3rem;
+            /* Footer will be inserted here */
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .order-info {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .order-summary {
+                text-align: left;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .table-responsive {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h2 class="page-title">Business Orders</h2>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">{{ message }}</div>
+            {% elif category == 'success' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: #16a34a;">{{ message }}</div>
+            {% elif category == 'info' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #2563eb;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Error handling from backend -->
+{% if error == 1 %}
+    <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">
+        {{ error_message or "Invalid email or password. Please try again." }}
+    </div>
+{% endif %}
+        <!-- Orders List -->
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="order-header">
+                <div class="order-info">
+                    <div class="order-details">
+                        <h5 class="order-id">Order #{{ order.orderid }}</h5>
+                        <p><strong>Date:</strong> {{ order.orderdate }}</p>
+                        <p>
+                            <strong>Client:</strong> 
+                            <a href="/HoneyBeeHaven/view_client_profile/{{ order.client_id }}" target="_blank" class="client-link">
+                                {{ order.client_name }}
+                            </a>
+                        </p>
+                        <p><strong>Email:</strong> {{ order.client_email }}</p>
+                    </div>
+                    <div class="order-summary">
+                        <h5 class="earnings">Your Earnings: ${{ "%.2f"|format(order.business_total) }}</h5>
+                        <p><strong>Items:</strong> {{ order.total_items }}</p>
+                        <button class="view-items-btn" onclick="viewOrderItems({{ order.orderid }})">
+                            <i class="fas fa-eye me-2"></i>View Items
+                        </button>
+                    </div>
+                </div>
+                <div class="shipping-address">
+                    <strong>Shipping Address:</strong> {{ order.shippingaddress }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Order Items Modal -->
+    <div class="modal fade" id="orderItemsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Order Items</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="orderItemsContent">
+                    <!-- Items will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    function viewOrderItems(orderId) {
+        fetch(`/api/get-order-items/${orderId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                let content = '<div class="table-responsive"><table class="table table-striped">';
+                content += '<thead><tr><th>Item</th><th>Qty</th><th>Price</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+                
+                data.items.forEach(item => {
+                    content += `<tr>
+                        <td>
+                            <strong>${item.item_name}</strong><br>
+                            <small class="text-muted">${item.itemtype}</small>
+                        </td>
+                        <td>${item.itemqty}</td>
+                        <td>$${item.item_price.toFixed(2)}</td>
+                        <td>$${item.item_total.toFixed(2)}</td>
+                        <td>
+                            <span class="status-badge status-${item.delivery_status.toLowerCase()}">
+                                ${item.delivery_status}
+                            </span><br>
+                            <small class="text-muted">Dispatch: ${item.item_dispatch_date || 'Not set'}</small><br>
+                            <small class="text-muted">Delivery: ${item.item_delivery_date || 'Not set'}</small>
+                        </td>
+                        <td>
+                            <div class="item-actions">`;
+                    
+                    if (item.delivery_status === 'Processing') {
+                        content += `<button class="action-btn btn-warning" onclick="updateItemStatus(${item.orderdetailkey}, 'dispatch')">Dispatch</button>`;
+                    } else if (item.delivery_status === 'Dispatched') {
+                        content += `<button class="action-btn btn-success" onclick="updateItemStatus(${item.orderdetailkey}, 'deliver')">Mark Delivered</button>`;
+                    }
+                    
+                    content += `</div></td></tr>`;
+                });
+                
+                content += '</tbody></table></div>';
+                document.getElementById('orderItemsContent').innerHTML = content;
+                
+                const modal = new bootstrap.Modal(document.getElementById('orderItemsModal'));
+                modal.show();
+            } else {
+                alert('Error loading items: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred');
+        });
+    }
+
+    function updateItemStatus(orderDetailKey, action) {
+        const actionText = action === 'dispatch' ? 'dispatch' : 'mark as delivered';
+        
+        if (confirm(`Are you sure you want to ${actionText} this item?`)) {
+            fetch('/api/update-item-status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    orderdetailkey: orderDetailKey,
+                    action: action
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('orderItemsModal'));
+                    if (modal) {
+                        modal.hide();
+                    }
+                    location.reload();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+    }
+    </script>
+</body>
+</html>

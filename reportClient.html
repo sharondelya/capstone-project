@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Smart - Report Client</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            color: #2d5016;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+     
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .report-header {
+            background: linear-gradient(135deg, #38e76c 0%, #5d8a6b 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(74, 124, 89, 0.3);
+            text-align: center;
+        }
+
+        .brand-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .report-title {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .report-subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .client-info-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(45, 80, 22, 0.1);
+            margin-bottom: 2rem;
+            border-left: 5px solid #4a7c59;
+        }
+
+        .client-info-title {
+            color: #4a7c59;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .client-details {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .client-detail {
+            color: #6b8e23;
+            font-weight: 500;
+        }
+
+        .report-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(45, 80, 22, 0.1);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: #4a7c59;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .required {
+            color: #dc3545;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e8f5e8;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #4a7c59;
+            box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e8f5e8;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #4a7c59;
+            box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+        }
+
+        .character-count {
+            text-align: right;
+            color: #6b8e23;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .loading-message {
+            text-align: center;
+            color: #4a7c59;
+            font-style: italic;
+            padding: 1rem;
+            background: #f0f8f0;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .submitting-message {
+            text-align: center;
+            color: #4a7c59;
+            font-style: italic;
+            padding: 1rem;
+            background: #f0f8f0;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4a7c59 0%, #5d8a6b 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4a7c59;
+            border: 2px solid #4a7c59;
+        }
+
+        .btn-secondary:hover {
+            background: #4a7c59;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 124, 89, 0.3);
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #4a7c59 0%, #5d8a6b 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .contact-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-info {
+            text-align: center;
+        }
+
+        .contact-info h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .contact-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-links a:hover {
+            color: white;
+        }
+
+   
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .brand-title {
+                font-size: 2rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 200px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+         .spinner-border {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Placeholder -->
+    {% include 'navbar.html' %}
+
+    <div class="container">
+        <!-- Header -->
+        <div class="report-header">
+           
+            <h1 class="brand-title">Report Client</h1>
+            <p class="report-subtitle">Help us maintain a safe and trustworthy community</p>
+        </div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">{{ message }}</div>
+            {% elif category == 'success' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: #16a34a;">{{ message }}</div>
+            {% elif category == 'info' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #2563eb;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Error handling from backend -->
+{% if error == 1 %}
+    <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">
+        {{ error_message or "Invalid email or password. Please try again." }}
+    </div>
+{% endif %}
+        <!-- Client Information -->
+        {% if client %}
+        <div class="client-info-card">
+            <h3 class="client-info-title">Reporting Client</h3>
+            <div class="client-details">
+                <div class="client-detail"><strong>Name:</strong> {{ client.client_name }}</div>
+                <div class="client-detail"><strong>Email:</strong> {{ client.clientemail }}</div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Alert Messages -->
+        <div id="alertContainer"></div>
+         <!-- Loading Spinner -->
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Submitting report...</p>
+        </div>
+
+        <!-- Report Form -->
+        <div class="report-form">
+            <form id="reportForm">
+                <div class="form-group">
+                    <label class="form-label" >Report Type <span class="required">*</span></label>
+                    <select class="form-select" id="reportType" name="reportType" required>
+                        <option value="">Select a report type</option>
+                        <option value="discrimination">Discrimination</option>
+                        <option value="hate_speech">Hate Speech</option>
+                        <option value="abuse">Abuse or Violence</option>
+                        <option value="harassment">Harassment</option>
+                        <option value="fraud">Fraud or Scam</option>
+                        <option value="inappropriate">Inappropriate Content</option>
+                        <option value="misinformation">Misinformation</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Reason for Report <span class="required">*</span></label>
+                    <textarea class="form-textarea"  id="reportReason" 
+                    name="reportreason"  rows="4"   maxlength="500" placeholder="Please provide detailed information about why you are reporting this client..." required></textarea>
+                    <div class="character-count">
+                        <span id="char-count">0</span>/500 characters
+                    </div>
+                </div>
+
+                 {% if client %}
+            <input type="hidden" name="complaineeid" value="{{ client.clientid }}">
+            {% endif %}
+
+                <div class="form-actions">
+                    <button type="submit" id="submitBtn" class="btn btn-primary">Submit Report</button>
+                    <a href="javascript:history.back()" class="btn btn-secondary">Go Back</a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+{% include 'footer.html' %}
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('reportForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const alertContainer = document.getElementById('alertContainer');
+    const reportReason = document.getElementById('reportReason');
+    const charCount = document.getElementById('charCount');
+
+    // Character counter
+    reportReason.addEventListener('input', function() {
+        const count = this.value.length;
+        charCount.textContent = count;
+        
+        if (count > 450) {
+            charCount.style.color = '#dc3545';
+        } else if (count > 400) {
+            charCount.style.color = '#ffc107';
+        } else {
+            charCount.style.color = '#6c757d';
+        }
+    });
+
+    // Show alert function
+    function showAlert(type, message) {
+        const alertDiv = document.createElement('div');
+        alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+        alertDiv.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        alertContainer.appendChild(alertDiv);
+
+        // Auto-hide success alerts after 5 seconds
+        if (type === 'success') {
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 5000);
+        }
+    }
+
+    // Clear alerts
+    function clearAlerts() {
+        alertContainer.innerHTML = '';
+    }
+
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        clearAlerts();
+        
+        const formData = new FormData(form);
+        
+        // Validate form
+        if (!formData.get('reportType')) {
+            showAlert('danger', 'Please select a report type.');
+            return;
+        }
+        
+        if (!formData.get('reportreason') || formData.get('reportreason').trim().length < 10) {
+            showAlert('danger', 'Please provide a detailed reason (at least 10 characters).');
+            return;
+        }
+
+        // Show loading state
+        submitBtn.disabled = true;
+        loadingSpinner.style.display = 'block';
+        form.style.display = 'none';
+
+        try {
+            const response = await fetch('/submitReportClient', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            
+            // Hide loading state
+            loadingSpinner.style.display = 'none';
+            form.style.display = 'block';
+            submitBtn.disabled = false;
+
+            if (result.success) {
+                showAlert('success', result.message);
+                form.reset();
+                charCount.textContent = '0';
+                
+                // Redirect after 3 seconds
+                setTimeout(() => {
+                    window.history.back();
+                }, 3000);
+            } else {
+                showAlert('danger', result.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            
+            // Hide loading state
+            loadingSpinner.style.display = 'none';
+            form.style.display = 'block';
+            submitBtn.disabled = false;
+            
+            showAlert('danger', 'An error occurred while submitting the report. Please try again.');
+        }
+    });
+
+    // Prevent multiple submissions
+    form.addEventListener('submit', function() {
+        submitBtn.disabled = true;
+        setTimeout(() => {
+            if (submitBtn.disabled) {
+                submitBtn.disabled = false;
+            }
+        }, 5000);
+    });
+});
+</script>
+</body>
+</html>

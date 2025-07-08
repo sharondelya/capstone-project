@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Honeybee Haven - Review</title>
+    <link href="../static/images/honeybeeHavenLogo.svg" rel="icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d5016;
+            --light-green: #4a7c59;
+            --accent-green: #7fb069;
+            --soft-green: #d9ed92;
+            --cream: #f7f9f5;
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --border-light: #e8f5e8;
+            --shadow: 0 8px 25px rgba(45, 80, 22, 0.1);
+            --shadow-hover: 0 12px 35px rgba(45, 80, 22, 0.15);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--cream) 0%, #f0f8f0 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR PLACEHOLDER */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-green), var(--light-green));
+            border-radius: 2px;
+        }
+
+        .page-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: none;
+            font-weight: 500;
+            box-shadow: var(--shadow);
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            color: #856404;
+            border-left: 4px solid #ffc107;
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        .review-form-container {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .review-form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-green), var(--light-green), var(--primary-green));
+        }
+
+        .reviewing-item {
+            background: var(--soft-green);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .reviewing-label {
+            font-weight: 600;
+            color: var(--primary-green);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .reviewing-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+        }
+
+        .form-label.required::after {
+            content: '*';
+            color: #dc3545;
+            margin-left: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(127, 176, 105, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 1rem center;
+            background-repeat: no-repeat;
+            background-size: 1rem;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(127, 176, 105, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 1rem;
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(127, 176, 105, 0.1);
+        }
+
+        .rating-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .star-rating {
+            display: flex;
+            gap: 4px;
+        }
+
+        .star {
+            font-size: 1.8rem;
+            color: #ddd;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #ffc107;
+            transform: scale(1.1);
+        }
+
+        .rating-text {
+            font-weight: 500;
+            color: var(--text-light);
+            margin-left: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 140px;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--text-light);
+            border: 2px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--cream);
+            color: var(--text-dark);
+            border-color: var(--accent-green);
+        }
+
+        /* FOOTER PLACEHOLDER */
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .review-form-container {
+                padding: 1.5rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+{%include 'navbar.html' %}
+<!-- Flash Messages -->
+<div class="container mt-3">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+
+ <div class="container">
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-star-half-alt"></i>
+                Write a Review
+            </h1>
+            <p class="page-subtitle">Share your experience and help others make informed decisions</p>
+        </div>
+
+
+
+<div class="review-form-container">
+            {% if item_name %}
+                <div class="reviewing-item">
+                    <div class="reviewing-label">Reviewing:</div>
+                    <div class="reviewing-name">{{ item_name }}</div>
+                </div>
+            {% endif %}
+    <form action="{{ url_for('submit_review') }}" method="post" enctype="multipart/form-data" id="reviewForm">
+                <div class="form-group">
+                    <label for="title" class="form-label required">Review Title</label>
+                    <input type="text" placeholder="Enter Title" name="title" maxlength="250" required  class="form-input" placeholder="Enter a descriptive title for your review" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="rating" class="form-label required">Rating</label>
+                    <select id="rating" name="rating" class="form-select" required>
+                        <option value="">Select Rating</option>
+                        <option value="1">1 Star - Poor</option>
+                        <option value="2">2 Stars - Fair</option>
+                        <option value="3">3 Stars - Good</option>
+                        <option value="4">4 Stars - Very Good</option>
+                        <option value="5">5 Stars - Excellent</option>
+                    </select>
+                    <div class="rating-container">
+                        <div class="star-rating">
+                            <i class="fas fa-star star" data-rating="1"></i>
+                            <i class="fas fa-star star" data-rating="2"></i>
+                            <i class="fas fa-star star" data-rating="3"></i>
+                            <i class="fas fa-star star" data-rating="4"></i>
+                            <i class="fas fa-star star" data-rating="5"></i>
+                        </div>
+                        <span class="rating-text">Click stars to rate</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="form-label required">Review Description</label>
+                    <textarea placeholder="Review Description" name="text" maxlength="250" required  rows="4" class="form-textarea" placeholder="Share your detailed experience with this product..." required></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <a href="{{ url_for('view_product', id=item_id, type= item_type) }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i>
+                        Cancel
+                    </a>
+                  
+                  <button type="submit" value="Submit Review" id="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Review
+                    </button>
+                </div>
+                  <!-- Hidden fields for item ID and item type -->
+    <input type="hidden" name="itemid" id="itemid" value="{{ item_id }}" required>
+    <input type="hidden" name="itemtype" id="itemtype" value="{{ item_type or 'machinery' }}" required>
+            </form>
+        </div>
+    </div>
+
+      
+   
+    
+ 
+  
+  
+    
+  
+    
+   
+</form>
+    </div>
+</div>
+
+{%include 'footer.html' %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  const stars = document.querySelectorAll('.star');
+        const ratingSelect = document.getElementById('rating');
+        const ratingText = document.querySelector('.rating-text');
+
+        const ratingTexts = {
+            1: 'Poor',
+            2: 'Fair', 
+            3: 'Good',
+            4: 'Very Good',
+            5: 'Excellent'
+        };
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const rating = star.dataset.rating;
+                ratingSelect.value = rating;
+                updateStars(rating);
+                ratingText.textContent = ratingTexts[rating];
+            });
+
+            star.addEventListener('mouseenter', () => {
+                const rating = star.dataset.rating;
+                updateStars(rating);
+            });
+        });
+
+        document.querySelector('.star-rating').addEventListener('mouseleave', () => {
+            updateStars(ratingSelect.value);
+            if (ratingSelect.value) {
+                ratingText.textContent = ratingTexts[ratingSelect.value];
+            } else {
+                ratingText.textContent = 'Click stars to rate';
+            }
+        });
+
+        function updateStars(rating) {
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+
+        // Sync dropdown with stars
+        ratingSelect.addEventListener('change', () => {
+            updateStars(ratingSelect.value);
+            if (ratingSelect.value) {
+                ratingText.textContent = ratingTexts[ratingSelect.value];
+            } else {
+                ratingText.textContent = 'Click stars to rate';
+            }
+        });
+document.getElementById('reviewForm').addEventListener('submit', function(e) {
+    const title = document.querySelector('input[name="title"]').value.trim();
+    const rating = document.querySelector('select[name="rating"]').value;
+    const text = document.querySelector('textarea[name="text"]').value.trim();
+    
+    if (!title || !rating || !text) {
+        e.preventDefault();
+        alert('Please fill in all required fields.');
+        return false;
+    }
+    
+    if (text.length < 10) {
+        e.preventDefault();
+        alert('Review description must be at least 10 characters long.');
+        return false;
+    }
+});
+</script>
+</body>
+</html>

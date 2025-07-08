@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Agri Smart - Client Signup</title>
+    <link href="../static/images/honeybeeHavenLogo.svg" rel="icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url("../static/images/client/signupPage.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            border: 2px solid rgba(255, 217, 0, 0.3);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c5530;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .error-message {
+            background: #ffe6e6;
+            color: #d32f2f;
+            border: 1px solid #ffcdd2;
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            color: #2c5530;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            color: #2c5530;
+            z-index: 2;
+            font-size: 1.1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fafafa;
+            color: #333;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ffd900;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 217, 0, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #999;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 15px 45px 15px 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #fafafa;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #ffd900;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 217, 0, 0.1);
+        }
+
+        .select-wrapper::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #2c5530;
+            pointer-events: none;
+        }
+
+        .age-input-group {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .age-input-group:hover {
+            border-color: #ffd900;
+            background: #fff;
+        }
+
+        .age-instruction {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .gender-group {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+        }
+
+        .gender-options {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .gender-option:hover {
+            background: rgba(255, 217, 0, 0.1);
+        }
+
+        .gender-option input[type="radio"] {
+            margin: 0;
+            accent-color: #ffd900;
+            transform: scale(1.1);
+        }
+
+        .gender-option label {
+            margin: 0 !important;
+            cursor: pointer;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .password-requirements {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #856404;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-upload-wrapper:hover {
+            border-color: #ffd900;
+            background: rgba(255, 217, 0, 0.05);
+        }
+
+        .file-upload-wrapper.has-file {
+            border-color: #28a745;
+            background: rgba(40, 167, 69, 0.05);
+        }
+
+        .file-upload-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-upload-icon {
+            font-size: 2rem;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-wrapper:hover .file-upload-icon {
+            color: #ffd900;
+            transform: scale(1.1);
+        }
+
+        .file-upload-text {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .file-upload-subtext {
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+
+        .file-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .image-preview {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .preview-image {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 10px;
+            border: 3px solid #ffd900;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .remove-image {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 15px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-image:hover {
+            background: #c82333;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #2c5530 0%, #4caf50 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #ffd900 0%, #ffed4e 100%);
+            color: #2c5530;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 217, 0, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .links-section {
+            margin-top: 30px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .link-item {
+            margin: 8px 0;
+            color: #6c757d;
+        }
+
+        .link-item a {
+            color: #2c5530;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .link-item a:hover {
+            color: #ffd900;
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .gender-options {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .form-input, .form-select {
+                padding: 12px 12px 12px 40px;
+                font-size: 0.95rem;
+            }
+
+            .input-wrapper i {
+                left: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 15px;
+            }
+
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .file-upload-wrapper {
+                padding: 20px;
+            }
+
+            .age-input-group,
+            .gender-group {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="message {% if category == 'error' %}error-message{% else %}success-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Error messages based on error parameter -->
+        {% if error == 1 %}
+            <div class="message error-message">
+                <p>{{ error_message or "Incorrect Fields - Please check your input" }}</p>
+            </div>
+        {% elif error == 2 %}
+            <div class="message error-message">
+                <p>{{ error_message or "Email already exists" }}</p>
+            </div>
+        {% elif error == 3 %}
+            <div class="message error-message">
+                <p>{{ error_message or "File Size exceeded - Please upload less than 1 MB" }}</p>
+            </div>
+        {% endif %}
+
+        <div class="title">Join Agri Smart</div>
+        <div class="subtitle">Create your client account</div>
+
+        <form action="/HoneyBeeHaven/submitClientSignup" method="post" enctype="multipart/form-data" id="clientSignupForm">
+            
+            <div class="input-group">
+                <label for="name">Full Name</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user"></i>
+                    <input class="form-input" type="text" id="name" name="name" placeholder="Enter your full name" maxlength="250" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="age-input-group">
+                    <label for="age">Date of Birth</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input class="form-input" type="date" id="age" name="age" max="" required>
+                    </div>
+                    <div class="age-instruction">
+                        <i class="fas fa-info-circle"></i> You must be at least 18 years old to register
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope"></i>
+                    <input class="form-input" type="email" id="email" name="email" placeholder="Enter your email address" maxlength="250" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input class="form-input" type="password" id="password" name="password" placeholder="Create a strong password" maxlength="250" required>
+                </div>
+                <div class="password-requirements">
+                    <i class="fas fa-shield-alt"></i> Password must be at least 8 characters with at least 1 uppercase letter and 1 number
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="confirmpassword">Confirm Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input class="form-input" type="password" id="confirmpassword" name="confirmpassword" placeholder="Re-enter your password" maxlength="250" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="primary">Primary Location</label>
+                <div class="select-wrapper">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <select class="form-select" name="primary" id="primary" required>
+                        <option value="">Select your province</option>
+                        <option value="Ontario">Ontario</option>
+                        <option value="Quebec">Quebec</option>
+                        <option value="Alberta">Alberta</option>
+                        <option value="Saskatchewan">Saskatchewan</option>
+                        <option value="Manitoba">Manitoba</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="address">Address</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-home"></i>
+                    <input class="form-input" type="text" id="address" name="address" placeholder="Enter your complete address" maxlength="250" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="gender-group">
+                    <label>Gender</label>
+                    <div class="gender-options">
+                        <div class="gender-option">
+                            <input type="radio" name="gender" value="male" id="male" required>
+                            <label for="male">Male</label>
+                        </div>
+                        <div class="gender-option">
+                            <input type="radio" name="gender" value="female" id="female" required>
+                            <label for="female">Female</label>
+                        </div>
+                        <div class="gender-option">
+                            <input type="radio" name="gender" value="other" id="other" required>
+                            <label for="other">Other</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Profile Photo (Optional)</label>
+                <div class="file-upload-wrapper" id="fileUploadWrapper">
+                    <div class="file-upload-content">
+                        <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                        <div class="file-upload-text">Choose a photo</div>
+                        <div class="file-upload-subtext">JPG, JPEG, PNG • Max 1MB</div>
+                    </div>
+                    <input type="file" name="file" accept=".jpg,.jpeg,.png" id="fileInput" class="file-input">
+                </div>
+                <div id="imagePreview" class="image-preview" style="display: none;">
+                    <img id="previewImg" class="preview-image" alt="Preview">
+                    <button type="button" class="remove-image" id="removeImage">Remove Image</button>
+                </div>
+            </div>
+
+            <button class="submit-btn" type="submit">
+                <i class="fas fa-user-plus"></i> Create Account
+            </button>
+
+            <div class="links-section">
+                <div class="link-item">
+                    Already have an account? 
+                    <a href="/HoneyBeeHaven/login">Login here</a>
+                </div>
+                <div class="link-item">
+                    Want to register as a business? 
+                    <a href="/HoneyBeeHaven/business_signup">Business Signup</a>
+                </div>
+                <div class="link-item">
+                    <a href="/">← Back to Home</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Set max date for age input (18 years ago from today)
+        function setMaxDate() {
+            const today = new Date();
+            const eighteenYearsAgo = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+            const maxDate = eighteenYearsAgo.toISOString().split('T')[0];
+            document.querySelector('input[name="age"]').setAttribute('max', maxDate);
+        }
+
+        // Image preview functionality
+        const fileInput = document.getElementById('fileInput');
+        const fileUploadWrapper = document.getElementById('fileUploadWrapper');
+        const imagePreview = document.getElementById('imagePreview');
+        const previewImg = document.getElementById('previewImg');
+        const removeImageBtn = document.getElementById('removeImage');
+
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Check file size (1MB = 1048576 bytes)
+                if (file.size > 1048576) {
+                    alert('File size must be less than 1MB');
+                    this.value = '';
+                    return;
+                }
+
+                // Check file type
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                if (!validTypes.includes(file.type)) {
+                    alert('Please select a valid image file (JPG, JPEG, PNG)');
+                    this.value = '';
+                    return;
+                }
+
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                    fileUploadWrapper.classList.add('has-file');
+                    
+                    // Update upload text
+                    const uploadText = fileUploadWrapper.querySelector('.file-upload-text');
+                    const uploadIcon = fileUploadWrapper.querySelector('.file-upload-icon');
+                    uploadText.textContent = file.name;
+                    uploadIcon.className = 'fas fa-check-circle file-upload-icon';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Remove image functionality
+        removeImageBtn.addEventListener('click', function() {
+            fileInput.value = '';
+            imagePreview.style.display = 'none';
+            fileUploadWrapper.classList.remove('has-file');
+            
+            // Reset upload text
+            const uploadText = fileUploadWrapper.querySelector('.file-upload-text');
+            const uploadIcon = fileUploadWrapper.querySelector('.file-upload-icon');
+            uploadText.textContent = 'Choose a photo';
+            uploadIcon.className = 'fas fa-cloud-upload-alt file-upload-icon';
+        });
+
+        // Form validation
+        document.getElementById('clientSignupForm').addEventListener('submit', function(e) {
+            const password = document.querySelector('input[name="password"]').value;
+            const confirmPassword = document.querySelector('input[name="confirmpassword"]').value;
+            
+            // Password validation
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                e.preventDefault();
+                alert('Password must be at least 8 characters long with at least 1 uppercase letter and 1 number');
+                return;
+            }
+            
+            // Confirm password validation
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // File size validation (already handled in file input change event, but double-check)
+            if (fileInput.files[0] && fileInput.files[0].size > 1048576) {
+                e.preventDefault();
+                alert('File size must be less than 1MB');
+                return;
+            }
+            
+            // Age validation
+            const ageInput = document.querySelector('input[name="age"]');
+            const birthDate = new Date(ageInput.value);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            if (age < 18) {
+                e.preventDefault();
+                alert('You must be at least 18 years old to register');
+                return;
+            }
+        });
+
+        // Initialize max date on page load
+        window.addEventListener('load', setMaxDate);
+
+        // Add floating label effect
+        document.querySelectorAll('.form-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.parentElement.parentElement.classList.remove('focused');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Beekeeper - Contacts</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/beekeeperLogo.svg">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/feathericon.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/all-reports.css">
+    <link href="/static/css/fontawesome/all.css" rel="stylesheet">
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="header">
+        <div class="header-left">
+            <a href="/BeeKeeper/AdminDashboard" class="logo">
+                <span class="logoclass">BEE KEEPER</span>
+            </a>
+            <a href="/BeeKeeper/AdminDashboard" class="logo logo-small">
+                <img src="/static/images/beekeeperLogo.svg" alt="Logo" width="30" height="30">
+            </a>
+        </div>
+        <a id="toggle_btn"> <i class="fe fe-text-align-left"></i> </a>
+        <a class="mobile_btn" id="mobile_btn"> <i class="fas fa-bars"></i> </a>
+        <ul class="nav user-menu">
+            <li class="nav-item dropdown has-arrow">
+                <input type="checkbox" id="userDropdown" class="dropdown-toggle">
+                <label for="userDropdown" class="dropdown-label">
+                    <span class="user-img">
+                        <img class="rounded-circle" src="/static/images/avatar-01.jpg" width="31" alt="avatar picture">
+                    </span>
+                </label>
+                <div class="dropdown-menu">
+                    <div class="user-header">
+                        <div class="avatar avatar-sm">
+                            <img src="/static/images/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+                        </div>
+                        <div class="user-text">
+                            <h6 id="LoggedInName"></h6>
+                            <p class="text-muted mb-0" id="LoggedInStatus"></p>
+                        </div>
+                    </div>
+                    <a class="dropdown-item" href="/BeeKeeper/Adminlogout">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <style>
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            max-width: 200px;
+            right: 0;
+        }
+        input[type="checkbox"]:checked + .dropdown-label + .dropdown-menu {
+            display: block;
+            right: 0;
+        }
+        .clickable-email {
+            color: #007bff;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .clickable-email:hover {
+            color: #0056b3;
+        }
+    </style>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li><a href="/BeeKeeper/AdminDashboard"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li class="list-divider"></li>
+                    <li class="submenu">
+                        <a href="/BeeKeeper/AdminReports"><i class="fa-solid fa-star fa-bounce" style="color: black;"></i><span>Reported Reviews</span></a>
+                        <a href="/BeeKeeper/ReportedClients"><i class="fa-solid fa-wheat-awn fa-beat-fade" style="color: black;"></i><span>Reported Clients</span></a>
+                        <a href="/BeeKeeper/ReportedBusiness"><i class="fa-solid fa-business-time fa-flip" style="color: black;"></i><span>Reported Business</span></a>
+                        <a href="/BeeKeeper/contact" class="active"><i class="fa-solid fa-address-book" style="color: black;"></i><span>Contacts</span></a>
+                        <a href="/BeeKeeper/Subscriptions"><i class="fa-solid fa-crown" style="color: black;"></i><span>Subscriptions</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="mt-5">
+                            <h4 class="card-title float-left mt-2">All Contacts</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body booking_card">
+                            <div class="table-responsive">
+                                <table class="table table-stripped table table-hover table-center mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Subject</th>
+                                            <th>Message</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if contacts %}
+                                            {% for contact in contacts %}
+                                            <tr>
+                                                <td>{{ contact[0] }}</td>
+                                                <td>
+                                                    <a href="mailto:{{ contact[1] }}?subject=Re: {{ contact[2] }}" class="clickable-email">
+                                                        {{ contact[1] }}
+                                                    </a>
+                                                </td>
+                                                <td>{{ contact[2] }}</td>
+                                                <td>{{ contact[3] }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="4" class="text-center">No contacts found</td>
+                                            </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

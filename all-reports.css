@@ -1,0 +1,11 @@
+#deleteModalHeader {
+  background-color: #dc3545;
+  color: #f8d8db;
+}
+#delete-dat {
+  background-color: #eb5f6d;
+}
+#delete-dat:hover {
+  background-color: #f01111;
+  transition: transform 0.2s;
+}

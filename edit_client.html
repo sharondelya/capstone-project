@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Agri Smart - Edit Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <link href="../static/images/honeybeeHavenLogo.svg" rel="icon" />
+    
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet" />
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    
+    <!-- Navbar CSS will be added here -->
+    <!-- Footer CSS will be added here -->
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-green: #2E7D32;
+            --light-green: #4CAF50;
+            --accent-green: #66BB6A;
+            --cream-white: #FAFAFA;
+            --warm-white: #FFFFFF;
+            --soft-gray: #F5F5F5;
+            --text-dark: #2C3E50;
+            --text-light: #6C757D;
+            --success-green: #4CAF50;
+            --warning-orange: #FF9800;
+            --error-red: #F44336;
+            --shadow-light: 0 2px 10px rgba(46, 125, 50, 0.1);
+            --shadow-medium: 0 4px 20px rgba(46, 125, 50, 0.15);
+            --shadow-heavy: 0 8px 30px rgba(46, 125, 50, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--cream-white) 0%, #E8F5E8 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            padding: 3rem 0;
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="profile-pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/><path d="M5,5 Q10,15 15,5" stroke="white" stroke-width="0.5" opacity="0.05" fill="none"/></pattern></defs><rect width="100" height="100" fill="url(%23profile-pattern)"/></svg>');
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-section img {
+            width: 60px;
+            height: 60px;
+            filter: brightness(0) invert(1);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem;
+            border-radius: 15px;
+        }
+
+        .brand-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+
+        .brand-text .text-accent {
+            color: #FFF59D;
+        }
+
+        .breadcrumb {
+            background: transparent;
+            margin: 0;
+            padding: 1rem 0;
+        }
+
+        .breadcrumb-item {
+            font-weight: 500;
+        }
+
+        .breadcrumb-item a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb-item a:hover {
+            color: white;
+            transform: translateX(-3px);
+        }
+
+        .breadcrumb-item.active {
+            color: #FFF59D;
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .main-container {
+            padding: 3rem 0;
+        }
+
+        .profile-card {
+            background: var(--warm-white);
+            border-radius: 25px;
+            box-shadow: var(--shadow-light);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="user-pattern" width="15" height="15" patternUnits="userSpaceOnUse"><circle cx="7.5" cy="7.5" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23user-pattern)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .profile-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-avatar-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            box-shadow: var(--shadow-medium);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar-upload-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #FFF59D 0%, #FFEB3B 100%);
+            border: 3px solid white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+        }
+
+        .avatar-upload-btn:hover {
+            background: linear-gradient(135deg, #FFEB3B 0%, #FFC107 100%);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .avatar-upload-btn i {
+            color: var(--text-dark);
+            font-size: 1rem;
+        }
+
+        .profile-name {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .profile-email {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .profile-badge {
+            background: linear-gradient(135deg, #FFF59D 0%, #FFEB3B 100%);
+            color: var(--text-dark);
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Form Styles */
+        .form-container {
+            padding: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .section-title i {
+            background: linear-gradient(135deg, var(--light-green) 0%, var(--accent-green) 100%);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-label i {
+            color: var(--accent-green);
+            font-size: 1rem;
+            width: 20px;
+        }
+
+        .form-control {
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--soft-gray);
+            font-weight: 500;
+        }
+
+        .form-control:focus {
+            border-color: var(--light-green);
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+            background: white;
+            transform: translateY(-1px);
+        }
+
+        .form-select {
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--soft-gray);
+            font-weight: 500;
+        }
+
+        .form-select:focus {
+            border-color: var(--light-green);
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+            background: white;
+        }
+
+        .gender-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .gender-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--soft-gray);
+            font-weight: 500;
+        }
+
+        .gender-option:hover {
+            border-color: var(--accent-green);
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-light);
+        }
+
+        .gender-option input[type="radio"] {
+            margin: 0;
+            transform: scale(1.2);
+            accent-color: var(--light-green);
+        }
+
+        .gender-option:has(input:checked) {
+            border-color: var(--light-green);
+            background: linear-gradient(135deg, #E8F5E8 0%, #F1F8E9 100%);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .gender-option:has(input:checked) span {
+            color: var(--primary-green);
+            font-weight: 700;
+        }
+
+        /* Password Section */
+        .password-section {
+            background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E8 100%);
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .password-help {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border: 2px solid #42A5F5;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .password-help i {
+            color: #1976D2;
+            font-size: 1.2rem;
+            margin-top: 0.2rem;
+        }
+
+        .password-help-text {
+            color: #1976D2;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        /* Alert Styles */
+        .alert {
+            border: none;
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+            color: var(--primary-green);
+            border: 2px solid var(--accent-green);
+        }
+
+        .alert-danger {
+            background: linear-gradient(135deg, #FFEBEE 0%, #FFCDD2 100%);
+            color: #C62828;
+            border: 2px solid #EF5350;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+            color: #E65100;
+            border: 2px solid #FFB74D;
+        }
+
+        .alert i {
+            font-size: 1.2rem;
+        }
+
+        /* Button Styles */
+        .btn-group-custom {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: flex-end;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .btn-custom {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-custom:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            color: white;
+            box-shadow: var(--shadow-light);
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .btn-secondary-custom {
+            background: linear-gradient(135deg, #6C757D 0%, #5A6268 100%);
+            color: white;
+            box-shadow: var(--shadow-light);
+        }
+
+        .btn-secondary-custom:hover {
+            background: linear-gradient(135deg, #5A6268 0%, #495057 100%);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 2rem 0;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+
+            .btn-group-custom {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .gender-options {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-text {
+                font-size: 2rem;
+            }
+
+            .profile-name {
+                font-size: 1.6rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .password-section {
+                padding: 2rem;
+            }
+        }
+
+        /* Error field highlighting */
+        .form-control.is-invalid,
+        .form-select.is-invalid {
+            border-color: var(--error-red);
+            background: rgba(244, 67, 54, 0.05);
+            box-shadow: 0 0 0 4px rgba(244, 67, 54, 0.15);
+        }
+
+        .invalid-feedback {
+            color: var(--error-red);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .invalid-feedback i {
+            font-size: 1rem;
+        }
+
+        /* Success state */
+        .form-control.is-valid,
+        .form-select.is-valid {
+            border-color: var(--success-green);
+            background: rgba(76, 175, 80, 0.05);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar will be added here -->
+ {% include 'navbar.html' %}
+    <!-- Header Section -->
+
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-xl-9">
+                    <!-- Profile Card -->
+                    <div class="profile-card">
+                        <!-- Profile Header -->
+                        <div class="profile-header">
+                            <div class="profile-content">
+                                <div class="profile-avatar-container">
+                                    <img 
+                                        src="{{ client_data.image_url if client_data.image_url else '../static/images/client-profile-placeholder.jpg' }}" 
+                                        alt="Profile Picture" 
+                                        class="profile-avatar"
+                                        id="profileAvatarPreview"
+                                    />
+                                    <label for="profileImageInput" class="avatar-upload-btn">
+                                        <i class="fas fa-camera"></i>
+                                    </label>
+                                </div>
+                                <h2 class="profile-name">{{ client_data.name if client_data else 'Client Name' }}</h2>
+                                <p class="profile-email">
+                                    <i class="fas fa-envelope"></i>
+                                    {{ client_data.email if client_data else 'client@example.com' }}
+                                </p>
+                                <span class="profile-badge">
+                                    <i class="fas fa-seedling"></i>Client
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Form Container -->
+                        <div class="form-container">
+                            <!-- Flash Messages -->
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                    {% for category, message in messages %}
+                                        <div class="alert alert-{{ 'success' if category == 'success' else 'danger' if category == 'error' else 'warning' }}">
+                                            <i class="fas fa-{{ 'check-circle' if category == 'success' else 'exclamation-triangle' if category == 'error' else 'info-circle' }}"></i>
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+
+                            <!-- Error Display -->
+                            {% if errors %}
+                                <div class="alert alert-danger">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <div>
+                                        <strong>Please correct the following errors:</strong>
+                                        <ul class="mb-0 mt-2" style="margin-left: 1rem;">
+                                            {% for field, error in errors.items() %}
+                                                <li>{{ error }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <!-- Profile Form -->
+                            <form method="POST" action="{{ url_for('submit_edit_client') }}" enctype="multipart/form-data" id="profileForm">
+                                <!-- Hidden File Input -->
+                                <input 
+                                    type="file" 
+                                    id="profileImageInput" 
+                                    name="profile_image" 
+                                    accept=".jpg,.jpeg,.png" 
+                                    class="file-upload-input"
+                                    style="display: none;"
+                                />
+
+                                <!-- Personal Information Section -->
+                                <div class="section-title">
+                                    <i class="fas fa-user"></i>
+                                    Personal Information
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <i class="fas fa-signature"></i>
+                                                Full Name
+                                            </label>
+                                            <input 
+                                                type="text" 
+                                                class="form-control {{ 'is-invalid' if errors and errors.get('name') }}" 
+                                                name="name" 
+                                                value="{{ form_data.name if form_data else (client_data.name if client_data else '') }}"
+                                                placeholder="Enter your full name"
+                                                maxlength="250"
+                                            />
+                                            {% if errors and errors.get('name') %}
+                                                <div class="invalid-feedback">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    {{ errors.name }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <i class="fas fa-calendar-alt"></i>
+                                                Age
+                                            </label>
+                                            <input 
+                                                type="number" 
+                                                class="form-control {{ 'is-invalid' if errors and errors.get('age') }}" 
+                                                name="age" 
+                                                value="{{ form_data.age if form_data else (client_data.age if client_data else '') }}"
+                                                placeholder="Enter your age"
+                                                min="16"
+                                                max="100"
+                                            />
+                                            {% if errors and errors.get('age') %}
+                                                <div class="invalid-feedback">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    {{ errors.age }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Address
+                                    </label>
+                                    <textarea 
+                                        class="form-control {{ 'is-invalid' if errors and errors.get('address') }}" 
+                                        name="address" 
+                                        rows="3"
+                                        placeholder="Enter your complete address"
+                                        maxlength="500"
+                                    >{{ form_data.address if form_data else (client_data.address if client_data else '') }}</textarea>
+                                    {% if errors and errors.get('address') %}
+                                        <div class="invalid-feedback">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                            {{ errors.address }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <i class="fas fa-map"></i>
+                                                Primary Location
+                                            </label>
+                                            <select 
+                                                class="form-select {{ 'is-invalid' if errors and errors.get('primary_location') }}" 
+                                                name="primary_location"
+                                            >
+                                                <option value="">Select Province</option>
+                                                <option value="Ontario" {{ 'selected' if (form_data.primary_location if form_data else (client_data.primarylocation if client_data else '')) == 'Ontario' }}>Ontario</option>
+                                                <option value="Quebec" {{ 'selected' if (form_data.primary_location if form_data else (client_data.primarylocation if client_data else '')) == 'Quebec' }}>Quebec</option>
+                                                <option value="Alberta" {{ 'selected' if (form_data.primary_location if form_data else (client_data.primarylocation if client_data else '')) == 'Alberta' }}>Alberta</option>
+                                                <option value="Saskatchewan" {{ 'selected' if (form_data.primary_location if form_data else (client_data.primarylocation if client_data else '')) == 'Saskatchewan' }}>Saskatchewan</option>
+                                                <option value="Manitoba" {{ 'selected' if (form_data.primary_location if form_data else (client_data.primarylocation if client_data else '')) == 'Manitoba' }}>Manitoba</option>
+                                            </select>
+                                            {% if errors and errors.get('primary_location') %}
+                                                <div class="invalid-feedback">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    {{ errors.primary_location }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <i class="fas fa-venus-mars"></i>
+                                                Gender
+                                            </label>
+                                            <div class="gender-options">
+                                                <label class="gender-option">
+                                                    <input 
+                                                        type="radio" 
+                                                        name="gender" 
+                                                        value="male"
+                                                        {{ 'checked' if (form_data.gender if form_data else (client_data.gender if client_data else '')) == 'male' }}
+                                                    />
+                                                    <span>Male</span>
+                                                </label>
+                                                <label class="gender-option">
+                                                    <input 
+                                                        type="radio" 
+                                                        name="gender" 
+                                                        value="female"
+                                                        {{ 'checked' if (form_data.gender if form_data else (client_data.gender if client_data else '')) == 'female' }}
+                                                    />
+                                                    <span>Female</span>
+                                                </label>
+                                                <label class="gender-option">
+                                                    <input 
+                                                        type="radio" 
+                                                        name="gender" 
+                                                        value="other"
+                                                        {{ 'checked' if (form_data.gender if form_data else (client_data.gender if client_data else '')) == 'other' }}
+                                                    />
+                                                    <span>Other</span>
+                                                </label>
+                                            </div>
+                                            {% if errors and errors.get('gender') %}
+                                                <div class="invalid-feedback">
+                                                    <i class="fas fa-exclamation-circle"></i>
+                                                    {{ errors.gender }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Password Section -->
+                                <div class="password-section">
+                                    <div class="section-title">
+                                        <i class="fas fa-lock"></i>
+                                        Change Password (Optional)
+                                    </div>
+
+                                    <div class="password-help">
+                                        <i class="fas fa-info-circle"></i>
+                                        <div class="password-help-text">
+                                            <strong>Password Requirements:</strong><br>
+                                            Leave password fields empty if you don't want to change your password.<br>
+                                            New password must be at least 8 characters with 1 uppercase letter and 1 number.
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">
+                                                    <i class="fas fa-key"></i>
+                                                    Current Password
+                                                </label>
+                                                <input 
+                                                    type="password" 
+                                                    class="form-control {{ 'is-invalid' if errors and errors.get('current_password') }}" 
+                                                    name="current_password" 
+                                                    placeholder="Enter current password"
+                                                    maxlength="250"
+                                                />
+                                                {% if errors and errors.get('current_password') %}
+                                                    <div class="invalid-feedback">
+                                                        <i class="fas fa-exclamation-circle"></i>
+                                                        {{ errors.current_password }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">
+                                                    <i class="fas fa-lock"></i>
+                                                    New Password
+                                                </label>
+                                                <input 
+                                                    type="password" 
+                                                    class="form-control {{ 'is-invalid' if errors and (errors.get('new_password') or errors.get('password')) }}" 
+                                                    name="new_password" 
+                                                    placeholder="Enter new password"
+                                                    maxlength="250"
+                                                    id="newPassword"
+                                                />
+                                                {% if errors and (errors.get('new_password') or errors.get('password')) %}
+                                                    <div class="invalid-feedback">
+                                                        <i class="fas fa-exclamation-circle"></i>
+                                                        {{ errors.new_password or errors.password }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="form-label">
+                                                    <i class="fas fa-check-circle"></i>
+                                                    Confirm Password
+                                                </label>
+                                                <input 
+                                                    type="password" 
+                                                    class="form-control {{ 'is-invalid' if errors and errors.get('confirm_password') }}" 
+                                                    name="confirm_password" 
+                                                    placeholder="Confirm new password"
+                                                    maxlength="250"
+                                                    id="confirmPassword"
+                                                />
+                                                {% if errors and errors.get('confirm_password') %}
+                                                    <div class="invalid-feedback">
+                                                        <i class="fas fa-exclamation-circle"></i>
+                                                        {{ errors.confirm_password }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="btn-group-custom">
+                                    <a href="{{ url_for('client_dashboard') }}" class="btn-custom btn-secondary-custom">
+                                        <i class="fas fa-arrow-left"></i>
+                                        Cancel
+                                    </a>
+                                    <button type="submit" class="btn-custom btn-primary-custom" id="submitBtn">
+                                        <div class="loading-spinner" id="loadingSpinner"></div>
+                                        <i class="fas fa-save" id="saveIcon"></i>
+                                        <span id="btnText">Save Changes</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer will be added here -->
+     {% include 'footer.html' %}
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Profile image preview
+        document.getElementById('profileImageInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Validate file type
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                if (!allowedTypes.includes(file.type)) {
+                    alert('Please select a valid image file (JPG, JPEG, or PNG)');
+                    e.target.value = '';
+                    return;
+                }
+
+                // Validate file size (1MB)
+                if (file.size > 1024 * 1024) {
+                    alert('File size must be less than 1MB');
+                    e.target.value = '';
+                    return;
+                }
+
+                // Show preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profileAvatarPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form submission handling
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const saveIcon = document.getElementById('saveIcon');
+            const btnText = document.getElementById('btnText');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            loadingSpinner.style.display = 'block';
+            saveIcon.style.display = 'none';
+            btnText.textContent = 'Saving Changes...';
+
+            // Validate password fields
+            const currentPassword = document.querySelector('input[name="current_password"]').value;
+            const newPassword = document.querySelector('input[name="new_password"]').value;
+            const confirmPassword = document.querySelector('input[name="confirm_password"]').value;
+
+            if ((currentPassword || newPassword || confirmPassword) && 
+                (!currentPassword || !newPassword || !confirmPassword)) {
+                e.preventDefault();
+                alert('If changing password, all password fields are required');
+                
+                // Reset button state
+                submitBtn.disabled = false;
+                loadingSpinner.style.display = 'none';
+                saveIcon.style.display = 'block';
+                btnText.textContent = 'Save Changes';
+                return;
+            }
+
+            if (newPassword && newPassword !== confirmPassword) {
+                e.preventDefault();
+                alert('New password and confirm password do not match');
+                
+                // Reset button state
+                submitBtn.disabled = false;
+                loadingSpinner.style.display = 'none';
+                saveIcon.style.display = 'block';
+                btnText.textContent = 'Save Changes';
+                return;
+            }
+        });
+
+        // Real-time form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.form-control, .form-select');
+            
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    validateField(this);
+                });
+                
+                input.addEventListener('input', function() {
+                    if (this.classList.contains('is-invalid')) {
+                        validateField(this);
+                    }
+                });
+            });
+        });
+
+        function validateField(field) {
+            const value = field.value.trim();
+            const isRequired = field.hasAttribute('required');
+            
+            if (isRequired && !value) {
+                field.classList.add('is-invalid');
+                field.classList.remove('is-valid');
+            } else if (value) {
+                field.classList.remove('is-invalid');
+                field.classList.add('is-valid');
+            } else {
+                field.classList.remove('is-invalid', 'is-valid');
+            }
+        }
+
+        // Password strength indicator
+        document.getElementById('newPassword').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const hasUpper = /[A-Z]/.test(password);
+            const hasNumber = /\d/.test(password);
+            const hasLength = password.length >= 8;
+
+            // You can add visual feedback here for password strength
+            if (password && hasUpper && hasNumber && hasLength) {
+                e.target.classList.remove('is-invalid');
+                e.target.classList.add('is-valid');
+            } else if (password) {
+                e.target.classList.add('is-invalid');
+                e.target.classList.remove('is-valid');
+            } else {
+                e.target.classList.remove('is-invalid', 'is-valid');
+            }
+        });
+
+        // Confirm password matching
+        document.getElementById('confirmPassword').addEventListener('input', function(e) {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = e.target.value;
+
+            if (confirmPassword && newPassword !== confirmPassword) {
+                e.target.classList.add('is-invalid');
+                e.target.classList.remove('is-valid');
+            } else if (confirmPassword && newPassword === confirmPassword) {
+                e.target.classList.remove('is-invalid');
+                e.target.classList.add('is-valid');
+            } else {
+                e.target.classList.remove('is-invalid', 'is-valid');
+            }
+        });
+
+        // Auto-hide flash messages after 5 seconds
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                alert.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                alert.style.opacity = '0';
+                alert.style.transform = 'translateY(-20px)';
+                setTimeout(function() {
+                    alert.remove();
+                }, 500);
+            });
+        }, 5000);
+
+        // Smooth scroll to error fields
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstError = document.querySelector('.is-invalid');
+            if (firstError) {
+                setTimeout(() => {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

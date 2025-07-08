@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="utf-8">
+    <title>Agri Smart - Client Profile</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    
+    <!-- Favicon -->
+    <link href="/static/images/honeybeeHavenLogo.svg" rel="icon">
+
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #f39c12;
+            --secondary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --background-light: #f8f9fa;
+            --white: #ffffff;
+            --border-light: #e9ecef;
+            --shadow-light: 0 2px 10px rgba(0,0,0,0.08);
+            --shadow-medium: 0 5px 20px rgba(0,0,0,0.15);
+            --gradient-primary: linear-gradient(135deg, #27ae60, #2ecc71);
+            --gradient-secondary: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--white);
+            box-shadow: var(--shadow-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .brand-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+        }
+
+        .brand-subtitle {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-medium);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            background: var(--gradient-primary);
+            padding: 3rem 2rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="white" opacity="0.1"><polygon points="0,0 1000,0 1000,80 0,100"/></svg>');
+            background-size: cover;
+        }
+
+        .profile-avatar {
+            position: relative;
+            margin-bottom: 1rem;
+            z-index: 2;
+        }
+
+        .avatar-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid var(--white);
+            box-shadow: var(--shadow-medium);
+            object-fit: cover;
+        }
+
+        .profile-name {
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-type {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-action {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-message {
+            background: var(--white);
+            color: var(--primary-color);
+            box-shadow: var(--shadow-light);
+        }
+
+        .btn-message:hover {
+            background: var(--background-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            color: var(--primary-color);
+        }
+
+        .btn-report {
+            background: rgba(255,255,255,0.2);
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-report:hover {
+            background: rgba(255,255,255,0.3);
+            border-color: var(--white);
+            transform: translateY(-2px);
+            color: var(--white);
+        }
+
+        /* Info Grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .info-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-light);
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+
+        .info-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-value {
+            color: var(--text-light);
+            font-weight: 500;
+            text-align: right;
+            max-width: 200px;
+            word-wrap: break-word;
+        }
+
+        .status-badge {
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: var(--white);
+        }
+
+        /* Contact Card Special Styling */
+        .contact-card {
+            background: var(--gradient-secondary);
+            color: var(--white);
+        }
+
+        .contact-card .info-title {
+            color: var(--white);
+        }
+
+        .contact-card .info-label {
+            color: rgba(255,255,255,0.9);
+        }
+
+        .contact-card .info-value {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .contact-card .info-item {
+            border-bottom-color: rgba(255,255,255,0.2);
+        }
+
+        .contact-card .info-icon {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .brand-title {
+                font-size: 1.5rem;
+            }
+
+            .main-container {
+                padding: 0 1rem;
+            }
+
+            .profile-header {
+                padding: 2rem 1rem 1rem;
+            }
+
+            .profile-name {
+                font-size: 1.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-action {
+                width: 200px;
+                justify-content: center;
+            }
+
+            .info-card {
+                padding: 1.5rem;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .info-value {
+                text-align: left;
+                max-width: 100%;
+            }
+        }
+
+        /* Loading animation for images */
+        .avatar-loading {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+
+<body>
+     {%include 'navbar.html'%}
+  
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img 
+                        src="{{ url_for('get_client_image', client_id=client.userid) if client.userid else '/static/images/default-user.jpg' }}" 
+                        alt="{{ client.name }}" 
+                        class="avatar-img"
+                        onerror="this.src='/static/images/default-user.jpg'"
+                    />
+                </div>
+                <h2 class="profile-name">{{ client.name }}</h2>
+                <p class="profile-type">
+                    <i class="fas fa-user-tag"></i>
+                    Registered Client Account
+                </p>
+                <div class="action-buttons">
+                    <button class="btn-action btn-message"  onclick="sendMessage()">
+                        <i class="fas fa-comment-dots"></i>
+                        Message
+                    </button>
+                    <button  class="btn btn-outline-danger " onclick="reportClient()">
+                        <i class="fas fa-flag"></i>
+                        Report
+                    </button>
+                </div>
+            </div>
+        </div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">{{ message }}</div>
+            {% elif category == 'success' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: #16a34a;">{{ message }}</div>
+            {% elif category == 'info' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #2563eb;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Error handling from backend -->
+{% if error == 1 %}
+    <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">
+        {{ error_message or "Invalid email or password. Please try again." }}
+    </div>
+{% endif %}
+        <!-- Information Grid -->
+        <div class="info-grid">
+            <!-- Personal Information -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3 class="info-title">Personal Information</h3>
+                </div>
+                <div class="info-content">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-calendar-alt"></i>
+                            Age
+                        </span>
+                        <span class="info-value">{{ client.age or 'Not specified' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-venus-mars"></i>
+                            Gender
+                        </span>
+                        <span class="info-value">{{ client.gender|title or 'Not specified' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Primary Location
+                        </span>
+                        <span class="info-value">{{ client.primarylocation or 'Not specified' }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="info-card contact-card">
+                <div class="info-card-header">
+                    <div class="info-icon">
+                        <i class="fas fa-address-book"></i>
+                    </div>
+                    <h3 class="info-title">Contact Information</h3>
+                </div>
+                <div class="info-content">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-envelope"></i>
+                            Email Address
+                        </span>
+                        <span class="info-value">{{ client.email }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-home"></i>
+                            Address
+                        </span>
+                        <span class="info-value">{{ client.address or 'Not specified' }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Information -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="info-title">Account Information</h3>
+                </div>
+                <div class="info-content">
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-calendar-check"></i>
+                            Member Since
+                        </span>
+                        <span class="info-value">{{ client.datejoined or 'Not available' }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-id-badge"></i>
+                            User ID
+                        </span>
+                        <span class="info-value">#{{ client.userid }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">
+                            <i class="fas fa-check-circle"></i>
+                            Status
+                        </span>
+                        <span class="info-value">
+                            <span class="status-badge">Active</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      {%include 'footer.html'%}
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+   
+const clientId = {{ client.userid  if  client else 'null' }};
+  async function checkUserAuthentication() {
+    try {
+        const response = await fetch('/api/user-data'); // Fixed path
+        return response.ok;
+    } catch (error) {
+        return false;
+    }
+}
+
+async function checkReportStatus(clientId) {
+            try {
+                const response = await fetch(`/api/check-report-status/client/${clientId}`);
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                return { can_report: true, message: 'Error checking status' };
+            }
+        }
+     
+
+async function sendMessage() {
+    // Check if user is authenticated
+    const isAuthenticated = await checkUserAuthentication();
+    if (!isAuthenticated) {
+        alert('Please log in to send messages.');
+        window.location.href = '/login'; // Fixed path
+        return;
+    }
+
+    if (!clientId) {
+        alert('Client information not available.');
+        return;
+    }
+
+    try {
+        // Start conversation with business
+        const response = await fetch(`/start_conversation/client/${clientId}`, { // Fixed path
+            method: 'GET',
+            credentials: 'same-origin'
+        });
+
+        if (response.ok) {
+            // Redirect to the conversation
+            window.location.href = response.url;
+        } else {
+            alert('Unable to start conversation. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error starting conversation:', error);
+        alert('Error starting conversation. Please try again.');
+    }
+}
+
+        async function reportClient() {
+            // Check if user is authenticated
+            const isAuthenticated = await checkUserAuthentication();
+            if (!isAuthenticated) {
+                alert('Please log in to report this Client.');
+                window.location.href = '/HoneyBeeHaven/login';
+                return;
+            }
+
+            if (!clientId) {
+                alert('Client information not available.');
+                return;
+            }
+
+            // Check if user has already reported this business
+            const reportStatus = await checkReportStatus(clientId);
+            if (!reportStatus.can_report) {
+                alert('You have already reported this Client.');
+                return;
+            }
+
+            // Confirm before proceeding
+            if (confirm('Are you sure you want to report this Client? This action will be reviewed by our moderation team.')) {
+                // Redirect to report form
+                window.location.href = `/reportClient/${clientId}`;
+            }
+        }
+
+ document.addEventListener('DOMContentLoaded', function() {
+            // Update report button based on user status
+            updateReportButton();
+        });
+
+        async function updateReportButton() {
+            const reportButton = document.querySelector('button[onclick="reportClient()"]');
+            if (!reportButton || !clientId) return;
+
+            const isAuthenticated = await checkUserAuthentication();
+            if (!isAuthenticated) {
+                reportButton.innerHTML = '<i class="fas fa-flag me-2"></i>Login to Report';
+                return;
+            }
+
+            const reportStatus = await checkReportStatus(clientId);
+            if (!reportStatus.can_report) {
+                reportButton.innerHTML = '<i class="fas fa-check me-2"></i>Already Reported';
+                reportButton.disabled = true;
+                reportButton.classList.add('btn-secondary');
+                reportButton.classList.remove('btn-outline-danger');
+            }
+        }
+
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    
+
+
+
+        // Add smooth scrolling and loading animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate cards on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all info cards
+            document.querySelectorAll('.info-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    
+    
+    
+    </script>
+</body>
+</html>

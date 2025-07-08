@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Agri Smart - Client Dashboard</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Agri Smart Client Dashboard" name="description" />
+    
+  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #2E7D32;
+            --secondary-green: #4CAF50;
+            --light-green: #A5D6A7;
+            --accent-green: #66BB6A;
+            --dark-green: #1B5E20;
+            --pure-white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --light-gray: #E8F5E8;
+            --text-dark: #2E2E2E;
+            --text-gray: #666666;
+            --border-light: #E0E0E0;
+            --shadow-light: 0 4px 20px rgba(76, 175, 80, 0.08);
+            --shadow-medium: 0 8px 30px rgba(76, 175, 80, 0.12);
+            --shadow-strong: 0 12px 40px rgba(76, 175, 80, 0.15);
+            --gradient-green: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+            --gradient-light: linear-gradient(135deg, #F8F9FA 0%, #E8F5E8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--gradient-light);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* === NAVBAR PLACEHOLDER === */
+        .navbar-placeholder {
+            height: 80px;
+            background: var(--primary-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-light);
+        }
+
+        /* Main Content Container */
+        .main-content {
+            padding: 2rem 0;
+            min-height: calc(100vh - 280px);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: var(--pure-white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--light-gray);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .page-subtitle {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            background: var(--pure-white);
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--light-gray);
+            transition: all 0.3s ease;
+        }
+
+        .profile-section:hover {
+            box-shadow: var(--shadow-strong);
+            transform: translateY(-2px);
+        }
+
+        .profile-image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary-green);
+            box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease;
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-green);
+        }
+
+        .profile-buttons {
+            margin-top: 1.5rem;
+        }
+
+        .profile-btn {
+            background: var(--gradient-green);
+            border: none;
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 500;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+            color: white;
+            background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+        }
+
+        .profile-btn i {
+            margin-right: 0.5rem;
+        }
+
+        /* Profile Information */
+        .profile-info-header {
+            color: var(--primary-green);
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .profile-table {
+            background: var(--pure-white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            border: 1px solid var(--border-light);
+        }
+
+        .profile-table th {
+            background: var(--gradient-green);
+            color: white;
+            border: none;
+            padding: 1.2rem 1.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            width: 35%;
+        }
+
+        .profile-table td {
+            padding: 1.2rem 1.5rem;
+            border: none;
+            border-bottom: 1px solid var(--light-gray);
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .profile-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .profile-table th i {
+            color: var(--light-green);
+            margin-right: 0.5rem;
+            width: 16px;
+        }
+
+        /* Products Section */
+        .products-section {
+            padding: 1rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .section-title i {
+            color: var(--secondary-green);
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Product Cards */
+        .product-card {
+            background: var(--pure-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            height: 100%;
+            border: 1px solid var(--light-gray);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-strong);
+            border-color: var(--light-green);
+        }
+
+        .product-header {
+            background: var(--gradient-green);
+            color: white;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-category {
+            font-weight: 600;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .product-category i {
+            color: var(--light-green);
+        }
+
+        .product-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-body {
+            padding: 1.8rem;
+        }
+
+        .product-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+            flex: 1;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--secondary-green);
+            margin-left: 1rem;
+        }
+
+        .product-id {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+        }
+
+        .product-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--off-white);
+            border-radius: 10px;
+            border: 1px solid var(--light-gray);
+        }
+
+        .stock-info {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .stock-count {
+            font-weight: 600;
+            color: var(--primary-green);
+        }
+
+        .rating {
+            color: var(--secondary-green);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .rating i {
+            color: #FFC107;
+        }
+
+        .view-btn {
+            background: var(--gradient-green);
+            border: none;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            color: white;
+            background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+        }
+
+        .view-btn i {
+            margin-right: 0.5rem;
+        }
+
+        /* === FOOTER PLACEHOLDER === */
+        .footer-placeholder {
+            height: 200px;
+            background: var(--dark-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 50px;
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem 0;
+            }
+
+            .page-header {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .profile-section {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .product-card {
+                margin-bottom: 1.5rem;
+            }
+
+            .product-body {
+                padding: 1.5rem;
+            }
+
+            .product-header-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+
+            .product-price {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .profile-section {
+                padding: 1rem;
+            }
+            
+            .profile-btn {
+                display: block;
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+
+            .profile-table th,
+            .profile-table td {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .product-stats {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Hover Effects */
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Category Icons */
+        .category-chemical::before { content: '\f0c3'; }
+        .category-machinery::before { content: '\f085'; }
+        .category-default::before { content: '\f4d8'; }
+    
+    </style>
+</head>
+
+<body>
+    <!-- === ADD NAVBAR HERE === -->
+    {% include 'navbar.html '%}
+
+    <!-- Main Content -->
+    <div class="container main-content loading">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-tachometer-alt"></i>
+                Client Dashboard
+            </h1>
+            <p class="page-subtitle">Welcome to your agricultural management hub</p>
+        </div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">{{ message }}</div>
+            {% elif category == 'success' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: #16a34a;">{{ message }}</div>
+            {% elif category == 'info' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #2563eb;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Error handling from backend -->
+{% if error == 1 %}
+    <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">
+        {{ error_message or "Invalid email or password. Please try again." }}
+    </div>
+{% endif %}
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="row align-items-center">
+                <div class="col-lg-4 col-md-12 text-center mb-4 mb-lg-0">
+                    <div class="profile-image-container">
+                        <img src="{{ client_data.image_url }}" alt="Client Profile" class="profile-image">
+                    </div>
+                    <div class="profile-buttons">
+                        <a href="/HoneyBeeHaven/edit_client" class="profile-btn hover-lift">
+                            <i class="fas fa-edit"></i>Edit Profile
+                        </a>
+                      
+                       
+
+                    </div>
+                </div>
+                
+                <div class="col-lg-8 col-md-12">
+                    <h2 class="profile-info-header">
+                        <i class="fas fa-user-circle"></i>Profile Information
+                    </h2>
+                    <div class="table-responsive">
+                        <table class="table profile-table">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        <i class="fas fa-id-card"></i>Client ID
+                                    </th>
+                                    <td><strong>CL{{ client_data.userid }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <i class="fas fa-user"></i>Full Name
+                                    </th>
+                                    <td><strong>{{ client_data.name }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <i class="fas fa-map-marker-alt"></i>Address
+                                    </th>
+                                    <td>{{ client_data.address }}</td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <i class="fas fa-envelope"></i>Email
+                                    </th>
+                                    <td>{{ client_data.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <i class="fas fa-venus-mars"></i>Gender
+                                    </th>
+                                    <td>{{ client_data.gender.title() if client_data.gender else 'Not specified' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <i class="fas fa-birthday-cake"></i>Age
+                                    </th>
+                                    <td>{{ client_data.age if client_data.age else 'Not specified' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="products-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i>
+                    Sponsored Products
+                </h2>
+                <p class="section-description">
+                    Discover our premium collection of agricultural products, carefully curated to meet your farming needs and boost your productivity.
+                </p>
+            </div>
+
+            <div class="row">
+                {% for product in sponsored_products %}
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <span class="product-category">
+                                <i class="fas fa-{{ 'flask' if product.category == 'Chemical' else 'cogs' if product.category == 'Machinery' else 'seedling' }}"></i>
+                                {{ product.category }}
+                            </span>
+                        </div>
+                        <div class="product-image-container">
+                            <img src="{{ product.image_url }}" alt="{{ product.itemname }}" class="product-image">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-header-row">
+                                <h5 class="product-title">{{ product.itemname }}</h5>
+                                <span class="product-price">{{ product.formatted_price }}</span>
+                            </div>
+                            <p class="product-id">
+                                <strong>Product ID:</strong> {{ product.category[:3].upper() }}{{ product.itemid }}
+                            </p>
+                            <div class="product-stats">
+                                <span class="stock-info">
+                                    <strong>Stock:</strong> 
+                                    <span class="stock-count">{{ product.quantityinstock if product.quantityinstock else 'Available' }}</span>
+                                </span>
+                                <span class="rating">
+                                    {{ product.formatted_rating }} <i class="fas fa-star"></i>
+                                </span>
+                            </div>
+                            <a href="/HoneyBeeHaven/view_product?id={{ product.itemid }}&type={{ product.category.lower() }}" class="view-btn">
+                                <i class="fas fa-eye"></i>View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- === ADD FOOTER HERE === -->
+    {% include 'footer.html '%}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Handle logout functionality
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('honeyBeeUser');
+                
+                document.cookie = "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "user_email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "user_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "user_type=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                
+                window.location.href = '/HoneyBeeHaven/logout';
+            }
+        }
+
+        // Add loading animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingElements = document.querySelectorAll('.loading');
+            loadingElements.forEach(element => {
+                element.style.opacity = '1';
+            });
+        });
+
+        // Add smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced product card interactions
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add parallax effect to profile image
+        document.addEventListener('mousemove', function(e) {
+            const profileImage = document.querySelector('.profile-image');
+            if (profileImage) {
+                const rect = profileImage.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const deltaX = (e.clientX - centerX) / 50;
+                const deltaY = (e.clientY - centerY) / 50;
+                
+                profileImage.style.transform = `scale(1.05) translate(${deltaX}px, ${deltaY}px)`;
+            }
+        });
+
+        // Reset profile image position when mouse leaves
+        document.addEventListener('mouseleave', function() {
+            const profileImage = document.querySelector('.profile-image');
+            if (profileImage) {
+                profileImage.style.transform = 'scale(1)';
+            }
+        });
+    </script>
+</body>
+</html>

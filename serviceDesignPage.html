@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Smart - Service Details</title>
+    <link rel="shortcut icon" type="x-icon" href="../static/images/honeybeeHavenLogo.svg"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f9f0 50%, #ffffff 100%);
+            min-height: 100vh;
+            color: #2d5016;
+            line-height: 1.6;
+        }
+
+        /* Navbar placeholder */
+        .navbar-placeholder {
+            height: 80px;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c23 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(45, 80, 22, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .breadcrumb {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(45, 80, 22, 0.05);
+        }
+
+        .breadcrumb a {
+            color: #6ba832;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .breadcrumb a:hover {
+            color: #4a7c23;
+        }
+
+        .product-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(45, 80, 22, 0.1);
+            overflow: hidden;
+            border: 1px solid #e5f3e5;
+            margin-bottom: 3rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .product-image-section {
+            padding: 2rem;
+            background: #f8fdf8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info-section {
+            padding: 3rem;
+        }
+
+        .service-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #6ba832 0%, #4a7c23 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #2d5016;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .rating-stars {
+            color: #f59e0b;
+            font-size: 1.2rem;
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .rating-text {
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .price-section {
+            background: #f8fdf8;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 2px solid #e5f3e5;
+        }
+
+        .price-tag {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4a7c23;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .price-unit {
+            font-size: 1.2rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        .product-description {
+            color: #4b5563;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .service-details {
+            background: #f8fdf8;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #e5f3e5;
+        }
+
+        .details-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5f3e5;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .detail-value {
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .business-link {
+            color: #4a7c23;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .business-link:hover {
+            color: #2d5016;
+            text-decoration: none;
+        }
+
+        .booking-section {
+            background: white;
+            border: 2px solid #6ba832;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .booking-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-section {
+            margin-bottom: 2rem;
+        }
+
+        .quantity-label {
+            display: block;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .quantity-btn {
+            background: #6ba832;
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .quantity-btn:hover {
+            background: #4a7c23;
+            transform: scale(1.1);
+        }
+
+        .quantity-input {
+            width: 100px;
+            height: 50px;
+            text-align: center;
+            border: 2px solid #e5f3e5;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d5016;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: #6ba832;
+            box-shadow: 0 0 0 3px rgba(107, 168, 50, 0.1);
+        }
+
+        .book-service-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #6ba832 0%, #4a7c23 100%);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-service-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(107, 168, 50, 0.4);
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .reviews-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 50px rgba(45, 80, 22, 0.1);
+            border: 1px solid #e5f3e5;
+        }
+
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f4f0;
+        }
+
+        .reviews-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2d5016;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .write-review-btn {
+            background: #6ba832;
+            color: white;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .write-review-btn:hover {
+            background: #4a7c23;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        .review-item {
+            background: #fafdfb;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 16px;
+            border-left: 4px solid #6ba832;
+            transition: all 0.3s ease;
+        }
+
+        .review-item:hover {
+            background: white;
+            box-shadow: 0 8px 25px rgba(45, 80, 22, 0.1);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .review-meta {
+            flex: 1;
+        }
+
+        .review-rating {
+            color: #f59e0b;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .review-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d5016;
+            margin-bottom: 0.25rem;
+        }
+
+        .review-date {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .report-btn {
+            background: none;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .report-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .review-text {
+            color: #4b5563;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .empty-reviews {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #6b7280;
+        }
+
+        .empty-reviews i {
+            font-size: 3rem;
+            color: #d1d5db;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer placeholder */
+        .footer-placeholder {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c23 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Alert messages */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            min-width: 300px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.6;
+            margin-left: auto;
+        }
+
+        .btn-close:hover {
+            opacity: 1;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image-container {
+                height: 300px;
+            }
+
+            .product-info-section {
+                padding: 2rem;
+            }
+            
+            .product-title {
+                font-size: 1.8rem;
+            }
+            
+            .price-tag {
+                font-size: 2rem;
+            }
+
+            .reviews-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .quantity-controls {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .quantity-input {
+                width: 150px;
+            }
+
+            .alert {
+                position: relative;
+                top: auto;
+                right: auto;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Placeholder -->
+    {%include 'navbar.html' %}
+
+    <div class="container">
+        <!-- Breadcrumb -->
+       
+
+        <!-- Product Container -->
+        <div class="product-container">
+            <div class="product-grid">
+                <!-- Product Image Section -->
+                <div class="product-image-section">
+                    <div class="product-image-container">
+                        <img class="product-image" src="{{ product.image_url or '../static/images/placeholder-service.jpg' }}" alt="{{ product.itemname or 'Service' }}"/>
+                    </div>
+                </div>
+                
+                <!-- Product Info Section -->
+                <div class="product-info-section">
+                    <div class="service-badge">
+                        <i class="fas fa-tools"></i>
+                        Professional Agricultural Service
+                    </div>
+
+                    <h1 class="product-title">{{ product.itemname or 'Professional Beekeeping Service' }}</h1>
+                    
+                    <!-- Rating -->
+                    <div class="rating-section">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="rating-text">{{ product.formatted_rating or '4.5' }} ({{ product.review_count or 0 }} reviews)</span>
+                    </div>
+                    
+                    <!-- Price -->
+                    <div class="price-section">
+                        <div class="price-tag">
+                            $ {{ "%.2f"|format(product.item_price) if product.item_price else '100.00' }}
+                            <span class="price-unit">/hour</span>
+                        </div>
+                        <p class="price-note">Professional hourly rate for quality agricultural services</p>
+                    </div>
+                    
+                    <!-- Description -->
+                    <p class="product-description">{{ product.itemdescription or 'Professional beekeeping service providing expert care for your hive operations, maintenance, and agricultural consultation.' }}</p>
+                    
+                    <!-- Service Details -->
+                    <div class="service-details">
+                        <h3 class="details-title">
+                            <i class="fas fa-info-circle"></i>
+                            Service Details
+                        </h3>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-cogs"></i>
+                                Service Type
+                            </span>
+                            <span class="detail-value">{{ product.servicetype or 'General Agricultural Service' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-dollar-sign"></i>
+                                Base Charges
+                            </span>
+                            <span class="detail-value">$ {{ product.basecharges or '50' }}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">
+                                <i class="fas fa-user-tie"></i>
+                                Service Provider
+                            </span>
+                            <a href="/HoneyBeeHaven/view_business?userid={{ product.business_userid }}" class="business-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i>
+                                {{ product.businessname or 'Professional Service Provider' }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Booking Section -->
+        <div class="booking-section">
+            <h2 class="booking-title">
+                <i class="fas fa-calendar-check"></i>
+                Book This Service
+            </h2>
+            
+            <div class="quantity-section">
+                <label class="quantity-label">Number of Hours Required</label>
+                <div class="quantity-controls">
+                    <button type="button" class="quantity-btn" onclick="decreaseQuantity()">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <input type="number" 
+                           id="quantityToOrder" 
+                           name="qty" 
+                           class="quantity-input"
+                           min="1" 
+                           value="1" 
+                           required>
+                    <button type="button" class="quantity-btn" onclick="increaseQuantity()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <button type="button" id="addToCartBtn" class="book-service-btn" onclick="addToCart()">
+                <div class="loading-spinner" id="loadingSpinner"></div>
+                <span id="buttonText">
+                    <i class="fas fa-calendar-plus"></i>
+                    Book Service Now
+                </span>
+            </button>
+        </div>
+        
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+            <div class="reviews-header">
+                <h2 class="reviews-title">
+                    <i class="fas fa-star"></i>
+                    Customer Reviews
+                </h2>
+              
+            </div>
+            
+            <div class="reviews-container">
+                {% if reviews %}
+                    {% for review in reviews %}
+                    <div class="review-item">
+                        <div class="review-header">
+                            <div class="review-meta">
+                                <div class="review-rating">
+                                    {% for i in range(1, 6) %}
+                                        {% if i <= (review.rating or 0) %}
+                                            <i class="fas fa-star"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <h4 class="review-title">{{ review.title or 'Customer Review' }}</h4>
+                                <p class="review-date">{{ review.date or 'Date not available' }}</p>
+                            </div>
+                            <button class="report-btn" onclick="reportReview({{ review.reviewid }})">
+                                <i class="fas fa-flag"></i> Report
+                            </button>
+                        </div>
+                        <p class="review-text">{{ review.text or 'Review text not available.' }}</p>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-reviews">
+                        <i class="fas fa-comment-slash"></i>
+                        <h3>No reviews yet</h3>
+                        <p>Be the first to review this agricultural service and help others make informed decisions!</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Placeholder -->
+   {% include 'footer.html' %}
+    <script>
+        window.productId = {{ product.itemid }};
+
+        function increaseQuantity() {
+            const input = document.getElementById('quantityToOrder');
+            const currentValue = parseInt(input.value) || 1;
+            input.value = currentValue + 1;
+        }
+
+        function decreaseQuantity() {
+            const input = document.getElementById('quantityToOrder');
+            const currentValue = parseInt(input.value) || 1;
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+            }
+        }
+
+        function reportReview(reviewId) {
+            if (confirm('Are you sure you want to report this review as inappropriate?')) {
+                window.location.href = `/HoneyBeeHaven/reportreview?reviewid=${reviewId}`;
+            }
+        }
+
+        async function addToCart() {
+            const button = document.getElementById('addToCartBtn');
+            const buttonText = document.getElementById('buttonText');
+            const spinner = document.getElementById('loadingSpinner');
+            const quantity = parseInt(document.getElementById('quantityToOrder').value);
+
+            // Show loading state
+            button.disabled = true;
+            spinner.style.display = 'inline-block';
+            buttonText.innerHTML = 'Booking Service...';
+
+            try {
+                const response = await fetch('/api/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        item_id: window.productId,
+                        item_type: 'service',
+                        quantity: quantity
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Success feedback
+                    buttonText.innerHTML = '<i class="fas fa-check"></i> Service Booked!';
+                    button.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                    
+                    // Show success message
+                    showNotification('Service booked successfully! Check your cart for details.', 'success');
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        buttonText.innerHTML = '<i class="fas fa-calendar-plus"></i> Book Service Now';
+                        button.style.background = '';
+                        button.disabled = false;
+                    }, 3000);
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                console.error('Error booking service:', error);
+                showNotification(error.message || 'Error booking service. Please try again.', 'error');
+                
+                // Reset button
+                buttonText.innerHTML = '<i class="fas fa-calendar-plus"></i> Book Service Now';
+                button.disabled = false;
+            } finally {
+                spinner.style.display = 'none';
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `alert alert-${type === 'error' ? 'error' : type === 'success' ? 'success' : 'info'}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                ${message}
+                <button type="button" class="btn-close" onclick="this.parentElement.remove()">×</button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Ensure quantity input only accepts positive numbers
+        document.getElementById('quantityToOrder').addEventListener('input', function() {
+            if (this.value < 1) {
+                this.value = 1;
+            }
+        });
+
+        // Add entrance animations
+        window.addEventListener('load', function() {
+            const elements = document.querySelectorAll('.product-container, .booking-section, .reviews-section');
+            elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    element.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, 200 * (index + 1));
+            });
+        });
+    </script>
+</body>
+</html>

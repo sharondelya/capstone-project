@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Subscriptions - Agri Smart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <style>
+        :root {
+            --primary-green: #2d5016;
+            --light-green: #4a7c23;
+            --accent-green: #6b9c35;
+            --sage-green: #8fbc8f;
+            --mint-green: #98fb98;
+            --cream-white: #fdfdf5;
+            --soft-white: #f8f9fa;
+            --gold: #ffc107;
+            --success: #28a745;
+            --danger: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--cream-white) 0%, #f0f8e8 100%);
+            color: var(--primary-green);
+            line-height: 1.6;
+        }
+
+        /* Header Section */
+        .header-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 50%, var(--accent-green) 100%);
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><path d="M0,100 C150,200 350,0 500,100 C650,200 850,0 1000,100 L1000,200 L0,200 Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat center bottom;
+            background-size: 100% 100px;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .new-subscription-btn {
+            background: linear-gradient(135deg, var(--gold), #e0a800);
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            color: var(--primary-green);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.4);
+            text-decoration: none;
+        }
+
+        .new-subscription-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 193, 7, 0.5);
+            color: var(--primary-green);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 3rem 0;
+            position: relative;
+            margin-top: -2rem;
+            z-index: 10;
+        }
+
+        /* Subscription Cards */
+        .subscription-card {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.1);
+            margin-bottom: 3rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .subscription-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(45, 80, 22, 0.15);
+            border-color: var(--accent-green);
+        }
+
+        .subscription-header {
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--light-green) 100%);
+            color: white;
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .subscription-header.expired {
+            background: linear-gradient(135deg, var(--danger) 0%, #c82333 100%);
+        }
+
+        .subscription-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100"><path d="M0,0 C250,50 750,50 1000,0 L1000,100 L0,100 Z" fill="white"/></svg>');
+        }
+
+        .plan-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .plan-icon {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+        }
+
+        .plan-dates {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .status-badge {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-active {
+            background: linear-gradient(135deg, var(--success), #20c997);
+            color: white;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .status-expired {
+            background: linear-gradient(135deg, var(--danger), #e85563);
+            color: white;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .subscription-body {
+            padding: 3rem;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: linear-gradient(135deg, #f8fff8 0%, #f0f8f0 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border-left: 5px solid var(--accent-green);
+        }
+
+        .progress-title {
+            color: var(--primary-green);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .progress-container {
+            background: #e9ecef;
+            border-radius: 15px;
+            height: 15px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-custom {
+            background: linear-gradient(135deg, var(--accent-green), var(--success));
+            height: 100%;
+            border-radius: 15px;
+            transition: width 0.6s ease;
+            position: relative;
+        }
+
+        .progress-bar-custom::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .progress-text {
+            color: var(--sage-green);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .plan-details {
+            background: linear-gradient(135deg, #fff 0%, #f8fff8 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid #e8f5e8;
+        }
+
+        .plan-details h6 {
+            color: var(--primary-green);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .plan-feature {
+            color: var(--light-green);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .plan-feature i {
+            color: var(--gold);
+            margin-right: 0.5rem;
+        }
+
+        /* Product Grids */
+        .products-section {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            color: var(--primary-green);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 0.5rem;
+            color: var(--accent-green);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .product-card.sponsored {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, #fff8e1 0%, #fffef7 100%);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+        }
+
+        .product-card:hover {
+            border-color: var(--accent-green);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-card h6 {
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-type {
+            color: var(--sage-green);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-price {
+            color: var(--accent-green);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-sponsor {
+            background: linear-gradient(135deg, var(--gold), #e0a800);
+            border: none;
+            color: var(--primary-green);
+            border-radius: 15px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-sponsor:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 193, 7, 0.4);
+            color: var(--primary-green);
+        }
+
+        .btn-unsubscribe {
+            background: linear-gradient(135deg, var(--danger), #c82333);
+            border: none;
+            color: white;
+            border-radius: 15px;
+            padding: 10px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-unsubscribe:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(220, 53, 69, 0.4);
+            color: white;
+        }
+
+        .sponsored-badge {
+            background: linear-gradient(135deg, var(--gold), #e0a800);
+            color: var(--primary-green);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        /* No Subscriptions */
+        .no-subscriptions {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(45, 80, 22, 0.1);
+        }
+
+        .no-subscriptions-icon {
+            font-size: 5rem;
+            color: var(--sage-green);
+            margin-bottom: 2rem;
+        }
+
+        .no-subscriptions h3 {
+            color: var(--primary-green);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .no-subscriptions p {
+            color: var(--sage-green);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .choose-plan-btn {
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(107, 156, 53, 0.3);
+            text-decoration: none;
+        }
+
+        .choose-plan-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(107, 156, 53, 0.4);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2.2rem;
+            }
+
+            .subscription-card {
+                margin-bottom: 2rem;
+            }
+
+            .subscription-header,
+            .subscription-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .plan-title {
+                font-size: 1.7rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar will be added here -->
+    {%include 'navbar.html' %}
+    <!-- Header Section -->
+    <div class="header-section">
+        <div class="container">
+            <div class="header-content">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h1 class="header-title">
+                            <i class="fas fa-crown"></i> My Subscriptions
+                        </h1>
+                        <p class="header-subtitle">Manage your sponsorship plans and boost your product visibility</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <a href="/HoneyBeeHaven/promote" class="new-subscription-btn">
+                            <i class="fas fa-plus me-2"></i>New Subscription
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            {% if subscriptions %}
+                {% for subscription in subscriptions %}
+                <div class="subscription-card">
+                    <div class="subscription-header {% if subscription.expired %}expired{% endif %}">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h4 class="plan-title">
+                                    {% if subscription.subtype == 1 %}
+                                        <i class="fas fa-seedling plan-icon"></i>Basic Plan
+                                    {% elif subscription.subtype == 2 %}
+                                        <i class="fas fa-leaf plan-icon"></i>Premium Plan
+                                    {% else %}
+                                        <i class="fas fa-tree plan-icon"></i>Platinum Plan
+                                    {% endif %}
+                                </h4>
+                                <p class="plan-dates mb-0">
+                                    <i class="fas fa-calendar me-2"></i> 
+                                    {{ subscription.startdate }} - {{ subscription.enddate }}
+                                </p>
+                            </div>
+                            <div class="col-md-4 text-end">
+                                <span class="status-badge {% if subscription.expired %}status-expired{% else %}status-active{% endif %}">
+                                    {% if subscription.expired %}
+                                        <i class="fas fa-times-circle me-2"></i>Expired
+                                    {% else %}
+                                        <i class="fas fa-check-circle me-2"></i>Active
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="subscription-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="progress-section">
+                                    <h6 class="progress-title">
+                                        <i class="fas fa-chart-pie me-2"></i>Products Sponsored
+                                    </h6>
+                                    <div class="progress-container">
+                                        <div class="progress-bar-custom" style="width: {{ (subscription.sponsored_products_used / subscription.sponsored_products_limit * 100)|round }}%"></div>
+                                    </div>
+                                    <p class="progress-text">
+                                        <strong>{{ subscription.sponsored_products_used }}</strong> of <strong>{{ subscription.sponsored_products_limit }}</strong> products sponsored
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="plan-details">
+                                    <h6><i class="fas fa-info-circle me-2"></i>Plan Details</h6>
+                                    <div class="plan-feature">
+                                        <i class="fas fa-star"></i>
+                                        Sponsor up to {{ subscription.sponsored_products_limit }} products
+                                    </div>
+                                    <div class="plan-feature">
+                                        <i class="fas fa-rocket"></i>
+                                        {% if subscription.subtype == 1 %}Basic visibility boost
+                                        {% elif subscription.subtype == 2 %}Maximum visibility boost
+                                        {% else %}Premium visibility boost{% endif %}
+                                    </div>
+                                    <div class="plan-feature">
+                                        <i class="fas fa-clock"></i>
+                                        {% if subscription.subtype == 1 %}30-day duration
+                                        {% elif subscription.subtype == 2 %}60-day duration
+                                        {% else %}90-day duration{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if not subscription.expired and subscription.sponsored_products_used < subscription.sponsored_products_limit %}
+                        <div class="products-section">
+                            <h6 class="section-title">
+                                <i class="fas fa-shopping-cart"></i>Select Products to Sponsor
+                            </h6>
+                            <div class="product-grid" id="productGrid{{ subscription.subscriptionid }}">
+                                <!-- Products will be loaded here -->
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {% if subscription.sponsored_products_used > 0 %}
+                        <div class="products-section">
+                            <h6 class="section-title">
+                                <i class="fas fa-star"></i>Currently Sponsored Products
+                            </h6>
+                            <div class="product-grid" id="sponsoredGrid{{ subscription.subscriptionid }}">
+                                <!-- Sponsored products will be loaded here -->
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-subscriptions">
+                    <i class="fas fa-crown no-subscriptions-icon"></i>
+                    <h3>No Active Subscriptions</h3>
+                    <p>Start boosting your agricultural business visibility with our subscription plans</p>
+                    <a href="/HoneyBeeHaven/promote" class="choose-plan-btn">
+                        <i class="fas fa-rocket me-2"></i>Choose a Plan
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer will be added here -->
+    {%include 'footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Load products for each subscription
+        document.addEventListener('DOMContentLoaded', function() {
+            {% for subscription in subscriptions %}
+                {% if not subscription.expired %}
+                    loadAvailableProducts({{ subscription.subscriptionid }});
+                {% endif %}
+                {% if subscription.sponsored_products_used > 0 %}
+                    loadSponsoredProducts({{ subscription.subscriptionid }});
+                {% endif %}
+            {% endfor %}
+        });
+        
+        function loadAvailableProducts(subscriptionId) {
+            fetch(`/HoneyBeeHaven/api/available-products/${subscriptionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const grid = document.getElementById(`productGrid${subscriptionId}`);
+                    if (data.products && data.products.length > 0) {
+                        grid.innerHTML = data.products.map(product => `
+                            <div class="product-card">
+                                <h6>${product.itemname}</h6>
+                                <p class="product-type">${product.itemtype}</p>
+                                <p class="product-price">$${product.item_price}</p>
+                                <button class="btn btn-sponsor" onclick="sponsorProduct(${subscriptionId}, ${product.itemid}, '${product.itemtype}')">
+                                    <i class="fas fa-star me-2"></i>Sponsor Product
+                                </button>
+                            </div>
+                        `).join('');
+                    } else {
+                        grid.innerHTML = '<p class="text-muted text-center w-100">No products available for sponsorship</p>';
+                    }
+                });
+        }
+        
+        function loadSponsoredProducts(subscriptionId) {
+            fetch(`/HoneyBeeHaven/api/sponsored-products/${subscriptionId}`)
+                .then(response => response.json())
+                .then(data => {
+                    const grid = document.getElementById(`sponsoredGrid${subscriptionId}`);
+                    if (data.products && data.products.length > 0) {
+                        grid.innerHTML = data.products.map(product => `
+                            <div class="product-card sponsored">
+                                <span class="sponsored-badge">
+                                    <i class="fas fa-star me-1"></i>Sponsored
+                                </span>
+                                <h6>${product.itemname}</h6>
+                                <p class="product-type">${product.itemtype}</p>
+                                <p class="product-price">$${product.item_price}</p>
+                                <button class="btn btn-unsubscribe" onclick="unsponsorProduct(${subscriptionId}, ${product.itemid}, '${product.itemtype}')">
+                                    <i class="fas fa-times me-2"></i>Remove Sponsorship
+                                </button>
+                            </div>
+                        `).join('');
+                    }
+                });
+        }
+        
+        function sponsorProduct(subscriptionId, itemId, itemType) {
+            fetch('/HoneyBeeHaven/api/sponsor-product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    subscription_id: subscriptionId,
+                    item_id: itemId,
+                    item_type: itemType
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.error || 'Failed to sponsor product');
+                }
+            });
+        }
+        
+        function unsponsorProduct(subscriptionId, itemId, itemType) {
+            fetch('/HoneyBeeHaven/api/unsponsor-product', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    subscription_id: subscriptionId,
+                    item_id: itemId,
+                    item_type: itemType
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.error || 'Failed to remove sponsorship');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

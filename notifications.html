@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Smart - Notifications</title>
+    <link rel="shortcut icon" type="x-icon" href="../static/images/honeybeeHavenLogo.svg"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f9f0 50%, #ffffff 100%);
+            min-height: 100vh;
+            color: #2d5016;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Navbar placeholder */
+        .navbar-placeholder {
+            height: 80px;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c23 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(45, 80, 22, 0.2);
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(45, 80, 22, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4a7c23, #6ba832, #4a7c23);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2d5016;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #6b7280;
+            font-weight: 400;
+        }
+
+        .notifications-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(45, 80, 22, 0.1);
+            overflow: hidden;
+            border: 1px solid #e5f3e5;
+        }
+
+        .notifications-header {
+            background: linear-gradient(135deg, #f8fdf8 0%, #e8f5e8 100%);
+            padding: 2rem;
+            border-bottom: 2px solid #e5f3e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notifications-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d5016;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notification-count {
+            background: #4a7c23;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4a7c23 0%, #6ba832 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #6b7280;
+            border: 1px solid #e5e7eb;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(74, 124, 35, 0.25);
+        }
+
+        .notifications-body {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .notifications-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .notifications-body::-webkit-scrollbar-track {
+            background: #f1f5f1;
+        }
+
+        .notifications-body::-webkit-scrollbar-thumb {
+            background: #4a7c23;
+            border-radius: 3px;
+        }
+
+        .notification-item {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #f0f4f0;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-item:hover {
+            background: #fafdfb;
+            transform: translateX(5px);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .icon-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .icon-info {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+        }
+
+        .icon-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .notification-details {
+            flex: 1;
+        }
+
+        .notification-message {
+            font-size: 1rem;
+            color: #2d5016;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .notification-time {
+            font-size: 0.875rem;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notification-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .notification-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .delete-btn:hover {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #6b7280;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: #d1d5db;
+            margin-bottom: 1.5rem;
+        }
+
+        .empty-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-message {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #6b7280;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #e5e7eb;
+            border-top: 3px solid #4a7c23;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #ef4444;
+        }
+
+        .error-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .retry-btn {
+            background: #4a7c23;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .retry-btn:hover {
+            background: #3d6b1d;
+            transform: translateY(-2px);
+        }
+
+        /* Footer placeholder */
+        .footer-placeholder {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c23 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .notifications-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .action-btn {
+                justify-content: center;
+            }
+
+            .notification-item {
+                padding: 1rem;
+            }
+
+            .notification-content {
+                gap: 0.75rem;
+            }
+
+            .notification-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Success/Error messages */
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .alert-error {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .alert-dismissible {
+            position: relative;
+            padding-right: 3rem;
+        }
+
+        .alert .btn-close {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.6;
+        }
+
+        .alert .btn-close:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    
+   {%include 'navbar.html' %}
+
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-bell"></i>
+                Your Notifications
+            </h1>
+            <p class="page-subtitle">Stay updated with your agricultural activities and orders</p>
+        </div>
+
+        <!-- Notifications Container -->
+        <div class="notifications-container">
+            <div class="notifications-header">
+                <div>
+                    <h2 class="notifications-title">
+                        <i class="fas fa-inbox"></i>
+                        Notifications
+                        <span class="notification-count" id="notificationCount">0</span>
+                    </h2>
+                </div>
+                <div class="header-actions">
+                    <button class="action-btn btn-secondary" onclick="markAllAsRead()" id="markAllBtn">
+                        <i class="fas fa-check-double"></i>
+                        Mark All Read
+                    </button>
+                    <button class="action-btn btn-primary" onclick="deleteAllNotifications()" id="deleteAllBtn">
+                        <i class="fas fa-trash"></i>
+                        Clear All
+                    </button>
+                </div>
+            </div>
+
+            <div class="notifications-body" id="notificationsBody">
+                <!-- Loading state -->
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <p>Loading your notifications...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Placeholder -->
+     {%include 'footer.html' %}
+
+    <script>
+        let notifications = [];
+
+        // Check authentication
+        async function checkAuthentication() {
+            try {
+                const response = await fetch('/api/user-data');
+                if (!response.ok) {
+                    window.location.href = '/';
+                    return false;
+                }
+                return true;
+            } catch (error) {
+                console.error('Authentication check failed:', error);
+                window.location.href = '/';
+                return false;
+            }
+        }
+
+        // Load notifications
+        async function loadNotifications() {
+            try {
+                showLoading(true);
+                const response = await fetch('/HoneyBeeHaven/api/notifications');
+                
+                if (!response.ok) {
+                    throw new Error('Failed to load notifications');
+                }
+
+                const data = await response.json();
+                notifications = data.notifications || [];
+                
+                displayNotifications();
+                updateNotificationCount();
+                
+            } catch (error) {
+                console.error('Error loading notifications:', error);
+                showError('Failed to load notifications. Please try again.');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Display notifications
+     // Display notifications with null message handling
+function displayNotifications() {
+    const container = document.getElementById('notificationsBody');
+    
+    if (notifications.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-bell-slash empty-icon"></i>
+                <h3 class="empty-title">No notifications yet</h3>
+                <p class="empty-message">When you receive notifications about your orders, activities, and updates, they'll appear here.</p>
+            </div>
+        `;
+        return;
+    }
+
+    container.innerHTML = notifications.map(notification => `
+        <div class="notification-item" data-id="${notification.notification_id}">
+            <div class="notification-content">
+                <div class="notification-icon ${getNotificationIconClass(notification.notification_message)}">
+                    <i class="${getNotificationIcon(notification.notification_message)}"></i>
+                </div>
+                <div class="notification-details">
+                    <div class="notification-message">${notification.notification_message || 'No message'}</div>
+                    <div class="notification-time">
+                        <i class="fas fa-clock"></i>
+                        ${formatNotificationTime(notification.time)}
+                    </div>
+                </div>
+                <div class="notification-actions">
+                    <button class="delete-btn" onclick="deleteNotification(${notification.notification_id})" title="Delete notification">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+       function getNotificationIcon(message) {
+    // Handle null/undefined messages
+    const msg = (message || '').toLowerCase();
+    
+    if (msg.includes('order') || msg.includes('confirmed')) {
+        return 'fas fa-shopping-cart';
+    } else if (msg.includes('payment') || msg.includes('received')) {
+        return 'fas fa-credit-card';
+    } else if (msg.includes('product') || msg.includes('available')) {
+        return 'fas fa-box';
+    } else {
+        return 'fas fa-info-circle';
+    }
+}
+
+// Get notification icon class based on message content
+function getNotificationIconClass(message) {
+    // Handle null/undefined messages
+    const msg = (message || '').toLowerCase();
+    
+    if (msg.includes('order') || msg.includes('confirmed')) {
+        return 'icon-success';
+    } else if (msg.includes('payment') || msg.includes('received')) {
+        return 'icon-success';
+    } else if (msg.includes('product') || msg.includes('available')) {
+        return 'icon-info';
+    } else {
+        return 'icon-info';
+    }
+}
+        // Format notification time
+        function formatNotificationTime(timeString) {
+            try {
+                const date = new Date(timeString);
+                const now = new Date();
+                const diffTime = Math.abs(now - date);
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+                const diffMinutes = Math.floor(diffTime / (1000 * 60));
+
+                if (diffDays > 0) {
+                    return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+                } else if (diffHours > 0) {
+                    return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+                } else if (diffMinutes > 0) {
+                    return `${diffMinutes} minute${diffMinutes > 1 ? 's' : ''} ago`;
+                } else {
+                    return 'Just now';
+                }
+            } catch (error) {
+                return timeString;
+            }
+        }
+
+        // Update notification count
+        function updateNotificationCount() {
+            const countElement = document.getElementById('notificationCount');
+            countElement.textContent = notifications.length;
+        }
+
+        // Delete single notification
+        async function deleteNotification(notificationId) {
+            try {
+                const response = await fetch(`/HoneyBeeHaven/api/notifications/${notificationId}`, {
+                    method: 'DELETE'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete notification');
+                }
+
+                // Remove from local array
+                notifications = notifications.filter(n => n.notification_id !== notificationId);
+                
+                // Re-render
+                displayNotifications();
+                updateNotificationCount();
+                
+                showAlert('Notification deleted successfully', 'success');
+
+            } catch (error) {
+                console.error('Error deleting notification:', error);
+                showAlert('Failed to delete notification', 'error');
+            }
+        }
+
+        // Delete all notifications
+        async function deleteAllNotifications() {
+            if (!confirm('Are you sure you want to delete all notifications? This action cannot be undone.')) {
+                return;
+            }
+
+            try {
+                const response = await fetch('/HoneyBeeHaven/api/notifications/delete-all', {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to delete notifications');
+                }
+
+                notifications = [];
+                displayNotifications();
+                updateNotificationCount();
+                
+                showAlert('All notifications deleted successfully', 'success');
+
+            } catch (error) {
+                console.error('Error deleting all notifications:', error);
+                showAlert('Failed to delete notifications', 'error');
+            }
+        }
+
+        // Mark all as read (placeholder for future implementation)
+        async function markAllAsRead() {
+            try {
+                const response = await fetch('/HoneyBeeHaven/api/notifications/mark-all-read', {
+                    method: 'POST'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to mark notifications as read');
+                }
+                
+                showAlert('All notifications marked as read', 'success');
+
+            } catch (error) {
+                console.error('Error marking notifications as read:', error);
+                showAlert('Failed to mark notifications as read', 'error');
+            }
+        }
+
+        // Show loading state
+        function showLoading(show) {
+            const loadingState = document.getElementById('loadingState');
+            const container = document.getElementById('notificationsBody');
+            
+            if (show) {
+                container.innerHTML = `
+                    <div class="loading-state">
+                        <div class="loading-spinner"></div>
+                        <p>Loading your notifications...</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Show error state
+        function showError(message) {
+            const container = document.getElementById('notificationsBody');
+            container.innerHTML = `
+                <div class="error-state">
+                    <i class="fas fa-exclamation-triangle error-icon"></i>
+                    <h3>Error Loading Notifications</h3>
+                    <p>${message}</p>
+                    <button class="retry-btn" onclick="loadNotifications()">
+                        <i class="fas fa-redo"></i> Try Again
+                    </button>
+                </div>
+            `;
+        }
+
+        // Show alert message
+        function showAlert(message, type = 'info') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} alert-dismissible`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                ${message}
+                <button type="button" class="btn-close" onclick="this.parentElement.remove()">×</button>
+            `;
+            
+            document.querySelector('.container').insertBefore(alert, document.querySelector('.notifications-container'));
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentNode) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            const isAuthenticated = await checkAuthentication();
+            if (isAuthenticated) {
+                await loadNotifications();
+            }
+        });
+
+        // Refresh notifications every 30 seconds
+        setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                loadNotifications();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>

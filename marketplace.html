@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Smart - Marketplace</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2d5016;
+            --secondary-color: #8bc34a;
+            --accent-color: #ffc107;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --background-light: #f8f9fa;
+            --border-color: #e9ecef;
+            --shadow: 0 2px 15px rgba(0,0,0,0.1);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .header-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .brand-title {
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            font-size: 2rem;
+        }
+
+        .brand-title:hover {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .social-links a {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            margin-left: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            padding-right: 60px;
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--secondary-color);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        /* Filters */
+        .filters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .filter-select {
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: white;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1);
+        }
+
+        /* Active Filters */
+        .active-filters {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .filter-tag {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+            position: relative;
+            padding-right: 2rem;
+        }
+
+        .filter-tag .remove-filter {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Products Grid */
+        .products-section {
+            padding: 3rem 0;
+        }
+
+        .products-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .products-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .products-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--accent-color);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .product-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating-stars {
+            color: var(--accent-color);
+        }
+
+        .rating-value {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .product-type {
+            background: var(--background-light);
+            color: var(--text-dark);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+
+        .view-btn {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .view-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(139, 195, 74, 0.4);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Loading and Empty States */
+        .loading-spinner {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .empty-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-text {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer-section {
+            background: linear-gradient(135deg, var(--primary-color), #1a3a0a);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .footer-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent-color);
+            text-decoration: none;
+            transform: translateX(5px);
+        }
+
+        .contact-section {
+            background: var(--secondary-color);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .contact-btn {
+            background: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .products-title {
+                font-size: 2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .filters-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-input {
+                font-size: 1rem;
+                padding: 0.8rem 1.2rem;
+                padding-right: 55px;
+            }
+            
+            .header-section .container-fluid {
+                padding: 0 1rem;
+            }
+            
+            .brand-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .product-content {
+                padding: 1rem;
+            }
+            
+            .products-section {
+                padding: 2rem 0;
+            }
+            
+            .search-section {
+                padding: 1.5rem 0;
+            }
+        }
+        .clear-all-btn {
+    background: linear-gradient(135deg, #dc3545, #c82333);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.clear-all-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+    background: linear-gradient(135deg, #c82333, #a71e2a);
+}
+
+.clear-all-btn:active {
+    transform: scale(0.98);
+}
+    </style>
+</head>
+<body>
+   {% include 'navbar.html' %}
+
+   
+    <div class="search-section">
+        <div class="container">
+            <form id="marketplace-form" method="get" action="/HoneyBeeHaven/marketplace">
+                <div class="search-container">
+                    <div class="search-input-group">
+                        <input type="text" 
+                               name="search" 
+                               id="search-input"
+                               class="search-input" 
+                               placeholder="Search for machinery, chemicals, services..."
+                               maxlength="250"
+                               value="{{ search_query or '' }}">
+                        <button type="submit" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+
+                    <div class="filters-container">
+                        <select name="rating" class="filter-select" id="rating-filter">
+                            <option value="">All Ratings</option>
+                            <option value="4" {{ 'selected' if rating == '4' }}>4+ Stars</option>
+                            <option value="3" {{ 'selected' if rating == '3' }}>3+ Stars</option>
+                            <option value="2" {{ 'selected' if rating == '2' }}>2+ Stars</option>
+                        </select>
+
+                        <select name="location" class="filter-select" id="location-filter">
+                            <option value="">All Locations</option>
+                            <option value="Punjab" {{ 'selected' if location == 'Punjab' }}>Punjab</option>
+                            <option value="Sindh" {{ 'selected' if location == 'Sindh' }}>Sindh</option>
+                            <option value="Balochistan" {{ 'selected' if location == 'Balochistan' }}>Balochistan</option>
+                            <option value="KPK" {{ 'selected' if location == 'KPK' }}>KPK</option>
+                            <option value="FATA" {{ 'selected' if location == 'FATA' }}>FATA</option>
+                        </select>
+
+                        <select name="mtype" class="filter-select" id="machine-type-filter">
+                            <option value="">All Machine Types</option>
+                            <option value="Tractor" {{ 'selected' if mtype == 'Tractor' }}>Tractor</option>
+                            <option value="Combine Harvester" {{ 'selected' if mtype == 'Combine Harvester' }}>Combine Harvester</option>
+                            <option value="Plows" {{ 'selected' if mtype == 'Plows' }}>Plows</option>
+                            <option value="Seed Drills" {{ 'selected' if mtype == 'Seed Drills' }}>Seed Drills</option>
+                            <option value="Sprayers" {{ 'selected' if mtype == 'Sprayers' }}>Sprayers</option>
+                            <option value="Fertilizer Spreader" {{ 'selected' if mtype == 'Fertilizer Spreader' }}>Fertilizer Spreader</option>
+                            <option value="Irrigation System" {{ 'selected' if mtype == 'Irrigation System' }}>Irrigation System</option>
+                            <option value="Crop Monitoring Drone" {{ 'selected' if mtype == 'Crop Monitoring Drone' }}>Crop Monitoring Drone</option>
+                            <option value="Greenhouse automation system" {{ 'selected' if mtype == 'Greenhouse automation system' }}>Greenhouse Automation System</option>
+                        </select>
+
+                        <select name="ctype" class="filter-select" id="chemical-type-filter">
+                            <option value="">All Chemical Types</option>
+                            <option value="pesticides" {{ 'selected' if ctype == 'pesticides' }}>Pesticides</option>
+                            <option value="fertilizers" {{ 'selected' if ctype == 'fertilizers' }}>Fertilizers</option>
+                            <option value="plant growth regulators" {{ 'selected' if ctype == 'plant growth regulators' }}>Plant Growth Regulators</option>
+                            <option value="soil conditioners" {{ 'selected' if ctype == 'soil conditioners' }}>Soil Conditioners</option>
+                            <option value="adjuvants" {{ 'selected' if ctype == 'adjuvants' }}>Adjuvants</option>
+                            <option value="seed treatment" {{ 'selected' if ctype == 'seed treatment' }}>Seed Treatment</option>
+                            <option value="biostimulants" {{ 'selected' if ctype == 'biostimulants' }}>Biostimulants</option>
+                            <option value="antitranspirants" {{ 'selected' if ctype == 'antitranspirants' }}>Antitranspirants</option>
+                            <option value="fumigants" {{ 'selected' if ctype == 'fumigants' }}>Fumigants</option>
+                        </select>
+
+                        <select name="stype" class="filter-select" id="service-type-filter">
+                            <option value="">All Service Types</option>
+                            <option value="crop consulting services" {{ 'selected' if stype == 'crop consulting services' }}>Crop Consulting Services</option>
+                            <option value="soil testing_and analysis" {{ 'selected' if stype == 'soil testing_and analysis' }}>Soil Testing and Analysis</option>
+                            <option value="pest control services" {{ 'selected' if stype == 'pest control services' }}>Pest Control Services</option>
+                            <option value="precision farming consultancy" {{ 'selected' if stype == 'precision farming consultancy' }}>Precision Farming Consultancy</option>
+                            <option value="irrigation system installation_and maintenance" {{ 'selected' if stype == 'irrigation system installation_and maintenance' }}>Irrigation System Installation</option>
+                            <option value="farm equipment repair_and maintenance" {{ 'selected' if stype == 'farm equipment repair_and maintenance' }}>Farm Equipment Repair</option>
+                            <option value="agricultural waste management" {{ 'selected' if stype == 'agricultural waste management' }}>Agricultural Waste Management</option>
+                            <option value="organic farming consultation" {{ 'selected' if stype == 'organic farming consultation' }}>Organic Farming Consultation</option>
+                            <option value="farm planning_and design" {{ 'selected' if stype == 'farm planning_and design' }}>Farm Planning and Design</option>
+                            <option value="agricultural training_and education" {{ 'selected' if stype == 'agricultural training_and education' }}>Agricultural Training and Education</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Active Filters Display -->
+            <div class="active-filters" id="active-filters">
+                <h6 class="mb-2">Active Filters:</h6>
+                <div id="filter-tags"></div>
+            </div>
+            <div class="clear-filters-container" style="text-align: center; margin-top: 1rem;">
+    <button type="button" id="clear-all-btn" class="clear-all-btn">
+        <i class="fas fa-times-circle"></i>
+        Clear All Filters
+    </button>
+</div>
+        </div>
+    </div>
+    <!-- Search Section End -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">{{ message }}</div>
+            {% elif category == 'success' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: #16a34a;">{{ message }}</div>
+            {% elif category == 'info' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #2563eb;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Error handling from backend -->
+{% if error == 1 %}
+    <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">
+        {{ error_message or "Invalid email or password. Please try again." }}
+    </div>
+{% endif %}
+    <!-- Products Section Start -->
+    <div class="products-section">
+        <div class="container">
+            <div class="products-header">
+                <h2 class="products-title">Agricultural Marketplace</h2>
+                <p class="products-subtitle">Discover premium agricultural machinery, chemicals, and services to boost your farming success</p>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading-state" class="loading-spinner" style="display: none;">
+                <div class="spinner"></div>
+                <p>Loading products...</p>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="products-grid">
+                <!-- Products will be loaded here -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="empty-state" style="display: none;">
+                <i class="fas fa-seedling empty-icon"></i>
+                <h3 class="empty-title">No Products Found</h3>
+                <p class="empty-text">Try adjusting your search criteria or browse all available products</p>
+            </div>
+        </div>
+    </div>
+    <!-- Products Section End -->
+
+    <!-- Footer Start -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <h4 class="footer-title">Contact Info</h4>
+                            <a href="#" class="footer-link">
+                                <i class="fas fa-map-marker-alt"></i>
+                                123 Nectar Lane, Beeville, Honeyland
+                            </a>
+                            <a href="mailto:honeybeehaven99@gmail.com" class="footer-link">
+                                <i class="fas fa-envelope"></i>
+                                honeybeehaven99@gmail.com
+                            </a>
+                            <a href="tel:+12345667890" class="footer-link">
+                                <i class="fas fa-phone"></i>
+                                (+12) 345 67890
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <h4 class="footer-title">Quick Links</h4>
+                            <a href="/HoneyBeeHaven/privacyPolicy" class="footer-link">
+                                <i class="fas fa-arrow-right"></i>
+                                Privacy Policy
+                            </a>
+                            <a href="/HoneyBeeHaven/termsAndConditions" class="footer-link">
+                                <i class="fas fa-arrow-right"></i>
+                                Terms & Conditions
+                            </a>
+                            <a href="/HoneyBeeHaven/about" class="footer-link">
+                                <i class="fas fa-arrow-right"></i>
+                                About Us
+                            </a>
+                        </div>
+                        <div class="col-lg-4 col-md-6 mb-4">
+                            <h4 class="footer-title">Popular Links</h4>
+                            <a href="https://youtu.be/zpkN0ycubDs" target="_blank" class="footer-link">
+                                <i class="fas fa-arrow-right"></i>
+                                Live Bee Cam
+                            </a>
+                            <a href="https://www.nature.org/en-us/" target="_blank" class="footer-link">
+                                <i class="fas fa-arrow-right"></i>
+                                Nature Conservancy
+                            </a>
+                            <a href="https://www.pollinator.org/" target="_blank" class="footer-link">
+                                <i class="fas fa-arrow-right"></i>
+                                Pollinator Partnership
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="contact-section">
+                        <h4 class="footer-title text-dark">Stay Connected</h4>
+                        <p class="text-dark mb-3">Subscribe to our hive and stay buzzing with the latest updates, sweet deals, and all things honeybee magic.</p>
+                        <a href="/HoneyBeeHaven/contact" class="contact-btn">
+                            <i class="fas fa-envelope me-2"></i>
+                            Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4 pt-4" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                <div class="col-12 text-center">
+                    <p>&copy; 2025 Agri Smart. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        
+        class MarketplaceManager {
+            constructor() {
+                this.currentFilters = {};
+                this.currentSearch = '';
+                this.productsGrid = document.getElementById('products-grid');
+                this.loadingState = document.getElementById('loading-state');
+                this.emptyState = document.getElementById('empty-state');
+                this.activeFiltersDiv = document.getElementById('active-filters');
+                this.filterTagsDiv = document.getElementById('filter-tags');
+                
+                this.initializeEventListeners();
+                 this.initializeClearButton(); // Add this line
+                this.loadProducts();
+                this.updateActiveFilters();
+            }
+
+            initializeEventListeners() {
+                // Search input with debounce
+                const searchInput = document.getElementById('search-input');
+                let searchTimeout;
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        this.currentSearch = e.target.value.trim();
+                        this.loadProducts();
+                    }, 500);
+                });
+
+                // Filter changes
+                document.querySelectorAll('.filter-select').forEach(select => {
+                    select.addEventListener('change', (e) => {
+                        const filterName = e.target.name;
+                        const filterValue = e.target.value;
+                        
+                        if (filterValue) {
+                            this.currentFilters[filterName] = filterValue;
+                        } else {
+                            delete this.currentFilters[filterName];
+                        }
+                        
+                        this.updateActiveFilters();
+                        this.loadProducts();
+                    });
+                });
+
+                // Form submission
+                document.getElementById('marketplace-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    this.loadProducts();
+                });
+            }
+            initializeClearButton() {
+    const clearAllBtn = document.getElementById('clear-all-btn');
+    clearAllBtn.addEventListener('click', () => {
+        this.clearAllFilters();
+    });
+}
+
+clearAllFilters() {
+    // Clear search input
+    document.getElementById('search-input').value = '';
+    this.currentSearch = '';
+    
+    // Clear all filter selects
+    document.querySelectorAll('.filter-select').forEach(select => {
+        select.value = '';
+    });
+    
+    // Clear filters object
+    this.currentFilters = {};
+    
+    // Update UI and reload products
+    this.updateActiveFilters();
+    this.loadProducts();
+}
+             
+            updateActiveFilters() {
+                const hasFilters = Object.keys(this.currentFilters).length > 0;
+                
+                if (hasFilters) {
+                    this.activeFiltersDiv.style.display = 'block';
+                    this.filterTagsDiv.innerHTML = '';
+                    
+                    Object.entries(this.currentFilters).forEach(([key, value]) => {
+                        const tag = document.createElement('span');
+                        tag.className = 'filter-tag';
+                        tag.innerHTML = `
+                            ${this.getFilterLabel(key)}: ${value}
+                            <button type="button" class="remove-filter" onclick="marketplaceManager.removeFilter('${key}')">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        `;
+                        this.filterTagsDiv.appendChild(tag);
+                    });
+                } else {
+                    this.activeFiltersDiv.style.display = 'none';
+                }
+            }
+
+            getFilterLabel(filterName) {
+                const labels = {
+                    'rating': 'Rating',
+                    'location': 'Location',
+                    'mtype': 'Machine Type',
+                    'ctype': 'Chemical Type',
+                    'stype': 'Service Type'
+                };
+                return labels[filterName] || filterName;
+            }
+
+            removeFilter(filterName) {
+                delete this.currentFilters[filterName];
+                
+                // Update the select element
+                const select = document.querySelector(`[name="${filterName}"]`);
+                if (select) {
+                    select.value = '';
+                }
+                
+                this.updateActiveFilters();
+                this.loadProducts();
+            }
+
+            async loadProducts() {
+                this.showLoading();
+                
+                try {
+                    // Build query parameters
+                    const params = new URLSearchParams();
+                    
+                    if (this.currentSearch) {
+                        params.append('search', this.currentSearch);
+                    }
+                    
+                    Object.entries(this.currentFilters).forEach(([key, value]) => {
+                        params.append(key, value);
+                    });
+
+                    const response = await fetch(`/api/marketplace-products?${params.toString()}`);
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        this.renderProducts(data.products);
+                    } else {
+                        throw new Error(data.error || 'Failed to load products');
+                    }
+                } catch (error) {
+                    console.error('Error loading products:', error);
+                    this.showError('Failed to load products. Please try again.');
+                }
+            }
+
+            showLoading() {
+                this.loadingState.style.display = 'block';
+                this.productsGrid.style.display = 'none';
+                this.emptyState.style.display = 'none';
+            }
+
+            renderProducts(products) {
+                this.loadingState.style.display = 'none';
+                
+                if (products.length === 0) {
+                    this.productsGrid.style.display = 'none';
+                    this.emptyState.style.display = 'block';
+                    return;
+                }
+
+                this.emptyState.style.display = 'none';
+                this.productsGrid.style.display = 'grid';
+                this.productsGrid.innerHTML = '';
+
+                products.forEach(product => {
+                    const productCard = this.createProductCard(product);
+                    this.productsGrid.appendChild(productCard);
+                });
+            }
+
+            createProductCard(product) {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.onclick = () => this.openProduct(product.itemid, product.product_type);
+
+                const imageUrl = product.image_url || '../static/images/product-placeholder.jpg';
+                const rating = product.itemrating || 0;
+                const ratingStars = this.generateStars(rating);
+                const productType = product.product_type.charAt(0).toUpperCase() + product.product_type.slice(1);
+                const badgeText = product.issponsored ? 'Sponsored' : productType;
+
+                card.innerHTML = `
+                    <div style="position: relative;">
+                        <img src="${imageUrl}" alt="${product.itemname}" class="product-image">
+                        <div class="product-badge">${badgeText}</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">${product.itemname}</h3>
+                        <p class="product-description">${this.truncateText(product.itemdescription || 'No description available', 100)}</p>
+                        
+                        <div class="product-meta">
+                            <div class="product-rating">
+                                <div class="rating-stars">${ratingStars}</div>
+                                <span class="rating-value">${rating}</span>
+                            </div>
+                            <div class="product-type">${productType}</div>
+                        </div>
+                        
+                        <div class="product-footer">
+                            <div class="product-price">
+                                ${product.item_price ? `$${product.item_price}` : 'Contact for Price'}
+                            </div>
+                            <div class="view-btn">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                return card;
+            }
+
+            generateStars(rating) {
+                const fullStars = Math.floor(rating);
+                const hasHalfStar = rating % 1 >= 0.5;
+                let stars = '';
+
+                for (let i = 0; i < fullStars; i++) {
+                    stars += '<i class="fas fa-star"></i>';
+                }
+
+                if (hasHalfStar) {
+                    stars += '<i class="fas fa-star-half-alt"></i>';
+                }
+
+                const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                for (let i = 0; i < emptyStars; i++) {
+                    stars += '<i class="far fa-star"></i>';
+                }
+
+                return stars;
+            }
+
+            truncateText(text, maxLength) {
+                if (text.length <= maxLength) return text;
+                return text.substring(0, maxLength) + '...';
+            }
+
+            openProduct(itemId, productType) {
+                window.location.href = `/HoneyBeeHaven/view_product?id=${itemId}&type=${productType}`;
+            }
+
+            showError(message) {
+                this.loadingState.style.display = 'none';
+                this.productsGrid.style.display = 'none';
+                this.emptyState.style.display = 'block';
+                this.emptyState.innerHTML = `
+                    <i class="fas fa-exclamation-triangle empty-icon" style="color: #dc3545;"></i>
+                    <h3 class="empty-title">Error Loading Products</h3>
+                    <p class="empty-text">${message}</p>
+                `;
+            }
+        }
+
+        // Initialize marketplace manager when page loads
+        let marketplaceManager;
+        document.addEventListener('DOMContentLoaded', () => {
+            marketplaceManager = new MarketplaceManager();
+        });
+    </script>
+</body>
+</html>

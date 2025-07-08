@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Agri Smart - Order History</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="../static/css/fontawesome/all.css" rel="stylesheet">
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #2E7D32;
+            --light-green: #4CAF50;
+            --accent-green: #66BB6A;
+            --cream-white: #FAFAFA;
+            --warm-white: #FFFFFF;
+            --soft-gray: #F5F5F5;
+            --text-dark: #2C3E50;
+            --text-light: #6C757D;
+            --success-green: #4CAF50;
+            --warning-orange: #FF9800;
+            --error-red: #F44336;
+            --shadow-light: 0 2px 10px rgba(46, 125, 50, 0.1);
+            --shadow-medium: 0 4px 20px rgba(46, 125, 50, 0.15);
+            --shadow-heavy: 0 8px 30px rgba(46, 125, 50, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--cream-white) 0%, #E8F5E8 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="agricultural" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="white" opacity="0.1"/><path d="M5,5 L15,15 M15,5 L5,15" stroke="white" stroke-width="0.5" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23agricultural)"/></svg>');
+        }
+
+        .page-title {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: var(--warm-white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            border-radius: 50px;
+            font-size: 1rem;
+            background: var(--soft-gray);
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--light-green);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-green);
+            font-size: 1.1rem;
+        }
+
+        /* Order Cards */
+        .orders-container {
+            display: grid;
+            gap: 1.5rem;
+        }
+        .footer-section{
+            margin-top: 10px;
+        }
+        .order-card {
+            background: var(--warm-white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-light);
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            
+        }
+
+        .order-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .order-header {
+            background: linear-gradient(135deg, var(--soft-gray) 0%, #E8F5E8 100%);
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid rgba(76, 175, 80, 0.1);
+            position: relative;
+        }
+
+        .order-id {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .order-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .meta-item i {
+            color: var(--light-green);
+            width: 16px;
+        }
+
+        .order-total {
+            background: var(--primary-green);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+        }
+
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-processing { 
+            background: linear-gradient(135deg, #FFF3C4 0%, #FFEB9C 100%);
+            color: #E65100;
+            border: 1px solid #FFD54F;
+        }
+
+        .status-dispatched { 
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            color: #1565C0;
+            border: 1px solid #64B5F6;
+        }
+
+        .status-delivered { 
+            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+            color: var(--primary-green);
+            border: 1px solid var(--accent-green);
+        }
+
+        /* Order Items Section */
+        .order-items {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .order-items.expanded {
+            max-height: 1000px;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .items-table th {
+            background: var(--soft-gray);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-green);
+            border-bottom: 2px solid rgba(76, 175, 80, 0.1);
+        }
+
+        .items-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+            vertical-align: top;
+        }
+
+        .item-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .item-type {
+            background: var(--accent-green);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .btn-action {
+            padding: 0.4rem 1rem;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-delivered {
+            background: linear-gradient(135deg, var(--success-green) 0%, var(--accent-green) 100%);
+            color: white;
+        }
+
+        .btn-delivered:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-review {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            color: white;
+        }
+
+        .btn-review:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+
+        .review-submitted {
+            color: var(--success-green);
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Review Form */
+        .review-form {
+            margin-top: 1rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #F1F8E9 0%, #E8F5E8 100%);
+            border-radius: 15px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+        }
+
+        .review-form h6 {
+            color: var(--primary-green);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .review-form .form-control,
+        .review-form .form-select {
+            border: 2px solid rgba(76, 175, 80, 0.2);
+            border-radius: 10px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .review-form .form-control:focus,
+        .review-form .form-select:focus {
+            outline: none;
+            border-color: var(--light-green);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .review-buttons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        /* Expand/Collapse Icon */
+        .expand-icon {
+            position: absolute;
+            top: 5.5rem;
+            right: 5rem;
+            background: var(--light-green);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .expand-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--warm-white);
+            border-radius: 20px;
+            box-shadow: var(--shadow-light);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        .empty-state h3 {
+            color: var(--primary-green);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary-green {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 100%);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary-green:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .search-section {
+                padding: 1.5rem;
+            }
+
+            .order-header {
+                padding: 1rem 1.5rem;
+            }
+
+            .order-total {
+                position: static;
+                margin-top: 1rem;
+                display: inline-block;
+            }
+
+            .expand-icon {
+                position: static;
+                margin-top: 1rem;
+            }
+
+            .order-meta {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .items-table {
+                font-size: 0.9rem;
+            }
+
+            .items-table th,
+            .items-table td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .review-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar will be added here -->
+{% include 'navbar.html' %}
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title">
+                <i class="fas fa-history mr-3"></i>
+                Order History
+            </h1>
+            <p class="page-subtitle">Track your agricultural orders and manage deliveries</p>
+        </div>
+    </div>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">{{ message }}</div>
+            {% elif category == 'success' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(34, 197, 94, 0.1); border-color: rgba(34, 197, 94, 0.3); color: #16a34a;">{{ message }}</div>
+            {% elif category == 'info' %}
+                <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #2563eb;">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<!-- Error handling from backend -->
+{% if error == 1 %}
+    <div style="padding: 14px 16px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; text-align: center; backdrop-filter: blur(5px); border: 1px solid; background: rgba(248, 113, 113, 0.1); border-color: rgba(248, 113, 113, 0.3); color: #dc2626;">
+        {{ error_message or "Invalid email or password. Please try again." }}
+    </div>
+{% endif %}
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <!-- Search Section -->
+                <div class="search-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchOrder" class="form-control" 
+                               placeholder="Search orders by Order ID, Item Name, or Status...">
+                    </div>
+                </div>
+                
+                <!-- Orders Display -->
+                <div id="ordersContainer" class="orders-container">
+                    {% if orders %}
+                        {% for order in orders %}
+                        <div class="order-card" data-order-id="{{ order.orderid }}">
+                            <div class="order-header" onclick="toggleOrderItems({{ order.orderid }})">
+                                <div class="order-id">
+                                    <i class="fas fa-receipt mr-2"></i>
+                                    Order #{{ order.orderid }}
+                                </div>
+                                
+                                <div class="order-meta">
+                                    <div class="meta-item">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        <span>{{ order.orderdate }}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>{{ order.shippingaddress }}</span>
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="status-badge status-{{ order.order_status.lower() }}">
+                                            {{ order.order_status }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="order-total">
+                                    ${{ "%.2f"|format(order.totalcost) }}
+                                </div>
+
+                                <div class="expand-icon" id="expandIcon{{ order.orderid }}">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="order-items" id="orderItems{{ order.orderid }}">
+                                <table class="items-table">
+                                    <thead>
+                                        <tr>
+                                            <th><i class="fas fa-box mr-2"></i>Product</th>
+                                            <th><i class="fas fa-tag mr-2"></i>Type</th>
+                                            <th><i class="fas fa-sort-numeric-up mr-2"></i>Qty</th>
+                                            <th><i class="fas fa-dollar-sign mr-2"></i>Price</th>
+                                            <th><i class="fas fa-calculator mr-2"></i>Total</th>
+                                            <th><i class="fas fa-shipping-fast mr-2"></i>Delivery</th>
+                                            <th><i class="fas fa-cogs mr-2"></i>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in order['items'] %}
+                                        <tr>
+                                            <td>
+                                                <div class="item-name">{{ item.item_name }}</div>
+                                                <span class="item-type">{{ item.itemtype|title }}</span>
+                                            </td>
+                                            <td>{{ item.itemtype|title }}</td>
+                                            <td>{{ item.itemqty }}</td>
+                                            <td>${{ "%.2f"|format(item.item_price) }}</td>
+                                            <td>${{ "%.2f"|format(item.item_total) }}</td>
+                                            <td>
+                                                <div class="meta-item">
+                                                    <i class="fas fa-truck"></i>
+                                                    <span>{{ item.item_dispatch_date or 'Not dispatched' }}</span>
+                                                </div>
+                                                <div class="meta-item">
+                                                    <i class="fas fa-check-circle"></i>
+                                                    <span>{{ item.item_delivery_date or 'Not delivered' }}</span>
+                                                </div>
+                                                <span class="status-badge status-{{ item.delivery_status.lower() }}">
+                                                    {{ item.delivery_status }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    
+                                                    
+                                                    {% if item.delivery_status == 'Delivered' %}
+                                                        {% if not item.has_reviewed %}
+                                                        <button class="btn-action btn-review" 
+                                                                onclick="showReviewForm({{ item.orderdetailkey }})">
+                                                            <i class="fas fa-star mr-1"></i>
+                                                            Write Review
+                                                        </button>
+                                                        {% else %}
+                                                        <div class="review-submitted">
+                                                            <i class="fas fa-check-circle"></i>
+                                                            Review submitted
+                                                        </div>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+
+                                                <!-- Review Form -->
+                                                <div id="reviewForm{{ item.orderdetailkey }}" class="review-form" style="display: none;">
+                                                    <h6>
+                                                        <i class="fas fa-edit"></i>
+                                                        Write Your Review
+                                                    </h6>
+                                                    <input type="text" class="form-control" 
+                                                           id="reviewTitle{{ item.orderdetailkey }}" 
+                                                           placeholder="Review Title">
+                                                    
+                                                    <select class="form-select" id="rating{{ item.orderdetailkey }}">
+                                                        <option value="5">⭐⭐⭐⭐⭐ 5 Stars - Excellent</option>
+                                                        <option value="4">⭐⭐⭐⭐ 4 Stars - Very Good</option>
+                                                        <option value="3">⭐⭐⭐ 3 Stars - Good</option>
+                                                        <option value="2">⭐⭐ 2 Stars - Fair</option>
+                                                        <option value="1">⭐ 1 Star - Poor</option>
+                                                    </select>
+                                                    
+                                                    <textarea class="form-control" 
+                                                              id="reviewText{{ item.orderdetailkey }}" 
+                                                              rows="3" 
+                                                              placeholder="Share your experience with this product..."></textarea>
+                                                    
+                                                    <div class="review-buttons">
+                                                        <button class="btn-action btn-review" 
+                                                                onclick="submitReview({{ item.orderdetailkey }})">
+                                                            <i class="fas fa-paper-plane mr-1"></i>
+                                                            Submit Review
+                                                        </button>
+                                                        <button class="btn-action btn-delivered" 
+                                                                onclick="hideReviewForm({{ item.orderdetailkey }})">
+                                                            <i class="fas fa-times mr-1"></i>
+                                                            Cancel
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-state">
+                            <i class="fas fa-clipboard-list"></i>
+                            <h3>No Orders Yet</h3>
+                            <p>You haven't placed any orders yet. Start shopping for agricultural products!</p>
+                            <a href="/client-dashboard" class="btn-primary-green">
+                                <i class="fas fa-shopping-basket mr-2"></i>
+                                Start Shopping
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script>
+        // Search functionality
+        document.getElementById('searchOrder').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const orderCards = document.querySelectorAll('.order-card');
+            
+            orderCards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Toggle order items visibility
+        function toggleOrderItems(orderId) {
+            const itemsContainer = document.getElementById('orderItems' + orderId);
+            const expandIcon = document.getElementById('expandIcon' + orderId);
+            
+            itemsContainer.classList.toggle('expanded');
+            expandIcon.classList.toggle('rotated');
+        }
+
+        function markAsDelivered(orderDetailKey) {
+            if (confirm('Mark this item as delivered?')) {
+                fetch('/api/update-delivery-status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        orderdetailkey: orderDetailKey
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred');
+                });
+            }
+        }
+
+        function showReviewForm(orderDetailKey) {
+            document.getElementById('reviewForm' + orderDetailKey).style.display = 'block';
+        }
+
+        function hideReviewForm(orderDetailKey) {
+            document.getElementById('reviewForm' + orderDetailKey).style.display = 'none';
+        }
+
+        function submitReview(orderDetailKey) {
+            const rating = document.getElementById('rating' + orderDetailKey).value;
+            const reviewText = document.getElementById('reviewText' + orderDetailKey).value;
+            const reviewTitle = document.getElementById('reviewTitle' + orderDetailKey).value;
+            
+            if (!rating || !reviewText.trim()) {
+                alert('Please provide both a rating and review text');
+                return;
+            }
+            
+            fetch('/api/submit-review', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    orderdetailkey: orderDetailKey,
+                    rating: rating,
+                    review_text: reviewText,
+                    review_title: reviewTitle
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Review submitted successfully!');
+                    location.reload();
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
+        }
+    </script>
+</body>
+</html>

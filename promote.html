@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Agri Smart - Promote</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Agricultural Promotion Platform" name="keywords" />
+    <meta content="Boost your agricultural business visibility" name="description" />
+    <link rel="shortcut icon" type="x-icon" href="/static/images/honeybeeHavenLogo.svg" />
+ <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #2d5016;
+            --light-green: #4a7c23;
+            --accent-green: #6b9c35;
+            --sage-green: #8fbc8f;
+            --mint-green: #98fb98;
+            --cream-white: #fdfdf5;
+            --soft-white: #f8f9fa;
+            --gold: #ffc107;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--cream-white) 0%, #f0f8e8 100%);
+            color: var(--primary-green);
+            line-height: 1.6;
+        }
+
+        /* Header Styling */
+        .header-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--light-green) 50%, var(--accent-green) 100%);
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><path d="M0,100 C150,200 350,0 500,100 C650,200 850,0 1000,100 L1000,200 L0,200 Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat center bottom;
+            background-size: 100% 100px;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            padding: 5rem 0;
+            position: relative;
+            margin-top: -2rem;
+        }
+
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-intro h2 {
+            color: var(--primary-green);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-intro p {
+            color: var(--light-green);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Price Cards */
+        .price-card {
+            background: white;
+            border-radius: 25px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 40px rgba(45, 80, 22, 0.1);
+            margin-bottom: 2rem;
+            height: 100%;
+            border: 2px solid transparent;
+            overflow: hidden;
+        }
+
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-green), var(--mint-green));
+        }
+
+        .price-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(45, 80, 22, 0.2);
+            border-color: var(--accent-green);
+        }
+
+        .price-card.featured {
+            transform: scale(1.05);
+            border: 3px solid var(--gold);
+            box-shadow: 0 20px 60px rgba(255, 193, 7, 0.3);
+            background: linear-gradient(135deg, #ffffff 0%, #fffef7 100%);
+        }
+
+        .price-card.featured::before {
+            background: linear-gradient(90deg, var(--gold), #ffed4e);
+            height: 6px;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--gold), #ffed4e);
+            color: var(--primary-green);
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+        }
+
+        .plan-icon {
+            font-size: 3rem;
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        .featured .plan-icon {
+            color: var(--gold);
+        }
+
+        .price-card h2 {
+            color: var(--primary-green);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-card .subtitle {
+            color: var(--sage-green);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .featured .price {
+            color: var(--gold);
+        }
+
+        .price .currency {
+            font-size: 2rem;
+            vertical-align: top;
+        }
+
+        .price .duration {
+            font-size: 1.1rem;
+            color: var(--sage-green);
+            font-weight: 400;
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .plan-duration {
+            background: linear-gradient(135deg, #f0fff0 0%, #e8f5e8 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .featured .plan-duration {
+            background: linear-gradient(135deg, #fffef7 0%, #fff8e1 100%);
+            border-left-color: var(--gold);
+        }
+
+        .plan-duration h5 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .plan-duration p {
+            color: var(--light-green);
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .pricing-offers {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .pricing-offers li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f8f0;
+            color: var(--primary-green);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .pricing-offers li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-offers li i {
+            color: var(--accent-green);
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        .featured .pricing-offers li i {
+            color: var(--gold);
+        }
+
+        .btn-subscription {
+            background: linear-gradient(135deg, var(--accent-green), var(--light-green));
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            width: 100%;
+            margin-top: 1.5rem;
+            box-shadow: 0 6px 20px rgba(107, 156, 53, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-subscription:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(107, 156, 53, 0.4);
+            background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+            color: white;
+        }
+
+        .featured .btn-subscription {
+            background: linear-gradient(135deg, var(--gold), #e0a800);
+            color: var(--primary-green);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+        }
+
+        .featured .btn-subscription:hover {
+            background: linear-gradient(135deg, #e0a800, #cc9900);
+            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.5);
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            background: var(--primary-green);
+            color: white;
+            padding: 4rem 0;
+            margin-top: 3rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--mint-green);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-item h4 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2.5rem;
+            }
+
+            .pricing-section {
+                padding: 3rem 0;
+            }
+
+            .price-card {
+                padding: 2rem 1.5rem;
+                margin-bottom: 3rem;
+            }
+
+            .price-card.featured {
+                transform: none;
+                margin-bottom: 3rem;
+            }
+
+            .price {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <!-- Header Section -->
+    <section class="header-section">
+        <div class="container">
+            <div class="header-content">
+                <div class="row justify-content-center text-center">
+                    <div class="col-lg-8">
+                        <h1 class="header-title">
+                            <i class="fas fa-rocket"></i> Boost Your Agricultural Business
+                        </h1>
+                        <p class="header-subtitle">
+                            Choose the perfect sponsorship plan to showcase your products and reach more customers in the agricultural marketplace
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="pricing-container">
+            <div class="section-intro">
+                <h2>Subscription Plans</h2>
+                <p>
+                    Boost your agricultural business visibility with our comprehensive sponsorship plans. 
+                    Choose the perfect plan to showcase your products and reach more customers.
+                </p>
+            </div>
+            
+            <!-- Pricing Cards -->
+            <div class="row justify-content-center">
+                <!-- Basic Plan -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="price-card">
+                        <i class="fas fa-seedling plan-icon"></i>
+                        <h2>Basic Plan</h2>
+                        <p class="subtitle">Perfect for small businesses</p>
+                        <div class="price">
+                            <span class="currency">$</span>19<sup>99</sup>
+                            <span class="duration">/ Month</span>
+                        </div>
+                        
+                        <div class="plan-duration">
+                            <h5><i class="fas fa-calendar me-2"></i>Plan Duration</h5>
+                            <p>30 days of premium visibility</p>
+                        </div>
+                        
+                        <ul class="pricing-offers">
+                            <li><i class="fas fa-check-circle"></i> Sponsor up to 5 products</li>
+                            <li><i class="fas fa-check-circle"></i> Basic highlighting</li>
+                            <li><i class="fas fa-check-circle"></i> Email support</li>
+                            <li><i class="fas fa-check-circle"></i> Ideal for small scale businesses</li>
+                            <li><i class="fas fa-check-circle"></i> 30-day visibility boost</li>
+                        </ul>
+                        
+                        <form action="/HoneyBeeHaven/create-subscription-checkout" method="POST">
+                            <input type="hidden" name="plan_type" value="1">
+                            <input type="hidden" name="plan_name" value="Basic Plan">
+                            <input type="hidden" name="price" value="1999">
+                            <input type="hidden" name="products_limit" value="5">
+                            <input type="hidden" name="duration_days" value="30">
+                            <button type="submit" class="btn btn-subscription">
+                                <i class="fas fa-arrow-right me-2"></i>Choose Basic
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Premium Plan -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="price-card featured">
+                        <div class="popular-badge">
+                            <i class="fas fa-star"></i> Most Popular
+                        </div>
+                        <i class="fas fa-leaf plan-icon"></i>
+                        <h2>Premium Plan</h2>
+                        <p class="subtitle">Most popular choice</p>
+                        <div class="price">
+                            <span class="currency">$</span>39<sup>99</sup>
+                            <span class="duration">/ Month</span>
+                        </div>
+                        
+                        <div class="plan-duration">
+                            <h5><i class="fas fa-calendar me-2"></i>Plan Duration</h5>
+                            <p>60 days of maximum visibility</p>
+                        </div>
+                        
+                        <ul class="pricing-offers">
+                            <li><i class="fas fa-check-circle"></i> Sponsor up to 15 products</li>
+                            <li><i class="fas fa-check-circle"></i> Maximum visibility</li>
+                            <li><i class="fas fa-check-circle"></i> Priority support</li>
+                            <li><i class="fas fa-check-circle"></i> Up to 5x sales increase</li>
+                            <li><i class="fas fa-check-circle"></i> Ideal for growing businesses</li>
+                            <li><i class="fas fa-check-circle"></i> 60-day visibility boost</li>
+                        </ul>
+                        
+                        <form action="/HoneyBeeHaven/create-subscription-checkout" method="POST">
+                            <input type="hidden" name="plan_type" value="2">
+                            <input type="hidden" name="plan_name" value="Premium Plan">
+                            <input type="hidden" name="price" value="3999">
+                            <input type="hidden" name="products_limit" value="15">
+                            <input type="hidden" name="duration_days" value="60">
+                            <button type="submit" class="btn btn-subscription">
+                                <i class="fas fa-crown me-2"></i>Choose Premium
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Platinum Plan -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="price-card">
+                        <i class="fas fa-tree plan-icon"></i>
+                        <h2>Platinum Plan</h2>
+                        <p class="subtitle">For enterprise businesses</p>
+                        <div class="price">
+                            <span class="currency">$</span>69<sup>99</sup>
+                            <span class="duration">/ Month</span>
+                        </div>
+                        
+                        <div class="plan-duration">
+                            <h5><i class="fas fa-calendar me-2"></i>Plan Duration</h5>
+                            <p>90 days of premium exposure</p>
+                        </div>
+                        
+                        <ul class="pricing-offers">
+                            <li><i class="fas fa-check-circle"></i> Sponsor up to 30 products</li>
+                            <li><i class="fas fa-check-circle"></i> Premium highlighting</li>
+                            <li><i class="fas fa-check-circle"></i> 24/7 dedicated support</li>
+                            <li><i class="fas fa-check-circle"></i> Up to 10x sales increase</li>
+                            <li><i class="fas fa-check-circle"></i> Ideal for large enterprises</li>
+                            <li><i class="fas fa-check-circle"></i> 90-day visibility boost</li>
+                            <li><i class="fas fa-check-circle"></i> Analytics dashboard</li>
+                        </ul>
+                        
+                        <form action="/HoneyBeeHaven/create-subscription-checkout" method="POST">
+                            <input type="hidden" name="plan_type" value="3">
+                            <input type="hidden" name="plan_name" value="Platinum Plan">
+                            <input type="hidden" name="price" value="6999">
+                            <input type="hidden" name="products_limit" value="30">
+                            <input type="hidden" name="duration_days" value="90">
+                            <button type="submit" class="btn btn-subscription">
+                                <i class="fas fa-gem me-2"></i>Choose Platinum
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    
+
+    {% include 'footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Notification functions (keeping original functionality)
+        function showNotifications() {
+            fetch('/HoneyBeeHaven/api/notifications')
+                .then(response => response.json())
+                .then(data => {
+                    const notificationsList = document.getElementById('notificationsList');
+                    if (data.notifications && data.notifications.length > 0) {
+                        notificationsList.innerHTML = data.notifications.map(notification => `
+                            <div class="alert alert-info d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>${notification.message}</strong>
+                                    <br>
+                                    <small class="text-muted">${new Date(notification.time).toLocaleString()}</small>
+                                </div>
+                                <button class="btn btn-sm btn-outline-danger" onclick="deleteNotification(${notification.notification_id})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        `).join('');
+                    } else {
+                        notificationsList.innerHTML = '<p class="text-center text-muted">No notifications</p>';
+                    }
+                });
+        }
+        
+        function markAllAsRead() {
+            fetch('/HoneyBeeHaven/api/notifications/mark-all-read', { method: 'POST' })
+                .then(() => {
+                    updateNotificationCount();
+                    showNotifications();
+                });
+        }
+        
+        function deleteAllNotifications() {
+            fetch('/HoneyBeeHaven/api/notifications/delete-all', { method: 'POST' })
+                .then(() => {
+                    updateNotificationCount();
+                    showNotifications();
+                });
+        }
+        
+        function deleteNotification(notificationId) {
+            fetch(`/HoneyBeeHaven/api/notifications/${notificationId}`, { method: 'DELETE' })
+                .then(() => {
+                    updateNotificationCount();
+                    showNotifications();
+                });
+        }
+        
+        function updateNotificationCount() {
+            fetch('/HoneyBeeHaven/api/notifications/count')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('notificationCount').textContent = data.count || 0;
+                });
+        }
+        
+        // Load notification count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNotificationCount();
+        });
+    </script>
+</body>
+</html>

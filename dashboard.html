@@ -1,0 +1,787 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <title>Beekeeper - Dashboard</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/beekeeperLogo.svg">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/feathericon.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="/static/css/fontawesome/all.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Enhanced Responsive Styles */
+        .main-wrapper {
+            transition: all 0.3s ease;
+        }
+
+        /* Header Responsive */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-left .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logoclass {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Sidebar Responsive */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 60px;
+            width: 250px;
+            height: calc(100vh - 60px);
+            background: #fff;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+        }
+
+        .page-wrapper {
+            margin-left: 250px;
+            margin-top: 60px;
+            transition: all 0.3s ease;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* Statistics Cards Responsive */
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Chart Container Responsive */
+        .card-chart {
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: none;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-bottom: 1px solid #dee2e6;
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+            color: #495057;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Chart Canvas Responsive */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+
+        .chart-container.pie-chart {
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1001;
+            min-width: 200px;
+            right: 0;
+            top: 100%;
+        }
+
+        input[type="checkbox"]:checked + .dropdown-label + .dropdown-menu {
+            display: block;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        /* Mobile First Responsive Design */
+        @media (max-width: 1200px) {
+            .stat-number {
+                font-size: 2.2rem;
+            }
+            
+            .chart-container {
+                height: 350px;
+            }
+            
+            .logoclass {
+                font-size: 1.3rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .page-wrapper {
+                margin-left: 0;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .chart-container {
+                height: 320px;
+            }
+            
+            .chart-container.pie-chart {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-left .logo .logoclass {
+                display: none;
+            }
+            
+            .header-left .logo.logo-small {
+                display: block;
+            }
+            
+            .stat-card {
+                padding: 1.25rem;
+                margin-bottom: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 1.8rem;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+            }
+            
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .chart-container {
+                height: 280px;
+            }
+            
+            .chart-container.pie-chart {
+                height: 250px;
+            }
+            
+            .page-header h3 {
+                font-size: 1.5rem;
+            }
+            
+            .breadcrumb {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .content {
+                padding: 1rem !important;
+            }
+            
+            .stat-card {
+                padding: 1rem;
+                margin-bottom: 0.75rem;
+            }
+            
+            .stat-number {
+                font-size: 1.6rem;
+            }
+            
+            .stat-label {
+                font-size: 0.85rem;
+            }
+            
+            .card-header {
+                padding: 1rem;
+            }
+            
+            .card-title {
+                font-size: 1rem;
+            }
+            
+            .card-body {
+                padding: 0.75rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .chart-container.pie-chart {
+                height: 220px;
+            }
+            
+            .page-header h3 {
+                font-size: 1.25rem;
+            }
+            
+            .breadcrumb {
+                font-size: 0.8rem;
+            }
+            
+            .row {
+                margin: 0 -0.5rem;
+            }
+            
+            .row > [class*="col-"] {
+                padding: 0 0.5rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .stat-number {
+                font-size: 1.4rem;
+            }
+            
+            .chart-container {
+                height: 220px;
+            }
+            
+            .chart-container.pie-chart {
+                height: 200px;
+            }
+        }
+
+        /* Mobile Menu Toggle */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        /* Animation for mobile menu */
+        @media (max-width: 992px) {
+            #toggle_btn, #mobile_btn {
+                cursor: pointer;
+                padding: 10px;
+                color: #495057;
+            }
+            
+            #toggle_btn:hover, #mobile_btn:hover {
+                color: #007bff;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="main-wrapper">
+    <div class="header">
+        <div class="header-left">
+            <a href="/BeeKeeper/AdminDashboard" class="logo">
+                <span class="logoclass">BEE KEEPER</span>
+            </a>
+            <a href="/BeeKeeper/AdminDashboard" class="logo logo-small" style="display: none;">
+                <img src="/static/images/beekeeperLogo.svg" alt="Logo" width="30" height="30">
+            </a>
+        </div>
+        <a id="toggle_btn"> <i class="fe fe-text-align-left"></i> </a>
+        <a class="mobile_btn" id="mobile_btn"> <i class="fas fa-bars"></i> </a>
+        <ul class="nav user-menu">
+            <li class="nav-item dropdown has-arrow">
+                <input type="checkbox" id="userDropdown" class="dropdown-toggle" style="display: none;">
+                <label for="userDropdown" class="dropdown-label" style="cursor: pointer;">
+                    <span class="user-img">
+                        <img class="rounded-circle" src="/static/images/avatar-01.jpg" width="31" alt="avatar picture">
+                    </span>
+                </label>
+                <div class="dropdown-menu">
+                    <div class="user-header">
+                        <div class="avatar avatar-sm">
+                            <img src="/static/images/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
+                        </div>
+                        <div class="user-text">
+                            <h6>{{ admin_name }}</h6>
+                            <p class="text-muted mb-0">Administrator</p>
+                        </div>
+                    </div>
+                    <a class="dropdown-item" href="/BeeKeeper/Adminlogout">Logout</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-inner slimscroll">
+            <div id="sidebar-menu" class="sidebar-menu">
+                <ul>
+                    <li class="active"><a href="/BeeKeeper/AdminDashboard"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+                    <li class="list-divider"></li>
+                    <li class="submenu">
+                        <a href="/BeeKeeper/AdminReports"><i class="fa-solid fa-star fa-bounce" style="color: black;"></i><span>Reported Reviews</span></a>
+                        <a href="/BeeKeeper/ReportedClients"><i class="fa-solid fa-wheat-awn fa-beat-fade" style="color: black;"></i><span>Reported Clients</span></a>
+                        <a href="/BeeKeeper/ReportedBusiness"><i class="fa-solid fa-business-time fa-flip" style="color: black;"></i><span>Reported Business</span></a>
+                        <a href="/BeeKeeper/contact"><i class="fa-solid fa-address-book fa-fade" style="color: black;"></i><span>Contacts</span></a>
+                        <a href="/BeeKeeper/Subscriptions"><i class="fa-solid fa-crown" style="color: black;"></i><span>Subscriptions</span></a>
+                        <a href="/BeeKeeper/unban"><i class="fa-solid fa-unlock" style="color: black;"></i><span>Unban Users</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-wrapper">
+        <div class="content container-fluid">
+            <div class="page-header">
+                <div class="row">
+                    <div class="col-sm-12 mt-3">
+                        <h3 class="page-title mt-3">Welcome Back {{ admin_name }}!</h3>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item active">See what your bees have been up to...</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ stats.total_clients }}</div>
+                        <div class="stat-label">Total Clients</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ stats.total_businesses }}</div>
+                        <div class="stat-label">Total Businesses</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ stats.subscription_stats|length }}</div>
+                        <div class="stat-label">Active Subscriptions</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ stats.location_stats|length }}</div>
+                        <div class="stat-label">Active Cities</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h4 class="card-title">Monthly User Registrations</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="monthlyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h4 class="card-title">Users by Location</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container pie-chart">
+                                <canvas id="locationChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h4 class="card-title">Revenue Trends (Last 5 Years)</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="card card-chart">
+                        <div class="card-header">
+                            <h4 class="card-title">Subscription Distribution</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container pie-chart">
+                                <canvas id="subscriptionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Convert Python data to JavaScript (using your original backend connectivity)
+const statsData = {{ stats | tojson }};
+
+// Mobile menu functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleBtn = document.getElementById('toggle_btn');
+    const mobileBtn = document.getElementById('mobile_btn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    
+    function toggleSidebar() {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+    }
+    
+    if (toggleBtn) toggleBtn.addEventListener('click', toggleSidebar);
+    if (mobileBtn) mobileBtn.addEventListener('click', toggleSidebar);
+    if (overlay) overlay.addEventListener('click', toggleSidebar);
+    
+    // Close sidebar when clicking on links on mobile
+    const sidebarLinks = sidebar.querySelectorAll('a');
+    sidebarLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 992) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        });
+    });
+});
+
+// Chart configurations with responsive options
+const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            labels: {
+                usePointStyle: true,
+                padding: 15,
+                font: {
+                    size: function(context) {
+                        return window.innerWidth < 576 ? 10 : 12;
+                    }
+                }
+            }
+        }
+    }
+};
+
+// Monthly Registrations Chart
+const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+
+// Process monthly data from your backend
+const clientMonthlyData = new Array(12).fill(0);
+const businessMonthlyData = new Array(12).fill(0);
+
+statsData.client_monthly.forEach(([month, count]) => {
+    clientMonthlyData[month - 1] = count;
+});
+
+statsData.business_monthly.forEach(([month, count]) => {
+    businessMonthlyData[month - 1] = count;
+});
+
+const monthlyChart = new Chart(monthlyCtx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        datasets: [{
+            label: 'Clients',
+            data: clientMonthlyData,
+            borderColor: '#667eea',
+            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#667eea',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5
+        }, {
+            label: 'Businesses',
+            data: businessMonthlyData,
+            borderColor: '#764ba2',
+            backgroundColor: 'rgba(118, 75, 162, 0.1)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#764ba2',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5
+        }]
+    },
+    options: {
+        ...chartOptions,
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(0,0,0,0.1)'
+                },
+                ticks: {
+                    font: {
+                        size: function() {
+                            return window.innerWidth < 576 ? 10 : 12;
+                        }
+                    }
+                }
+            },
+            x: {
+                grid: {
+                    color: 'rgba(0,0,0,0.1)'
+                },
+                ticks: {
+                    font: {
+                        size: function() {
+                            return window.innerWidth < 576 ? 10 : 12;
+                        }
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Location Chart - using your backend data
+const locationCtx = document.getElementById('locationChart').getContext('2d');
+const locationChart = new Chart(locationCtx, {
+    type: 'doughnut',
+    data: {
+        labels: statsData.location_stats.map(([location, count]) => location),
+        datasets: [{
+            data: statsData.location_stats.map(([location, count]) => count),
+            backgroundColor: [
+                '#667eea',
+                '#764ba2',
+                '#f093fb',
+                '#f5576c',
+                '#4facfe',
+                '#43e97b',
+                '#38f9d7',
+                '#ffecd2',
+                '#fcb69f',
+                '#ff9a9e'
+            ],
+            borderWidth: 0,
+            hoverBorderWidth: 3,
+            hoverBorderColor: '#fff'
+        }]
+    },
+    options: {
+        ...chartOptions,
+        cutout: '60%',
+        plugins: {
+            legend: {
+                position: window.innerWidth < 576 ? 'bottom' : 'right',
+                labels: {
+                    usePointStyle: true,
+                    padding: window.innerWidth < 576 ? 10 : 15,
+                    font: {
+                        size: window.innerWidth < 576 ? 10 : 12
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Revenue Chart - using your backend data
+const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+const revenueChart = new Chart(revenueCtx, {
+    type: 'bar',
+    data: {
+        labels: statsData.revenue_stats.map(([year, revenue]) => year.toString()),
+        datasets: [{
+            label: 'Revenue (USD)',
+            data: statsData.revenue_stats.map(([year, revenue]) => revenue),
+            backgroundColor: 'rgba(102, 126, 234, 0.8)',
+            borderColor: '#667eea',
+            borderWidth: 2,
+            borderRadius: 8,
+            borderSkipped: false
+        }]
+    },
+    options: {
+        ...chartOptions,
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(0,0,0,0.1)'
+                },
+                ticks: {
+                    callback: function(value) {
+                        return '$ ' + (value / 1000) + 'K';
+                    },
+                    font: {
+                        size: function() {
+                            return window.innerWidth < 576 ? 10 : 12;
+                        }
+                    }
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    font: {
+                        size: function() {
+                            return window.innerWidth < 576 ? 10 : 12;
+                        }
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Subscription Chart - using your backend data
+const subscriptionCtx = document.getElementById('subscriptionChart').getContext('2d');
+
+// Process subscription data from your backend
+const subscriptionLabels = [];
+const subscriptionData = [];
+
+statsData.subscription_stats.forEach(([subtype, count]) => {
+    let label = 'Unknown';
+    if (subtype === 1) label = 'Basic';
+    else if (subtype === 2) label = 'Premium';
+    else if (subtype === 3) label = 'Enterprise';
+    
+    subscriptionLabels.push(label);
+    subscriptionData.push(count);
+});
+
+const subscriptionChart = new Chart(subscriptionCtx, {
+    type: 'pie',
+    data: {
+        labels: subscriptionLabels,
+        datasets: [{
+            data: subscriptionData,
+            backgroundColor: [
+                '#667eea',
+                '#764ba2',
+                '#f093fb'
+            ],
+            borderWidth: 0,
+            hoverBorderWidth: 3,
+            hoverBorderColor: '#fff'
+        }]
+    },
+    options: {
+        ...chartOptions,
+        plugins: {
+            legend: {
+                position: window.innerWidth < 576 ? 'bottom' : 'right',
+                labels: {
+                    usePointStyle: true,
+                    padding: window.innerWidth < 576 ? 10 : 15,
+                    font: {
+                        size: window.innerWidth < 576 ? 10 : 12
+                    }
+                }
+            }
+        }
+    }
+});
+
+// Handle window resize for better responsiveness
+window.addEventListener('resize', function() {
+    setTimeout(function() {
+        monthlyChart.resize();
+        locationChart.resize();
+        revenueChart.resize();
+        subscriptionChart.resize();
+        
+        // Update legend positions based on screen size
+        const isMobile = window.innerWidth < 576;
+        
+        locationChart.options.plugins.legend.position = isMobile ? 'bottom' : 'right';
+        subscriptionChart.options.plugins.legend.position = isMobile ? 'bottom' : 'right';
+        
+        locationChart.update();
+        subscriptionChart.update();
+    }, 100);
+});
+</script>
+</body>
+</html>

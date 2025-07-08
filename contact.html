@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="utf-8" />
+    <title>Agri Smart - Contact Our Agricultural Team</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="Agricultural Support, Farm Contact, Beekeeping Help" name="keywords" />
+    <meta content="Connect with our agricultural experts for farming advice and beekeeping support" name="description" />
+    <link rel="shortcut icon" type="x-icon" href="../static/images/honeybeeHavenLogo.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-green: #2c5e2e;
+            --secondary-green: #4a7c59;
+            --accent-gold: #d4a574;
+            --warm-cream: #f8f5f0;
+            --earth-brown: #8b4513;
+            --honey-amber: #ffbf47;
+            --sage-green: #9caf88;
+            --text-dark: #2c3e2e;
+            --text-light: #6b7c6b;
+            --soft-white: #fefefe;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar styling will be added here */
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200" fill="rgba(255,255,255,0.1)"><path d="M0,100L40,110C80,120,160,140,240,133.3C320,127,400,93,480,80C560,67,640,73,720,93.3C800,113,880,147,960,146.7C1040,147,1120,113,1160,96L1200,80L1200,200L1160,200C1120,200,1040,200,960,200C880,200,800,200,720,200C640,200,560,200,480,200C400,200,320,200,240,200C160,200,80,200,40,200L0,200Z"/></svg>') repeat-x;
+            bottom: -1px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+            max-width: 1200px;
+            margin: -50px auto 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 0 2rem;
+            align-items: start;
+        }
+
+        /* Contact Form */
+        .contact-form-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(44, 94, 46, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--honey-amber) 0%, var(--sage-green) 100%);
+        }
+
+        .form-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .form-subtitle {
+            color: var(--text-light);
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--sage-green);
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background: var(--soft-white);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(44, 94, 46, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-light);
+            opacity: 0.7;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(44, 94, 46, 0.3);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Contact Info Section */
+        .contact-info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(44, 94, 46, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid var(--sage-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--honey-amber);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(44, 94, 46, 0.15);
+        }
+
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--sage-green) 0%, var(--secondary-green) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(156, 175, 136, 0.3);
+        }
+
+        .info-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .info-content {
+            color: var(--text-dark);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .info-content strong {
+            color: var(--earth-brown);
+        }
+
+        /* Agricultural Features */
+        .agricultural-features {
+            background: var(--warm-cream);
+            padding: 3rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            border: 2px solid var(--sage-green);
+        }
+
+        .features-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            text-align: center;
+        }
+
+        .feature-text {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        /* Footer styling will be added here */
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-form-section,
+            .agricultural-features {
+                padding: 2rem;
+            }
+            
+            .info-card {
+                padding: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .contact-section {
+                padding: 60px 0;
+            }
+            
+            .contact-container {
+                padding: 0 1rem;
+            }
+            
+            .contact-form-section,
+            .agricultural-features {
+                padding: 1.5rem;
+            }
+            
+            .form-title {
+                font-size: 1.8rem;
+            }
+        }
+          .message {
+              padding: 14px 16px;
+              border-radius: 8px;
+              margin-bottom: 24px;
+              font-weight: 500;
+              text-align: center;
+              backdrop-filter: blur(5px);
+              border: 1px solid;
+          }
+
+          .error-message {
+              background: rgba(248, 113, 113, 0.1);
+              border-color: rgba(248, 113, 113, 0.3);
+              color: #dc2626;
+          }
+
+          .success-message {
+              background: rgba(34, 197, 94, 0.1);
+              border-color: rgba(34, 197, 94, 0.3);
+              color: #16a34a;
+          }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar will be added here -->
+    {% include 'navbar.html' %}
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Connect With Our Farm</h1>
+            <p class="hero-subtitle">
+                Reach out to our agricultural experts for personalized farming advice, beekeeping guidance, and sustainable agriculture solutions
+            </p>
+            <div class="hero-badges">
+                <div class="hero-badge">🌾 Crop Consultation</div>
+                <div class="hero-badge">🐝 Beekeeping Support</div>
+                <div class="hero-badge">🌱 Sustainable Farming</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-section">
+        <div class="contact-container">
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <h2 class="form-title">Send Us a Message</h2>
+                <p class="form-subtitle">
+                    Whether you need farming advice, beekeeping tips, or have questions about sustainable agriculture, we're here to help your agricultural journey flourish.
+                </p>
+   {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                {% if category == 'error' %}
+                                    <div class="message error-message">{{ message }}</div>
+                                {% elif category == 'success' %}
+                                    <div class="message success-message">{{ message }}</div>
+                                {% elif category == 'info' %}
+                                    <div class="message success-message">{{ message }}</div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                    <!-- Error handling from backend -->
+                    {% if error == 1 %}
+                        <div class="message error-message">{{ error_message or "Invalid email or password. Please try again." }}</div>
+                    {% endif %}
+                    
+                <form action="/HoneyBeeHaven/contact" method="POST">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" name="name" id="name" class="form-control" maxlength="250" placeholder="Enter your full name" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" name="email" id="email" class="form-control" maxlength="250" placeholder="your.email@example.com" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" name="subject" id="subject" class="form-control" maxlength="250" placeholder="What can we help you with?" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea name="message" id="message" class="form-control" maxlength="250" placeholder="Tell us about your farming needs, beekeeping questions, or how we can support your agricultural goals..." required></textarea>
+                    </div>
+
+                    <button type="submit" name="submit" class="submit-btn">
+                        🌾 Send Message to Our Farm Team
+                    </button>
+                </form>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="contact-info-section">
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <h3 class="info-title">Our Agricultural Hub</h3>
+                    <p class="info-content">
+                        <strong>123 Nectar Lane</strong><br>
+                        Beeville, Honeyland<br>
+                        Located in the heart of agricultural country, surrounded by thriving farms and blooming meadows
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📧</div>
+                    <h3 class="info-title">Digital Correspondence</h3>
+                    <p class="info-content">
+                        <strong>agrismart@gmail.com</strong><br>
+                        Get expert agricultural advice via email<br>
+                        We respond to farming inquiries within 24 hours
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📞</div>
+                    <h3 class="info-title">Farm Hotline</h3>
+                    <p class="info-content">
+                        <strong>(+12) 345 67890</strong><br>
+                        Direct line to our agricultural specialists<br>
+                        Call for urgent farming assistance
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">🕒</div>
+                    <h3 class="info-title">Agricultural Hours</h3>
+                    <p class="info-content">
+                        <strong>Monday - Friday:</strong> 08:00 - 16:00<br>
+                        <strong>Saturday:</strong> 10:00 - 14:00<br>
+                        <strong>Sunday:</strong> Emergency farming support only
+                    </p>
+                </div>
+
+                <div class="agricultural-features">
+                    <h3 class="features-title">🌿 Our Agricultural Services</h3>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <span class="feature-icon">🌽</span>
+                            <span class="feature-text">Crop Planning</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🐝</span>
+                            <span class="feature-text">Beekeeping Guidance</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🌱</span>
+                            <span class="feature-text">Sustainable Practices</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🚜</span>
+                            <span class="feature-text">Equipment Advice</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🌤️</span>
+                            <span class="feature-text">Weather Insights</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🧪</span>
+                            <span class="feature-text">Soil Testing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      {% include 'footer.html' %}
+</body>
+</html>

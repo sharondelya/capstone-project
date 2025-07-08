@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agri Smart - Edit Chemical</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #28a745;
+            --secondary-color: #2c3e50;
+            --accent-color: #20c997;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --warning-color: #ffc107;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --border-color: #dee2e6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark-text);
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .form-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h2 {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+            background: white;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: none;
+            width: 100%;
+        }
+
+        .file-upload-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 12px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            border: none;
+            border-radius: 12px;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .alert {
+            border-radius: 12px;
+            border: none;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-success {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success-color);
+            border-left: 4px solid var(--success-color);
+        }
+
+        .alert-danger {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger-color);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            z-index: 10;
+        }
+
+        .input-icon .form-control {
+            padding-left: 3rem;
+        }
+
+        .expiry-warning {
+            background: rgba(255, 193, 7, 0.1);
+            color: var(--warning-color);
+            border-left: 4px solid var(--warning-color);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-card {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+
+        .loading {
+            display: none;
+        }
+
+        .loading.active {
+            display: inline-block;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+   {%include 'navbar.html' %}
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="form-card">
+            <div class="form-header">
+                <h2><i class="fas fa-flask text-success me-2"></i>Edit Chemical</h2>
+                <p>Update your chemical product details and specifications</p>
+            </div>
+
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }}">
+                            <i class="fas fa-{{ 'exclamation-circle' if category == 'error' else 'check-circle' }} me-2"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form action="/HoneyBeeHaven/editChemical" method="post" enctype="multipart/form-data" id="editForm">
+                <input type="hidden" name="itemId" value="{{ chemical.itemid }}">
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-tag me-1"></i>Chemical Name
+                    </label>
+                    <div class="input-icon">
+                        <i class="fas fa-flask"></i>
+                        <input type="text" class="form-control" name="productHeading" value="{{ chemical.itemname or '' }}" 
+                               maxlength="250" required placeholder="Enter chemical name">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-dollar-sign me-1"></i>Price ($)
+                            </label>
+                            <div class="input-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                                <input type="number" class="form-control" name="productPrice" 
+                                       value="{{ chemical.item_price or 0 }}" step="0.01" min="0" max="100000000" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-balance-scale me-1"></i>Quantity (L/kg)
+                            </label>
+                            <div class="input-icon">
+                                <i class="fas fa-weight-hanging"></i>
+                                <input type="number" class="form-control" name="quantity" 
+                                       value="{{ chemical.quantity or 0 }}" step="0.1" min="0" max="100000000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-calendar-times me-1"></i>Expiry Date
+                            </label>
+                            <div class="input-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                                <input type="date" class="form-control" name="expiryDate" 
+                                       value="{{ chemical.expirydate or '' }}" id="expiryDate">
+                            </div>
+                            <div class="expiry-warning" id="expiryWarning" style="display: none;">
+                                <i class="fas fa-exclamation-triangle me-1"></i>
+                                This product will expire soon. Please check the date.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-boxes me-1"></i>Stock Quantity
+                            </label>
+                            <div class="input-icon">
+                                <i class="fas fa-cube"></i>
+                                <input type="number" class="form-control" name="quantityInStock" 
+                                       value="{{ chemical.quantityinstock or 0 }}" min="0" max="100000000">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-align-left me-1"></i>Description
+                    </label>
+                    <textarea class="form-control" name="productDescription" maxlength="500" 
+                              placeholder="Describe your chemical product, its uses, and safety information">{{ chemical.itemdescription or '' }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-image me-1"></i>Product Photo
+                    </label>
+                    <div class="file-upload-wrapper">
+                        <input type="file" name="file" accept=".jpg,.jpeg,.png" class="file-upload-input" id="fileInput">
+                        <label for="fileInput" class="file-upload-label">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Choose New Photo (Optional)</span>
+                        </label>
+                    </div>
+                    <small class="text-muted">Maximum file size: 1MB. Supported formats: JPG, JPEG, PNG</small>
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="loading">
+                            <div class="spinner"></div>
+                        </span>
+                        <span class="btn-text">
+                            <i class="fas fa-save me-1"></i>Update Chemical
+                        </span>
+                    </button>
+                    <a href="/HoneyBeeHaven/myProducts" class="btn btn-secondary">
+                        <i class="fas fa-times me-1"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{%include 'footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Form submission handling
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const loading = submitBtn.querySelector('.loading');
+            const btnText = submitBtn.querySelector('.btn-text');
+            
+            loading.classList.add('active');
+            btnText.style.display = 'none';
+            submitBtn.disabled = true;
+        });
+
+        // File input preview
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const label = document.querySelector('.file-upload-label span');
+            
+            if (file) {
+                label.textContent = file.name;
+            } else {
+                label.textContent = 'Choose New Photo (Optional)';
+            }
+        });
+
+        // Expiry date validation
+        document.getElementById('expiryDate').addEventListener('change', function(e) {
+            const expiryDate = new Date(e.target.value);
+            const today = new Date();
+            const warningDate = new Date();
+            warningDate.setMonth(warningDate.getMonth() + 6); // 6 months from now
+            
+            const warningDiv = document.getElementById('expiryWarning');
+            
+            if (expiryDate <= today) {
+                warningDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i>This product has already expired!';
+                warningDiv.style.display = 'block';
+                warningDiv.className = 'alert alert-danger';
+            } else if (expiryDate <= warningDate) {
+                warningDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-1"></i>This product will expire within 6 months.';
+                warningDiv.style.display = 'block';
+                warningDiv.className = 'expiry-warning';
+            } else {
+                warningDiv.style.display = 'none';
+            }
+        });
+
+        // Trigger expiry check on load if date exists
+        const expiryInput = document.getElementById('expiryDate');
+        if (expiryInput.value) {
+            expiryInput.dispatchEvent(new Event('change'));
+        }
+
+        // Auto-hide alerts
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(alert => {
+                alert.style.opacity = '0';
+                alert.style.transform = 'translateY(-20px)';
+                setTimeout(() => alert.remove(), 300);
+            });
+        }, 5000);
+    </script>
+</body>
+</html>

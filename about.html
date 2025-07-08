@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Agri Smart - About Us</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Agri Smart - Empowering Farmers Through Innovation" name="description">
+    <link rel="shortcut icon" type="x-icon" href="../static/images/honeybeeHavenLogo.svg">
+ <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-green: #2E7D32;
+            --secondary-green: #4CAF50;
+            --light-green: #A5D6A7;
+            --accent-green: #66BB6A;
+            --dark-green: #1B5E20;
+            --pure-white: #FFFFFF;
+            --off-white: #F8F9FA;
+            --light-gray: #E8F5E8;
+            --text-dark: #2E2E2E;
+            --text-gray: #666666;
+            --shadow-light: 0 4px 20px rgba(76, 175, 80, 0.1);
+            --shadow-medium: 0 8px 30px rgba(76, 175, 80, 0.15);
+            --gradient-green: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+            --gradient-light: linear-gradient(135deg, #F8F9FA 0%, #E8F5E8 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--gradient-light);
+            min-height: 100vh;
+        }
+
+        /* === NAVBAR PLACEHOLDER === */
+        .navbar-placeholder {
+            height: 80px;
+            background: var(--primary-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: var(--gradient-green);
+            padding: 120px 0 80px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" fill="white" opacity="0.1"><path d="M0,0V46.29C47.79,22.84,103.59,32.58,158,28,212.67,23.42,268.65,4.49,319,34.85,369.33,65.21,421.38,96.71,474,91.66,526.62,86.61,579.17,44.1,631,45.25,682.83,46.4,734.72,90.2,787,92.83,839.28,95.46,891.67,57.92,944,46.29,996.33,34.66,1048.83,50.54,1101,46.29V0Z"/></svg>');
+            background-size: cover;
+            background-position: bottom;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 0;
+            background: var(--pure-white);
+            margin: 0;
+            position: relative;
+        }
+
+        .content-section:nth-child(even) {
+            background: var(--off-white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            color: var(--primary-green);
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-green);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section-icon {
+            font-size: 3rem;
+            color: var(--secondary-green);
+            margin-bottom: 2rem;
+        }
+
+        .content-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            text-align: justify;
+        }
+
+        .content-card {
+            background: var(--pure-white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow-light);
+            border: 2px solid var(--light-gray);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .content-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--light-green);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--gradient-green);
+            padding: 80px 0;
+            color: white;
+            position: relative;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" fill="white" opacity="0.05"><path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"/></svg>');
+            background-size: cover;
+            background-position: top;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-15px);
+            background: rgba(255,255,255,0.25);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .stat-icon {
+            font-size: 3.5rem;
+            color: var(--light-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 80px 0;
+            background: var(--off-white);
+        }
+
+        .team-card {
+            background: var(--pure-white);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            max-width: 450px;
+            margin: 0 auto;
+            border: 2px solid var(--light-gray);
+        }
+
+        .team-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--light-green);
+        }
+
+        .team-image {
+            position: relative;
+            overflow: hidden;
+            height: 350px;
+            background: var(--gradient-green);
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover .team-image img {
+            transform: scale(1.05);
+        }
+
+        .team-social {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover .team-social {
+            opacity: 1;
+        }
+
+        .team-social a {
+            background: rgba(255,255,255,0.95);
+            color: var(--primary-green);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .team-social a:hover {
+            background: var(--secondary-green);
+            color: white;
+            transform: scale(1.15);
+        }
+
+        .team-content {
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .team-name {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: var(--secondary-green);
+            font-weight: 500;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-id {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Feature Boxes */
+        .feature-box {
+            background: var(--pure-white);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-light);
+            border: 2px solid var(--light-gray);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--secondary-green);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .feature-text {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* === FOOTER PLACEHOLDER === */
+        .footer-placeholder {
+            height: 200px;
+            background: var(--dark-green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 50px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .stat-number {
+                font-size: 2.8rem;
+            }
+
+            .content-card {
+                padding: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .team-content {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 80px 0 60px;
+            }
+
+            .content-section {
+                padding: 60px 0;
+            }
+
+            .stats-section {
+                padding: 60px 0;
+            }
+
+            .team-section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- === ADD NAVBAR HERE === -->
+     {% include 'navbar.html' %}
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content fade-in-up">
+                <div class="hero-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h1 class="hero-title">About Agri Smart</h1>
+                <p class="hero-subtitle">Empowering farmers through innovative technology and sustainable agricultural practices for a greener tomorrow</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <div class="section-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h2 class="section-title">Our Mission</h2>
+                <p class="section-subtitle">Revolutionizing agriculture through innovation and sustainability</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="content-card fade-in-up">
+                        <p class="content-text">
+                            Empowering Farmers Through Innovation: Our agriculture web app is a transformative platform that seamlessly connects growers with a comprehensive suite of essential resources, data, and tools to revolutionize the way they manage their crops. We understand the critical role that agriculture plays in feeding the world's population while simultaneously addressing the pressing need for sustainable farming practices.
+                        </p>
+                        <p class="content-text">
+                            By providing farmers with real-time data on weather patterns, soil conditions, and market trends, our app empowers them to make informed decisions that can significantly boost their yields, reduce waste, and increase overall productivity. Moreover, our commitment to sustainability goes beyond just data-driven decision-making. We've integrated features that promote eco-friendly farming practices, including recommendations for organic fertilizers and pest control methods, as well as water-efficient irrigation techniques.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <div class="section-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h2 class="section-title">Our Journey</h2>
+                <p class="section-subtitle">Eight years of dedication to agricultural innovation</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="content-card fade-in-up">
+                        <p class="content-text">
+                            Established in 2017, Agri Smart has consistently been at the forefront of driving innovation in the field of agriculture. Right from our inception, we have been unwavering in our commitment to promoting sustainable farming practices and leveraging user-centric technology. In 2021, we reached a significant milestone with the launch of our first web app, a watershed moment that marked the beginning of a transformative journey.
+                        </p>
+                        <p class="content-text">
+                            Over the years, our dedication to sustainable farming has paid off, as we've not only expanded our presence but also garnered official approvals and certifications. It has been immensely gratifying to witness our users achieve remarkable results, including higher crop yields, reduced operational costs, and increased sustainability, all of which are cornerstones of our mission. Today, we stand as a trusted and respected name in the agriculture industry.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <div class="section-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h2 class="section-title">Our Values</h2>
+                <p class="section-subtitle">The principles that guide our agricultural mission</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-box fade-in-up">
+                        <div class="feature-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <h3 class="feature-title">Sustainability</h3>
+                        <p class="feature-text">Promoting eco-friendly farming practices that preserve our environment for future generations while maintaining productivity.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-box fade-in-up">
+                        <div class="feature-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="feature-title">Innovation</h3>
+                        <p class="feature-text">Leveraging cutting-edge technology to provide farmers with the tools they need to optimize their agricultural operations.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-box fade-in-up">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h3 class="feature-title">Community</h3>
+                        <p class="feature-text">Building strong partnerships with farmers, suppliers, and agricultural communities to create a thriving ecosystem.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="text-white mb-4" style="font-size: 2.8rem; font-weight: 700;">Our Impact</h2>
+                <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Measurable results that demonstrate our commitment to agricultural excellence</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-card fade-in-up">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-card fade-in-up">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Farmers Registered</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-card fade-in-up">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-number">1,250</div>
+                        <div class="stat-label">Successful Transactions</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="stat-card fade-in-up">
+                        <div class="stat-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+                        <div class="stat-number">75</div>
+                        <div class="stat-label">Partner Businesses</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header fade-in-up">
+                <div class="section-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <h2 class="section-title">Meet Our Lead Developer</h2>
+                <p class="section-subtitle">The brilliant mind behind our innovative agricultural solutions</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    <div class="team-card fade-in-up">
+                        <div class="team-image">
+                            <img src="https://img.freepik.com/free-vector/cute-girl-hacker-operating-laptop-cartoon-vector-icon-illustration-people-technology-isolated-flat_138676-9487.jpg" alt="Sharon Delya">
+                            <div class="team-social">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="team-content">
+                            <h3 class="team-name">Pauline Sharon Delya Tchoumi Petbun</h3>
+                            <div class="team-role">Lead Software Developer</div>
+                            <div class="team-id"><strong>ID:</strong> 012603153</div>
+                            <div class="team-id"><strong>Education:</strong> Bachelor of Science, Software Engineering</div>
+                            <div class="team-id"><strong>Status:</strong> Active Developer</div>
+                            <div class="team-id"><strong>Preferred Name:</strong> Sharon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'footer.html' %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target + (target === 500 ? '+' : '');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start) + (target === 500 ? '+' : '');
+                }
+            }, 16);
+        }
+
+        // Animate counters when they come into view
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.textContent);
+                    animateCounter(entry.target, target);
+                    statObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        statNumbers.forEach(stat => statObserver.observe(stat));
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <title>Agri Smart - Privacy Policy</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="x-icon" href="../static/images/honeybeeHavenLogo.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-green: #2c5e2e;
+            --secondary-green: #4a7c59;
+            --accent-gold: #d4a574;
+            --warm-cream: #f8f5f0;
+            --earth-brown: #8b4513;
+            --honey-amber: #ffbf47;
+            --sage-green: #9caf88;
+            --text-dark: #2c3e2e;
+            --text-light: #6b7c6b;
+            --soft-white: #fefefe;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 100%);
+            min-height: 100vh;
+        }
+
+        /* Navbar styling will be added here */
+
+        /* Hero Header */
+        .hero-header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200" fill="rgba(255,255,255,0.1)"><path d="M0,100L40,110C80,120,160,140,240,133.3C320,127,400,93,480,80C560,67,640,73,720,93.3C800,113,880,147,960,146.7C1040,147,1120,113,1160,96L1200,80L1200,200L1160,200C1120,200,1040,200,960,200C880,200,800,200,720,200C640,200,560,200,480,200C400,200,320,200,240,200C160,200,80,200,40,200L0,200Z"/></svg>') repeat-x;
+            bottom: -1px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Content Sections */
+        .content-container {
+            max-width: 1200px;
+            margin: -50px auto 0;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .privacy-section {
+            background: white;
+            margin-bottom: 3rem;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(44, 94, 46, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .privacy-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px rgba(44, 94, 46, 0.15);
+        }
+
+        .section-header {
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--sage-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--honey-amber) 0%, var(--accent-gold) 100%);
+        }
+
+        .section-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            text-align: center;
+            font-weight: 300;
+        }
+
+        .section-content {
+            padding: 3rem;
+        }
+
+        .content-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .content-text:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Special highlight sections */
+        .highlight-box {
+            background: var(--warm-cream);
+            border: 2px solid var(--sage-green);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .highlight-box::before {
+            content: '🌿';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--warm-cream);
+            padding: 0 10px;
+            font-size: 1.5rem;
+        }
+
+        .two-column-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .icon-feature {
+            text-align: center;
+            font-size: 4rem;
+            color: var(--honey-amber);
+            margin-bottom: 1rem;
+        }
+
+        /* Decorative elements */
+        .nature-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 4rem 0;
+        }
+
+        .nature-divider::before,
+        .nature-divider::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--sage-green) 50%, transparent 100%);
+        }
+
+        .nature-divider span {
+            margin: 0 2rem;
+            font-size: 2rem;
+        }
+
+        /* Contact section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--earth-brown) 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin: 4rem 0;
+        }
+
+        .contact-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-text {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-email {
+            display: inline-block;
+            background: var(--honey-amber);
+            color: var(--text-dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 191, 71, 0.3);
+        }
+
+        .contact-email:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 191, 71, 0.4);
+            color: var(--text-dark);
+        }
+
+        /* Footer styling will be added here */
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .two-column-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .section-header {
+                padding: 2rem;
+            }
+            
+            .section-content {
+                padding: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .contact-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .content-container {
+                padding: 0 15px;
+            }
+            
+            .section-header,
+            .section-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <!-- Hero Header -->
+    <header class="hero-header">
+        <div class="hero-content">
+            <h1 class="hero-title">Privacy Policy</h1>
+            <p class="hero-subtitle">Cultivating trust and transparency in our digital agricultural ecosystem</p>
+        </div>
+    </header>
+
+    <!-- Content Container -->
+    <div class="content-container">
+
+        <!-- Information Collection Section -->
+        <div class="privacy-section">
+            <div class="section-header">
+                <div class="two-column-layout">
+                    <div>
+                        <span class="section-icon">📊</span>
+                        <h2 class="section-title">Information We Harvest</h2>
+                        <p class="section-description">
+                            Like careful farmers, we collect only what we need to help your agricultural journey flourish
+                        </p>
+                    </div>
+                    <div class="icon-feature">🌾</div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="content-text">
+                    When you join our agricultural community, we may collect personal information including your name, contact details, farming location, and agricultural interests. This helps us provide personalized farming advice, weather updates, and beekeeping guidance tailored to your region.
+                </p>
+                <div class="highlight-box">
+                    <p class="content-text">
+                        <strong>Automatic Agricultural Data:</strong> We also gather information about your farming practices, crop preferences, equipment usage, and seasonal activities to enhance our agricultural recommendations and improve our platform's effectiveness for rural communities.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="nature-divider">
+            <span>🌻</span>
+        </div>
+
+        <!-- Information Usage Section -->
+        <div class="privacy-section">
+            <div class="section-header">
+                <div class="two-column-layout">
+                    <div class="icon-feature">💚</div>
+                    <div>
+                        <span class="section-icon">🔄</span>
+                        <h2 class="section-title">How We Cultivate Your Data</h2>
+                        <p class="section-description">
+                            Your agricultural information helps us grow better services and support sustainable farming practices
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="content-text">
+                    We use your farming data to provide seasonal crop recommendations, pest management alerts, weather forecasting, and beekeeping guidance. This information helps us personalize your agricultural experience and connect you with relevant farming resources.
+                </p>
+                <p class="content-text">
+                    Your data may also support agricultural research, sustainable farming initiatives, and community building among local farmers. You can opt-out of promotional communications about new farming techniques and seasonal updates at any time through your account settings.
+                </p>
+            </div>
+        </div>
+
+        <div class="nature-divider">
+            <span>🐝</span>
+        </div>
+
+        <!-- Information Sharing Section -->
+        <div class="privacy-section">
+            <div class="section-header">
+                <div class="two-column-layout">
+                    <div>
+                        <span class="section-icon">🤝</span>
+                        <h2 class="section-title">Sharing in Our Agricultural Network</h2>
+                        <p class="section-description">
+                            Building connections while protecting your farming privacy within our trusted agricultural community
+                        </p>
+                    </div>
+                    <div class="icon-feature">🚜</div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="content-text">
+                    We may share your agricultural information with trusted farming partners, agricultural equipment suppliers, and local farming cooperatives who help us provide comprehensive farming services. These partners include soil testing laboratories, seed suppliers, and agricultural insurance providers.
+                </p>
+                <div class="highlight-box">
+                    <p class="content-text">
+                        <strong>Legal Agricultural Compliance:</strong> We may also share information with agricultural authorities, environmental agencies, or law enforcement when required by farming regulations or to protect sustainable agricultural practices.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="nature-divider">
+            <span>🌱</span>
+        </div>
+
+        <!-- User Rights Section -->
+        <div class="privacy-section">
+            <div class="section-header">
+                <div class="two-column-layout">
+                    <div class="icon-feature">⚙️</div>
+                    <div>
+                        <span class="section-icon">🛡️</span>
+                        <h2 class="section-title">Your Agricultural Rights</h2>
+                        <p class="section-description">
+                            Empowering farmers with control over their agricultural data and farming privacy preferences
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="section-content">
+                <p class="content-text">
+                    You have complete control over your agricultural profile. You can access, update, or delete your farming information, crop preferences, and equipment details at any time. You may also request restrictions on how we use your agricultural data or object to certain farming-related processing activities.
+                </p>
+                <p class="content-text">
+                    Our platform uses cookies and tracking technologies to monitor your farming interests, seasonal preferences, and equipment usage patterns. You can manage these agricultural cookies through your browser settings to customize your farming experience.
+                </p>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2 class="contact-title">Questions About Your Farm Data? 🌾</h2>
+            <p class="contact-text">
+                Our agricultural privacy team is here to help you understand how we protect your farming information and support your agricultural journey.
+            </p>
+            <a href="mailto:honeybeehaven99@gmail.com" class="contact-email">
+                Contact Our Farm Team
+            </a>
+        </div>
+
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+</html>

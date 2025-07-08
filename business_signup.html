@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri Smart - Business Signup</title>
+    <link href="../static/images/honeybeeHavenLogo.svg" rel="icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+          
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("../static/images/business/signupPage.jpg") center/cover;
+          
+            z-index: -1;
+        }
+
+        .container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signup-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            animation: slideUp 0.8s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signup-header {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            padding: 30px;
+            text-align: center;
+            color: #333;
+        }
+
+        .signup-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Message Styles */
+        .message {
+            margin: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+        }
+
+        .success-message {
+            background: #f0fff4;
+            color: #2f855a;
+            border: 1px solid #9ae6b4;
+        }
+
+        .form-content {
+            padding: 40px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            color: #6b7280;
+            z-index: 2;
+            font-size: 1.1rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #f6d365;
+            box-shadow: 0 0 0 3px rgba(246, 211, 101, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: #f6d365;
+            box-shadow: 0 0 0 3px rgba(246, 211, 101, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1rem;
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: #f6d365;
+            box-shadow: 0 0 0 3px rgba(246, 211, 101, 0.1);
+        }
+
+        .help-text {
+            font-size: 0.85rem;
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        /* Keywords Section */
+        .keywords-section {
+            background: #f9fafb;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .keywords-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .keywords-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .keyword-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: #fff;
+            border-radius: 10px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .keyword-item:hover {
+            border-color: #f6d365;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .keyword-item input[type="checkbox"] {
+            margin-right: 12px;
+            width: 20px;
+            height: 20px;
+            accent-color: #f6d365;
+        }
+
+        .keyword-item label {
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+
+        .keyword-error {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* File Upload */
+        .file-upload-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .file-upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .file-upload-input {
+            position: absolute;
+            left: -9999px;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+            color: #333;
+            padding: 18px 40px;
+            border-radius: 12px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(246, 211, 101, 0.4);
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .nav-links a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 10px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .signup-wrapper {
+                margin: 10px 0;
+            }
+
+            .signup-header h1 {
+                font-size: 2rem;
+            }
+
+            .form-content {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .keywords-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links a {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .signup-header {
+                padding: 20px;
+            }
+
+            .signup-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .form-content {
+                padding: 15px;
+            }
+
+            .keywords-section {
+                padding: 15px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="signup-wrapper">
+            <div class="signup-header">
+                <h1><i class="fas fa-seedling"></i> Business SignUp</h1>
+                <p>Join Agri Smart and grow your agricultural business</p>
+            </div>
+
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="message {% if category == 'error' %}error-message{% else %}success-message{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <!-- Error messages based on error parameter -->
+            {% if error == 1 %}
+                <div class="message error-message">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    {{ error_message or "Incorrect Fields - Please check your input" }}
+                </div>
+            {% elif error == 2 %}
+                <div class="message error-message">
+                    <i class="fas fa-user-times"></i>
+                    {{ error_message or "Email already exists" }}
+                </div>
+            {% elif error == 3 %}
+                <div class="message error-message">
+                    <i class="fas fa-file-times"></i>
+                    {{ error_message or "File Size exceeded - Please upload less than 1 MB" }}
+                </div>
+            {% endif %}
+
+            <div class="form-content">
+                <form action="/HoneyBeeHaven/submitBusinessSignup" method="post" enctype="multipart/form-data" id="businessSignupForm">
+                    <div class="form-grid">
+                        <!-- Name -->
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="name" class="form-input" placeholder="Enter your full name" name="name" maxlength="250" required>
+                            </div>
+                        </div>
+
+                        <!-- Business Name -->
+                        <div class="form-group">
+                            <label for="businessName">Business Name</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-building"></i>
+                                <input type="text" id="businessName" class="form-input" placeholder="Enter your business name" name="businessName" maxlength="250" required>
+                            </div>
+                        </div>
+
+                        <!-- Contact Info -->
+                        <div class="form-group">
+    <label for="contactInfo">Contact Number</label>
+    <div class="input-wrapper">
+        <i class="fas fa-phone"></i>
+        <input 
+            type="tel" 
+            id="contactInfo" 
+            class="form-input" 
+            placeholder="e.g. +1 416-555-1234" 
+            name="contactInfo" 
+            pattern="^(?:\+1\s*|1\s*)?(?:\(?\d{3}\)?[\s.-]?)\d{3}[\s.-]?\d{4}$" 
+            required>
+    </div>
+    <div class="help-text">Format: 123-456-7890 or +1 (123) 456-7890</div>
+</div>
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope"></i>
+                                <input type="email" id="email" class="form-input" placeholder="your@email.com" name="email" maxlength="250" required>
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="password" class="form-input" placeholder="Create a strong password" name="password" maxlength="250" required>
+                            </div>
+                            <div class="help-text">Minimum 8 characters with 1 uppercase and 1 number</div>
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="form-group">
+                            <label for="confirmpassword">Confirm Password</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="confirmpassword" class="form-input" placeholder="Re-enter your password" name="confirmpassword" maxlength="250" required>
+                            </div>
+                        </div>
+
+                        <!-- Primary Location -->
+                        <div class="form-group">
+                            <label for="primary">Primary Location</label>
+                            <select id="primary" class="form-select" name="primary" required>
+                               <option value="">Select your province</option>
+                        <option value="Ontario">Ontario</option>
+                        <option value="Quebec">Quebec</option>
+                        <option value="Alberta">Alberta</option>
+                        <option value="Saskatchewan">Saskatchewan</option>
+                        <option value="Manitoba">Manitoba</option>
+                            </select>
+                        </div>
+
+                        <!-- Bank Account -->
+                        <div class="form-group">
+                            <label for="bankaccountnumber">Bank Account Number</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-credit-card"></i>
+                                <input type="text" id="bankaccountnumber" class="form-input" placeholder="Enter account number" name="bankaccountnumber" maxlength="20" pattern="[0-9]{10,20}" required>
+                            </div>
+                            <div class="help-text">10-20 digits only</div>
+                        </div>
+
+                        <!-- Business Address -->
+                        <div class="form-group full-width">
+                            <label for="address">Business Address</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" id="address" class="form-input" placeholder="Enter your complete business address" name="address" maxlength="250" required>
+                            </div>
+                        </div>
+
+                        <!-- Business Description -->
+                        <div class="form-group full-width">
+                            <label for="businessDescription">Business Description</label>
+                            <textarea id="businessDescription" class="form-textarea" placeholder="Describe your business, products, and services (minimum 10 characters)" name="businessDescription" maxlength="500" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Keywords Section -->
+                    <div class="form-group full-width">
+                        <div class="keywords-section">
+                            <div class="keywords-title">
+                                <i class="fas fa-tags"></i> Select Keywords (2-5 required)
+                            </div>
+                            
+                            <div class="keywords-grid">
+                                <div class="keyword-item">
+                                    <input type="checkbox" id="keyword1" class="keyword-checkbox" name="selectedKeywords" value="Organic Honey">
+                                    <label for="keyword1">🍯 Organic Honey</label>
+                                </div>
+                                
+                                <div class="keyword-item">
+                                    <input type="checkbox" id="keyword2" class="keyword-checkbox" name="selectedKeywords" value="Raw Honey">
+                                    <label for="keyword2">🥄 Raw Honey</label>
+                                </div>
+                                
+                                <div class="keyword-item">
+                                    <input type="checkbox" id="keyword3" class="keyword-checkbox" name="selectedKeywords" value="Wildflower Honey">
+                                    <label for="keyword3">🌸 Wildflower Honey</label>
+                                </div>
+                                
+                                <div class="keyword-item">
+                                    <input type="checkbox" id="keyword4" class="keyword-checkbox" name="selectedKeywords" value="Acacia Honey">
+                                    <label for="keyword4">🌿 Acacia Honey</label>
+                                </div>
+                                
+                                <div class="keyword-item">
+                                    <input type="checkbox" id="keyword5" class="keyword-checkbox" name="selectedKeywords" value="Eucalyptus Honey">
+                                    <label for="keyword5">🌲 Eucalyptus Honey</label>
+                                </div>
+                                
+                                <div class="keyword-item">
+                                    <input type="checkbox" id="keyword6" class="keyword-checkbox" name="selectedKeywords" value="Manuka Honey">
+                                    <label for="keyword6">🍃 Manuka Honey</label>
+                                </div>
+                                
+                                <div class="keyword-item">
+                                    <input type="checkbox" id="keyword7" class="keyword-checkbox" name="selectedKeywords" value="Local Honey">
+                                    <label for="keyword7">🏘️ Local Honey</label>
+                                </div>
+                                
+                                <div class="keyword-item">
+                                    <input type="checkbox" id="keyword8" class="keyword-checkbox" name="selectedKeywords" value="Pure Honey">
+                                    <label for="keyword8">✨ Pure Honey</label>
+                                </div>
+                            </div>
+                            
+                            <div id="keyword-error" class="keyword-error" style="display: none;"></div>
+                        </div>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="form-group full-width">
+                        <label>Business Photo (Optional)</label>
+                        <div class="file-upload-wrapper">
+                            <button type="button" class="file-upload-btn" onclick="document.getElementById('fileInput').click()">
+                                <i class="fas fa-camera"></i>
+                                <span id="file-text">Choose Photo</span>
+                            </button>
+                            <input type="file" id="fileInput" class="file-upload-input" name="file" accept=".jpg,.jpeg,.png">
+                        </div>
+                        <div class="help-text">Supported formats: JPG, JPEG, PNG. Maximum size: 1MB</div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn" id="submitButton">
+                        <i class="fas fa-check"></i>
+                        Create Account
+                        <span id="loading" class="loading" style="display: none;"></span>
+                    </button>
+                </form>
+
+                <!-- Navigation Links -->
+                <div class="nav-links">
+                    <a href="/HoneyBeeHaven/login">
+                        <i class="fas fa-sign-in-alt"></i> Already have an account? Login
+                    </a>
+                    <a href="/HoneyBeeHaven/client_signup">
+                        <i class="fas fa-user-plus"></i> Client Signup
+                    </a>
+                    <a href="/">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // File upload handling
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name || 'Choose Photo';
+            document.getElementById('file-text').textContent = fileName;
+        });
+
+        // Form submission with loading state
+        document.getElementById('businessSignupForm').addEventListener('submit', function(e) {
+            const submitBtn = document.getElementById('submitButton');
+            const loading = document.getElementById('loading');
+            
+            const password = document.querySelector('input[name="password"]').value;
+            const confirmPassword = document.querySelector('input[name="confirmpassword"]').value;
+            const contactInfo = document.querySelector('input[name="contactInfo"]').value;
+            const accountNumber = document.querySelector('input[name="bankaccountnumber"]').value;
+            const businessDescription = document.querySelector('textarea[name="businessDescription"]').value;
+            
+            // Password validation
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                e.preventDefault();
+                showAlert('Password must be at least 8 characters long with at least 1 uppercase letter and 1 number', 'error');
+                return;
+            }
+            
+            // Confirm password validation
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                showAlert('Passwords do not match', 'error');
+                return;
+            }
+            
+            const phoneRegex = /^(?:\+1\s*|1\s*)?(?:\(?\d{3}\)?[\s.-]?)\d{3}[\s.-]?\d{4}$/;
+if (!phoneRegex.test(contactInfo)) {
+    e.preventDefault();
+    showAlert('Contact number must be a valid Canadian number (e.g. +1 416-555-1234)', 'error');
+    return;
+}
+            
+            // Account number validation
+            const accountRegex = /^\d{10,20}$/;
+            if (!accountRegex.test(accountNumber)) {
+                e.preventDefault();
+                showAlert('Account number must be 10-20 digits', 'error');
+                return;
+            }
+            
+            // Business description validation
+            if (businessDescription.trim().length < 10) {
+                e.preventDefault();
+                showAlert('Business description must be at least 10 characters long', 'error');
+                return;
+            }
+            
+            // Keywords validation
+            const selectedKeywords = document.querySelectorAll('input[name="selectedKeywords"]:checked');
+            if (selectedKeywords.length < 2) {
+                e.preventDefault();
+                showAlert('Please select at least 2 keywords', 'error');
+                return;
+            }
+            if (selectedKeywords.length > 5) {
+                e.preventDefault();
+                showAlert('Please select maximum 5 keywords', 'error');
+                return;
+            }
+            
+            // File size validation (1MB = 1048576 bytes)
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files[0] && fileInput.files[0].size > 1048576) {
+                e.preventDefault();
+                showAlert('File size must be less than 1MB', 'error');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            loading.style.display = 'inline-block';
+            submitBtn.style.opacity = '0.7';
+        });
+
+        // Real-time keyword validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[name="selectedKeywords"]');
+            const errorDiv = document.getElementById('keyword-error');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const selectedCount = document.querySelectorAll('input[name="selectedKeywords"]:checked').length;
+                    
+                    if (selectedCount < 2) {
+                        errorDiv.innerHTML = `<i class="fas fa-info-circle"></i> Please select at least 2 keywords (${selectedCount}/2 minimum)`;
+                        errorDiv.style.backgroundColor = '#fef2f2';
+                        errorDiv.style.color = '#dc2626';
+                        errorDiv.style.display = 'block';
+                    } else if (selectedCount > 5) {
+                        errorDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Maximum 5 keywords allowed (${selectedCount}/5 maximum)`;
+                        errorDiv.style.backgroundColor = '#fef2f2';
+                        errorDiv.style.color = '#dc2626';
+                        errorDiv.style.display = 'block';
+                        // Uncheck the last checked checkbox if limit exceeded
+                        if (this.checked) {
+                            this.checked = false;
+                        }
+                    } else {
+                        errorDiv.innerHTML = `<i class="fas fa-check-circle"></i> Keywords selected: ${selectedCount}/5`;
+                        errorDiv.style.backgroundColor = '#f0fdf4';
+                        errorDiv.style.color = '#16a34a';
+                        errorDiv.style.display = 'block';
+                        setTimeout(() => {
+                            errorDiv.style.display = 'none';
+                        }, 2000);
+                    }
+                });
+            });
+        });
+
+        // Alert function
+        function showAlert(message, type) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `message ${type}-message`;
+            alertDiv.innerHTML = `<i class="fas fa-${type === 'error' ? 'exclamation-triangle' : 'check-circle'}"></i> ${message}`;
+            
+            const form = document.querySelector('.form-content');
+            form.insertBefore(alertDiv, form.firstChild);
+            
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 5000);
+        }
+
+        // Smooth focus transitions
+        document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

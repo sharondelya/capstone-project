@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <!-- Website Developed by Sharon for Software Engineering Capstone Project -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agri Smart - Terms and Conditions</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="shortcut icon" type="x-icon" href="../static/images/honeybeeHavenLogo.svg" />
+    <style>
+        :root {
+            --primary-green: #2c5e2e;
+            --secondary-green: #4a7c59;
+            --accent-gold: #d4a574;
+            --warm-cream: #f8f5f0;
+            --earth-brown: #8b4513;
+            --honey-amber: #ffbf47;
+            --sage-green: #9caf88;
+            --text-dark: #2c3e2e;
+            --text-light: #6b7c6b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e8 50%, #f8f5f0 100%);
+            min-height: 100vh;
+        }
+
+        /* Add navbar styling comment */
+        /* Navbar styling will be added here */
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            text-align: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200" fill="rgba(255,255,255,0.1)"><path d="M0,160L40,149.3C80,139,160,117,240,117.3C320,117,400,139,480,133.3C560,128,640,96,720,90.7C800,85,880,107,960,117.3C1040,128,1120,128,1160,128L1200,128L1200,200L1160,200C1120,200,1040,200,960,200C880,200,800,200,720,200C640,200,560,200,480,200C400,200,320,200,240,200C160,200,80,200,40,200L0,200Z"/></svg>') repeat-x;
+            bottom: -1px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Terms Container */
+        .terms-container {
+            max-width: 900px;
+            margin: -50px auto 0;
+            padding: 60px 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(44, 94, 46, 0.15);
+            position: relative;
+            z-index: 10;
+        }
+
+        .terms-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--honey-amber) 0%, var(--accent-gold) 50%, var(--sage-green) 100%);
+            border-radius: 20px 20px 0 0;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--warm-cream);
+            border-radius: 15px;
+            border-left: 5px solid var(--honey-amber);
+            font-style: italic;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin: 3rem 0 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--sage-green);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '🌿';
+            position: absolute;
+            right: 0;
+            bottom: -15px;
+            font-size: 1.2rem;
+        }
+
+        .section-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .terms-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 1.5rem 0;
+        }
+
+        .terms-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .terms-list li::before {
+            content: '🌱';
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .contact-highlight {
+            background: linear-gradient(135deg, var(--sage-green) 0%, var(--secondary-green) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .contact-highlight h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-link {
+            color: var(--honey-amber);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            border-bottom-color: var(--honey-amber);
+            color: white;
+        }
+
+        .decorative-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+
+        .decorative-divider::before,
+        .decorative-divider::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, var(--sage-green) 50%, transparent 100%);
+        }
+
+        .decorative-divider span {
+            margin: 0 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Footer styling comment */
+        /* Footer styling will be added here */
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .terms-container {
+                margin: -30px 20px 0;
+                padding: 40px 25px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .section-content,
+            .terms-list li {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .terms-container {
+                margin: -20px 15px 0;
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">Terms & Conditions</h1>
+            <p class="hero-subtitle">Growing together with transparency and trust in our agricultural community</p>
+        </div>
+    </div>
+
+    <!-- Terms Content -->
+    <div class="container">
+        <div class="terms-container">
+            <div class="intro-text">
+                Welcome to Agri Smart, where nature meets technology in perfect harmony. By continuing to explore our agricultural platform, you're agreeing to cultivate a relationship built on these terms and conditions.
+            </div>
+
+            <h2 class="section-title">1. Acceptance of Terms</h2>
+            <p class="section-content">
+                By accessing and using our agricultural platform, you're joining our community of bee enthusiasts, farmers, and nature lovers. Your participation signifies acceptance of these terms that help us maintain a thriving ecosystem.
+            </p>
+
+            <h2 class="section-title">2. Use of Cookies</h2>
+            <p class="section-content">
+                Our website uses cookies to enhance your agricultural journey, much like how bees collect nectar to improve their hive. These digital traces help us understand your preferences and provide personalized farming insights.
+            </p>
+
+            <div class="decorative-divider">
+                <span>🌻</span>
+            </div>
+
+            <h2 class="section-title">3. Platform Disclaimer</h2>
+            <p class="section-content">
+                The agricultural information provided on Agri Smart serves as general guidance for farming and beekeeping practices. While we strive to keep our content as fresh as morning harvest, we cannot guarantee the completeness or accuracy of all agricultural data, weather predictions, or crop recommendations.
+            </p>
+
+            <h2 class="section-title">4. Terms Evolution</h2>
+            <p class="section-content">
+                Like seasons in agriculture, our terms may change and evolve. We reserve the right to update these conditions to better serve our growing community. Regular visits to this page ensure you stay rooted in our current policies.
+            </p>
+
+            <div class="contact-highlight">
+                <h3>Need to Connect? 🌾</h3>
+                <p>
+                    For questions about these terms or our agricultural services, reach out to our harvest team at 
+                    <a href="mailto:honeybeehaven99@gmail.com" class="contact-link">honeybeehaven99@gmail.com</a>
+                </p>
+            </div>
+
+            <h2 class="section-title">6. Agricultural Usage License</h2>
+            <p class="section-content">
+                We grant you permission to access our agricultural resources for personal, educational, and small-scale farming purposes. This digital harvest comes with responsibilities:
+            </p>
+            <ul class="terms-list">
+                <li>Do not redistribute our proprietary farming techniques or crop data</li>
+                <li>Avoid commercial exploitation of our educational content</li>
+                <li>Respect intellectual property related to agricultural innovations</li>
+                <li>Maintain the integrity of our beekeeping and farming methodologies</li>
+                <li>Use information responsibly for sustainable agricultural practices</li>
+            </ul>
+
+            <div class="decorative-divider">
+                <span>🐝</span>
+            </div>
+
+            <h2 class="section-title">7. Agricultural Disclaimers</h2>
+            <p class="section-content">
+                Our platform provides agricultural guidance "as nature intended" - with variables and uncertainties. Agri Smart cannot control weather patterns, soil conditions, or pest behaviors. We disclaim warranties regarding crop yields, bee colony success rates, or farming profitability.
+            </p>
+
+            <h2 class="section-title">8. Limitation of Agricultural Liability</h2>
+            <p class="section-content">
+                In our agricultural ecosystem, Agri Smart shall not be liable for crop failures, bee colony losses, equipment damage, or reduced farm productivity resulting from the use of our platform's information, even if such possibilities were previously discussed.
+            </p>
+
+            <h2 class="section-title">9. Content Accuracy & Updates</h2>
+            <p class="section-content">
+                Agricultural content on our platform may contain seasonal variations, regional differences, or evolving best practices. We may update farming guides, beekeeping techniques, and crop information without prior notice, ensuring our community benefits from the latest agricultural knowledge.
+            </p>
+
+            <h2 class="section-title">10. External Agricultural Resources</h2>
+            <p class="section-content">
+                Agri Smart connects you with various agricultural websites, farming tools, and beekeeping resources. We cannot guarantee the quality or accuracy of these external farming platforms and are not responsible for their agricultural advice or services.
+            </p>
+
+            <h2 class="section-title">11. Terms Modification Rights</h2>
+            <p class="section-content">
+                These terms may be revised like seasonal crop rotations - periodically and for optimal growth. By continuing to use our agricultural platform, you agree to be governed by the current version of these farming-focused terms and conditions.
+            </p>
+
+            <h2 class="section-title">12. Agricultural Governing Law</h2>
+            <p class="section-content">
+                All agricultural disputes and claims related to Agri Smart shall be governed by applicable farming regulations and general laws, without regard to jurisdictional conflicts that might affect agricultural practices.
+            </p>
+
+            <h2 class="section-title">13. Privacy in Agriculture</h2>
+            <p class="section-content">
+                Our agricultural privacy practices are detailed in our comprehensive Privacy Policy, available 
+                <a href="privacyPolicy.html" target="_blank" class="contact-link">here</a>. 
+                We protect your farming data like we protect our bee colonies - with utmost care and dedication.
+            </p>
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
+</body>
+</html>
